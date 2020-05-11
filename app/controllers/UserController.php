@@ -25,4 +25,15 @@ class UserController extends Controller{
         $this->renderView('pages/index', $data);
     }
     
+    
+     public function admin(){
+        
+
+        $data = [
+            'title' => 'Admin User Page',
+        ];
+
+        $this->renderView('pages/admin_index', $data);
+    }
+    
 }

@@ -7,7 +7,6 @@
  * Description: Base Model Class
  * I am using izniburak/pdox for the database connection/ORM.
  */
-//class Model extends Database{
 class Model {
 
     protected $db;

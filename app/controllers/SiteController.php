@@ -22,9 +22,9 @@ class SiteController extends Controller{
         $this->renderView('pages/index', $data);
     }
 
-    public function about(){
+    public function admin_login(){
         $data = [
-            'title' => 'About',
+            'title' => 'Admin Login Page',
         ];
 
        $this->renderView('pages/about', $data);

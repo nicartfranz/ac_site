@@ -31,7 +31,7 @@ class Controller {
         //instantiate model
         return new $model();
     }
-
+    
     //load the view
     public function renderView($view, $data = []){
         //check for the view file
@@ -39,8 +39,24 @@ class Controller {
             require_once '../app/views/' . $view . '.php';
         } else {
             //view does not exist 
-            die('view not found');
+            die('view '.$view.' not found in app/views/pages/');
         }
     }
+    
+    //loads a view and store it in a variable
+    public function loadView($view, $data = []){
+        $content = '';
+        if(file_exists('../app/views/' . $view . '.php')){
+            ob_start();
+            require_once '../app/views/' . $view . '.php';
+            $content = ob_get_clean();
+        } else {
+            //view does not exist 
+            die('view '.$view.' not found in app/views/pages/');
+        }
+        
+        return $content;
+    }
+    
     
 }

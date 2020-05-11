@@ -10,8 +10,14 @@
     define('DB_COLLATION', 'utf8_general_ci');
     define('DB_PREFIX', '');
     
+    //APPFOLDER
+    define('APPFOLDER', 'ac_site/');
+    
     //APPROOT
     define('APPROOT', dirname(dirname(__FILE__)));
+    
+    //APP_BASE_URL
+    define('APP_BASE_URL', 'http://'.$_SERVER['SERVER_NAME'].'/'.APPFOLDER);
 
     //BASE_URL
     $base_url="http://".$_SERVER['SERVER_NAME'].dirname($_SERVER["REQUEST_URI"].'?').'/';
