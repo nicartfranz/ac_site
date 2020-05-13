@@ -8,27 +8,72 @@
  */
 
 //Franz: Loads the site basic header (DEFAULT)
-function siteBasicHeader(){
+function siteBasicHeader($siteLevelCSS = array()){
     $html ="<!DOCTYPE html>
             <html lang='en'>
-            <head>
-                <meta charset='UTF-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-                <link rel='stylesheet' href='".BASE_URL."/css/style.css'>
-                <title>".SITENAME."</title>
-            </head>
+                <head>
+                    <meta charset='utf-8'>
+                    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+                    <meta name='description' content=''>
+                    <meta name='author' content=''>
+                    <link href='".APP_BASE_URL."public/css/bootstrap/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+                    ".includPageLevelCSS($siteLevelCSS)."
+                    <title>".SITENAME."</title>
+                </head>
             <body>";
     return $html;
 }
 
 //Franz: Loads the site basic footer (DEFAULT)
-function siteBasicFooter(){
-    $html = "<script src='".BASE_URL."/js/main.js'></script>"
-            . "</body>"
-            . "</html>";
+function siteBasicFooter($siteLevelJS = array()){
+    
+    $html = "   <footer class='footer bg-light'>
+                    <div class='container'>
+                        <nav>
+                          <li id='copyRight'>@Copyright - " .SITENAME ." ".date('Y')."</li>
+                        </nav>
+                    </div>
+                  </footer>
+                <script src='".APP_BASE_URL."public/js/jquery/jquery.slim.min.js'></script>
+                <script src='".APP_BASE_URL."public/js/bootstrap/js/bootstrap.min.js'></script>
+                ".includPageLevelJS($siteLevelJS)."
+                </body>
+              </html>";
+   
     return $html;
 }
+
+//Franz: Loads the site basic top nav (DEFAULT)
+function siteBasicTopbar(){
+    
+    $link['logout'] = (isset($_SESSION['usertype']) && $_SESSION['usertype'] == 'test_taker') ? "<li class='nav-item'> <a class='nav-link' href='../site/logout'>Logout</a></li>" : "";  
+    
+    $html = "   <!-- Navigation -->
+                <nav class='navbar navbar-expand-lg navbar-light bg-light static-top'>
+                  <div class='container'>
+                    <a class='navbar-brand' href='#'>".SITENAME."</a>
+                    <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarResponsive' aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation'>
+                    <span class='navbar-toggler-icon'></span>
+                    </button>
+                    <div class='collapse navbar-collapse' id='navbarResponsive'>
+                      <ul class='navbar-nav ml-auto'>
+                        <li class='nav-item'>
+                          <a class='nav-link' href='#'>Contact Support</a>
+                        </li>
+                        <li class='nav-item'>
+                          <a class='nav-link' href='#'>FAQ's</a>
+                        </li>
+                        <li class='nav-item'>
+                          <a class='nav-link' href='#'>About</a>
+                        </li>
+                        ".$link['logout']."
+                      </ul>
+                    </div>
+                  </div>
+                </nav>";
+    return $html;
+}
+
 
 //Franz: Loads the site admin header (DEFAULT)
 function siteAdminHeader($siteLevelCSS = array()){
@@ -60,17 +105,17 @@ function siteAdminHeader($siteLevelCSS = array()){
 function siteAdminFooter($siteLevelJS = array()){
     $html = "
                 <!-- Bootstrap core JavaScript-->
-                <script src='".APP_BASE_URL."public/vendor/jquery/jquery.min.js'></script>
-                <script src='".APP_BASE_URL."public/vendor/bootstrap/js/bootstrap.bundle.min.js'></script>
+                <script src='".APP_BASE_URL."public/js/jquery/jquery.min.js'></script>
+                <script src='".APP_BASE_URL."public/js/bootstrap/js/bootstrap.bundle.min.js'></script>
 
                 <!-- Core plugin JavaScript-->
-                <script src='".APP_BASE_URL."public/vendor/jquery-easing/jquery.easing.min.js'></script>
+                <script src='".APP_BASE_URL."public/js/jquery-easing/jquery.easing.min.js'></script>
 
                 <!-- Custom scripts for all pages-->
                 <script src='".APP_BASE_URL."public/js/sb-admin-2.min.js'></script>
 
                 <!-- Page level plugins -->
-                <script src='".APP_BASE_URL."public/vendor/chart.js/Chart.min.js'></script>"
+                <script src='".APP_BASE_URL."public/js/chart.js/Chart.min.js'></script>"
 
                 //<!-- Page level custom scripts -->
                 //<script src='".APP_BASE_URL."public/js/demo/chart-area-demo.js'></script>
@@ -118,7 +163,7 @@ function adminSidebar(){
                 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
                   <!-- Sidebar - Brand -->
-                  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../admin/index">
                     <div class="sidebar-brand-text mx-3">'.SITENAME.'</div>
                   </a>
 
@@ -127,7 +172,7 @@ function adminSidebar(){
 
                   <!-- Nav Item - Dashboard -->
                   <li class="nav-item active">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="../admin/index">
                       <i class="fas fa-fw fa-tachometer-alt"></i>
                       <span>Dashboard</span></a>
                   </li>
@@ -149,7 +194,7 @@ function adminSidebar(){
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Controls:</h6>
-                        <a class="collapse-item" href="#">Create Test</a>
+                        <a class="collapse-item" href="../testcreator/index">Create Test</a>
                         <a class="collapse-item" href="#">Search Test</a>
                       </div>
                     </div>
@@ -236,7 +281,7 @@ function adminTopbar(){
                       <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-envelope fa-fw"></i>
                         <!-- Counter - Messages -->
-                        <span class="badge badge-danger badge-counter">7</span>
+                        <span class="badge badge-danger badge-counter">2</span>
                       </a>
                       <!-- Dropdown - Messages -->
                       <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
@@ -245,7 +290,7 @@ function adminTopbar(){
                         </h6>
                         <a class="dropdown-item d-flex align-items-center" href="#">
                           <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                            <img class="rounded-circle" src="'.APP_BASE_URL.'public/img/doggo60x60.jpg" alt="">
                             <div class="status-indicator bg-success"></div>
                           </div>
                           <div class="font-weight-bold">
@@ -255,32 +300,12 @@ function adminTopbar(){
                         </a>
                         <a class="dropdown-item d-flex align-items-center" href="#">
                           <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
+                            <img class="rounded-circle" src="'.APP_BASE_URL.'public/img/doggo60x60.jpg" alt="">
                             <div class="status-indicator"></div>
                           </div>
                           <div>
                             <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
                             <div class="small text-gray-500">Jae Chun · 1d</div>
-                          </div>
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                          <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                            <div class="status-indicator bg-warning"></div>
-                          </div>
-                          <div>
-                            <div class="text-truncate">Last month\'s report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                            <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                          </div>
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                          <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                            <div class="status-indicator bg-success"></div>
-                          </div>
-                          <div>
-                            <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren\'t good...</div>
-                            <div class="small text-gray-500">Chicken the Dog · 2w</div>
                           </div>
                         </a>
                         <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
@@ -293,7 +318,7 @@ function adminTopbar(){
                     <li class="nav-item dropdown no-arrow">
                       <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mr-2 d-none d-lg-inline text-gray-600 small">Super Admin</span>
-                        <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                        <img class="img-profile rounded-circle" src="'.APP_BASE_URL.'public/img/doggo60x60.jpg">
                       </a>
                       <!-- Dropdown - User Information -->
                       <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -325,3 +350,26 @@ function adminTopbar(){
     return $html;
     
 }
+
+//Franz: get controller in the url
+function getController(){
+    if(isset($_GET['url'])) {
+        $url = rtrim($_GET['url'], '/');
+        $url = filter_var($url, FILTER_SANITIZE_URL);
+        $url = explode('/', $url);
+        return strtolower($url[0]);
+    }
+    return '';
+}
+
+
+//Franz: allow page access by user type
+function allowPageAccessByUser($allowed_usertypes){
+    
+    if(!in_array($_SESSION['usertype'], $allowed_usertypes)){
+        header("Location:".APP_BASE_URL."site/index");
+    }
+    
+}
+
+

@@ -19,9 +19,5 @@
     //APP_BASE_URL
     define('APP_BASE_URL', 'http://'.$_SERVER['SERVER_NAME'].'/'.APPFOLDER);
 
-    //BASE_URL
-    $base_url="http://".$_SERVER['SERVER_NAME'].dirname($_SERVER["REQUEST_URI"].'?').'/';
-    define('BASE_URL', $base_url);
-
     //Site Name
     define('SITENAME', 'Assessment Center');

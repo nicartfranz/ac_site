@@ -1,3 +1,5 @@
-<?=siteBasicHeader();?>
-    <h1><?php echo $data['title']; ?></h1>
+<?php $siteLevelCSS=['public/css/login.css']; ?>
+<?=siteBasicHeader($siteLevelCSS);?>
+<?=siteBasicTopbar();?>
+    <?= $data['content']; ?>
 <?=siteBasicFooter();?>

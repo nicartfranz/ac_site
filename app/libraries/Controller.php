@@ -10,6 +10,10 @@
  *  renderView(); - Loads the view file
  */
 class Controller {
+    
+    public function __construct() {
+        $this->isAuthenticated(); //This will redirect the user to login page if he/she is not login yet 
+    }
 
     public function index(){
         $className = get_called_class();// get the class name, who extended this class
@@ -58,5 +62,18 @@ class Controller {
         return $content;
     }
     
+    //Force redirect user to login page if he/she is not yet authenticated/logged in. 
+    public function isAuthenticated(){
+        $controller = getController();
+        
+        if(in_array($controller, ['', 'site'])){
+            return;
+        } else {
+            if(!isset($_SESSION['is_authenticated']) && $_SESSION['is_authenticated'] != '1'){
+                header("Location:".APP_BASE_URL."site/index");
+            } 
+        }
+        
+    }
     
 }
