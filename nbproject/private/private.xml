@@ -12,18 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/ac_site/app/controllers/CandidateController.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/libraries/Controller.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/autoload.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/libraries/Core.php</file>
-            <file>file:/C:/wamp/www/ac_site/public/index.php</file>
             <file>file:/C:/wamp/www/ac_site/app/views/layouts/admin.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/views/pages/candidate/index.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/controllers/AdminController.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/controllers/TestCreatorController.php</file>
             <file>file:/C:/wamp/www/ac_site/app/helpers/gen.helpers.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/views/layouts/candidate.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/views/pages/login.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/libraries/Model.php</file>
-            <file>file:/C:/wamp/www/ac_site/public/css/login.css</file>
+            <file>file:/C:/wamp/www/ac_site/app/libraries/Controller.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/views/pages/admin/test_creator.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/libraries/Core.php</file>
+            <file>file:/C:/wamp/www/ac_site/public/js/testcreator.js</file>
             <file>file:/C:/wamp/www/ac_site/app/controllers/SiteController.php</file>
         </group>
     </open-files>

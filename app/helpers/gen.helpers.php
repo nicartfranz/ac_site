@@ -110,6 +110,7 @@ function siteAdminFooter($siteLevelJS = array()){
 
                 <!-- Core plugin JavaScript-->
                 <script src='".APP_BASE_URL."public/js/jquery-easing/jquery.easing.min.js'></script>
+                <script src='".APP_BASE_URL."public/js/jqueryui/jquery-ui.min.js'></script>
 
                 <!-- Custom scripts for all pages-->
                 <script src='".APP_BASE_URL."public/js/sb-admin-2.min.js'></script>

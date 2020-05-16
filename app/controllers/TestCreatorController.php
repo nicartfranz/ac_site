@@ -14,7 +14,8 @@ class TestCreatorController extends Controller{
         
         //create an array that will store data to be passed to the render view method
         $html = [
-            'content' => $content, //this is the pages/admin/dashboard html
+            'includeSiteLevelJS' => ['public/js/formbuilder/form-builder.min.js', 'public/js/testcreator.js'], //include site level javascript file. it means this javascript file are only included in testcreator/ controller
+            'content' => $content, //this is the pages/admin/test_creator html
         ];
         $this->renderView('layouts/admin', $html);
 

@@ -1,4 +1,11 @@
-<?php $siteLevelCSS=[]; ?>
+<?php 
+$siteLevelCSS=[]; 
+if(isset($data['includeSiteLevelCSS'])){ 
+    foreach($data['includeSiteLevelCSS'] as $includeSiteLevelCSS){
+        array_push($siteLevelCSS, $includeSiteLevelCSS);
+    }
+}
+?>
 <?= siteAdminHeader($siteLevelCSS); ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -57,5 +64,12 @@
         </div>
       </div>
     </div>
-<?php $siteLevelJS=['public/js/demo/chart-area-demo.js', 'public/js/demo/chart-pie-demo.js']; ?>
+<?php 
+    $siteLevelJS=[]; 
+    if(isset($data['includeSiteLevelJS'])){ 
+        foreach($data['includeSiteLevelJS'] as $includeSiteLevelJS){
+            array_push($siteLevelJS, $includeSiteLevelJS);
+        }
+    }
+?>
 <?= siteAdminFooter($siteLevelJS); ?>

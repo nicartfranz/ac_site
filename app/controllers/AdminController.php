@@ -14,6 +14,7 @@ class AdminController extends Controller{
         
         //create an array that will store data to be passed to the render view method
         $html = [
+            'includeSiteLevelJS' => ['public/js/demo/chart-area-demo.js', 'public/js/demo/chart-pie-demo.js'],
             'content' => $content, //this is the pages/admin/dashboard html
         ];
         $this->renderView('layouts/admin', $html);
