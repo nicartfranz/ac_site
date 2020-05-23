@@ -12,15 +12,17 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/ac_site/app/views/layouts/admin.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/controllers/AdminController.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/controllers/TestCreatorController.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/helpers/gen.helpers.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/libraries/Controller.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/views/pages/admin/test_creator.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/libraries/Core.php</file>
+            <file>file:/C:/wamp/www/ac_site/public/js/formbuilder/control_plugins/customHTMLTemplate.js</file>
+            <file>file:/C:/wamp/www/ac_site/app/views/pages/candidate/testing.php</file>
+            <file>file:/C:/wamp/www/ac_site/public/js/testupdate.js</file>
+            <file>file:/C:/wamp/www/ac_site/app/controllers/FaqnController.php</file>
+            <file>file:/C:/wamp/www/ac_site/public/js/fb_fields_acsite.js</file>
             <file>file:/C:/wamp/www/ac_site/public/js/testcreator.js</file>
-            <file>file:/C:/wamp/www/ac_site/app/controllers/SiteController.php</file>
+            <file>file:/C:/wamp/www/ac_site/public/js/testview.js</file>
+            <file>file:/C:/wamp/www/ac_site/public/js/testtaking.js</file>
+            <file>file:/C:/wamp/www/ac_site/app/helpers/gen.ajax.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/controllers/TestController.php</file>
+            <file>file:/C:/wamp/www/ac_site/public/css/formbuilder_override.css</file>
         </group>
     </open-files>
 </project-private>

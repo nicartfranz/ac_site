@@ -62,6 +62,18 @@ class Controller {
         return $content;
     }
     
+    //this controller method is for ajax requests only
+    public function submitAjax(){
+
+        $isAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+        
+        if(!$isAjax){
+            echo 'Invalid access: this controller is for ajax requests only';
+            exit;
+        }
+        
+    }
+    
     //Force redirect user to login page if he/she is not yet authenticated/logged in. 
     public function isAuthenticated(){
         $controller = getController();

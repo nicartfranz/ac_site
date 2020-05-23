@@ -1,0 +1,8 @@
+//formbuilder override
+div#build-wrap{
+}
+.form-field{
+    border: 1px solid #DDD !important;
+    border-radius: 0px !important;
+    margin-bottom: 1%!important;
+}

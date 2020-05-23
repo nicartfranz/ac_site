@@ -17,6 +17,9 @@ function siteBasicHeader($siteLevelCSS = array()){
                     <meta name='description' content=''>
                     <meta name='author' content=''>
                     <link href='".APP_BASE_URL."public/css/bootstrap/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+                    <link href='".APP_BASE_URL."public/vendor/fontawesome-free/css/all.min.css' rel='stylesheet' type='text/css'>
+                    <link href='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css' rel='stylesheet' type='text/css'> 
+                    <!-- Custom fonts for this template-->
                     ".includPageLevelCSS($siteLevelCSS)."
                     <title>".SITENAME."</title>
                 </head>
@@ -27,15 +30,16 @@ function siteBasicHeader($siteLevelCSS = array()){
 //Franz: Loads the site basic footer (DEFAULT)
 function siteBasicFooter($siteLevelJS = array()){
     
-    $html = "   <footer class='footer bg-light'>
-                    <div class='container'>
-                        <nav>
-                          <li id='copyRight'>@Copyright - " .SITENAME ." ".date('Y')."</li>
-                        </nav>
-                    </div>
-                  </footer>
-                <script src='".APP_BASE_URL."public/js/jquery/jquery.slim.min.js'></script>
-                <script src='".APP_BASE_URL."public/js/bootstrap/js/bootstrap.min.js'></script>
+    $html = "   <!-- Bootstrap core JavaScript-->
+                <script src='".APP_BASE_URL."public/js/jquery/jquery.min.js'></script>
+                <script src='".APP_BASE_URL."public/js/bootstrap/js/bootstrap.bundle.min.js'></script>
+
+                <!-- Core plugin JavaScript-->
+                <script src='".APP_BASE_URL."public/js/jquery-easing/jquery.easing.min.js'></script>
+                <script src='".APP_BASE_URL."public/js/jqueryui/jquery-ui.min.js'></script>
+
+                <!-- Custom scripts for all pages-->
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js'></script>    
                 ".includPageLevelJS($siteLevelJS)."
                 </body>
               </html>";
@@ -88,6 +92,7 @@ function siteAdminHeader($siteLevelCSS = array()){
 
                     <!-- Custom fonts for this template-->
                     <link href='".APP_BASE_URL."public/vendor/fontawesome-free/css/all.min.css' rel='stylesheet' type='text/css'>
+                    <link href='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css' rel='stylesheet' type='text/css'> 
                     <link href='https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' rel='stylesheet'>
 
                     <!-- Custom styles for this template-->
@@ -97,7 +102,8 @@ function siteAdminHeader($siteLevelCSS = array()){
             
                     "<title>".SITENAME."</title>
                 </head>
-            <body id='page-top'>";
+            <body id='page-top'>
+            <link href='".APP_BASE_URL."public/css/formbuilder_override.css' rel='stylesheet' type='text/css'>";
     return $html;
 }
 
@@ -114,10 +120,9 @@ function siteAdminFooter($siteLevelJS = array()){
 
                 <!-- Custom scripts for all pages-->
                 <script src='".APP_BASE_URL."public/js/sb-admin-2.min.js'></script>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js'></script>"
 
-                <!-- Page level plugins -->
-                <script src='".APP_BASE_URL."public/js/chart.js/Chart.min.js'></script>"
-
+                //<script src='".APP_BASE_URL."public/js/fb_fields_acsite.js'></script>
                 //<!-- Page level custom scripts -->
                 //<script src='".APP_BASE_URL."public/js/demo/chart-area-demo.js'></script>
                 //<script src='".APP_BASE_URL."public/js/demo/chart-pie-demo.js'></script>
@@ -149,7 +154,13 @@ function includPageLevelJS($js = array()){
     $html = '';
     if(!empty($js)){
         foreach ($js as $include){
-            $html .= " <script src='".APP_BASE_URL.$include."'></script>";
+            
+            $is_module = '';
+//            if(in_array($include, array('public/js/formbuilder/src/js/form-builder.js', 'public/js/formbuilder/src/js/form-render.js'))){
+//                $is_module = "type='module'";
+//            }
+            
+            $html .= " <script ".$is_module." src='".APP_BASE_URL.$include."'></script>";
         } 
     } 
     
@@ -173,7 +184,7 @@ function adminSidebar(){
 
                   <!-- Nav Item - Dashboard -->
                   <li class="nav-item active">
-                    <a class="nav-link" href="../admin/index">
+                    <a class="nav-link" href="'.APP_BASE_URL.'admin/index">
                       <i class="fas fa-fw fa-tachometer-alt"></i>
                       <span>Dashboard</span></a>
                   </li>
@@ -195,8 +206,8 @@ function adminSidebar(){
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Controls:</h6>
-                        <a class="collapse-item" href="../testcreator/index">Create Test</a>
-                        <a class="collapse-item" href="#">Search Test</a>
+                        <a class="collapse-item" href="'.APP_BASE_URL.'test/index">Create Test</a>
+                        <a class="collapse-item" href="'.APP_BASE_URL.'test/search">Search Test</a>
                       </div>
                     </div>
                   </li>
@@ -232,7 +243,11 @@ function adminSidebar(){
     return $html;
 }
 
-function adminTopbar(){
+function adminTopbar($data){
+    
+    $data = $data;
+    $data['page_name'] = (isset($data['page_name'])) ? $data['page_name'] : '';
+    
     $html = '';
     $html = '   <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -242,8 +257,9 @@ function adminTopbar(){
                     <i class="fa fa-bars"></i>
                   </button>
 
+                  <h3 class="text-dark">'.$data['page_name'].'</h3>
                   <!-- Topbar Search -->
-                  <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                  <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
                       <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                       <div class="input-group-append">
@@ -252,7 +268,7 @@ function adminTopbar(){
                         </button>
                       </div>
                     </div>
-                  </form>
+                  </form> -->
 
                   <!-- Topbar Navbar -->
                   <ul class="navbar-nav ml-auto">

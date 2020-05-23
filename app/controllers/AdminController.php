@@ -14,24 +14,8 @@ class AdminController extends Controller{
         
         //create an array that will store data to be passed to the render view method
         $html = [
-            'includeSiteLevelJS' => ['public/js/demo/chart-area-demo.js', 'public/js/demo/chart-pie-demo.js'],
-            'content' => $content, //this is the pages/admin/dashboard html
-        ];
-        $this->renderView('layouts/admin', $html);
-
-    }
-    
-    public function create_sample(){
-        
-        print_r($_GET);
-        echo '<br>';
-        print_r($_POST);
-        
-        //load a view and put it in a variable for later use
-        $content = $this->loadView('pages/admin/create_sample');
-        
-        //create an array that will store data to be passed to the render view method
-        $html = [
+            'page_name' => 'Dashboard',
+            'includeSiteLevelJS' => ['public/js/chart.js/Chart.min.js', 'public/js/demo/chart-area-demo.js', 'public/js/demo/chart-pie-demo.js'],
             'content' => $content, //this is the pages/admin/dashboard html
         ];
         $this->renderView('layouts/admin', $html);

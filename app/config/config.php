@@ -1,7 +1,7 @@
 <?php
 
     //DB Params
-    define('DB_DRIVER', 'mysql');
+    define('DB_DRIVER', 'pdo_mysql');
     define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
     define('DB_PASS', '');
@@ -15,6 +15,9 @@
     
     //APPROOT
     define('APPROOT', dirname(dirname(__FILE__)));
+    
+    //DOCROOT
+    define('DOCROOT', $_SERVER['DOCUMENT_ROOT'].'/'.APPFOLDER.'app');
     
     //APP_BASE_URL
     define('APP_BASE_URL', 'http://'.$_SERVER['SERVER_NAME'].'/'.APPFOLDER);

@@ -2,6 +2,6 @@
     "name": "vendor/ac_site",
     "description": "AC SITE",
     "require": {
-    	"izniburak/pdox": "^1"
+    	"doctrine/dbal": "^2.10"
     }
 }

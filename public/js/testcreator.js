@@ -3,170 +3,52 @@
  * May 16, 2020
  * Description: Test creator drag and drop
  */
-
-//All custom fields template
-const customFields = [
-    {
-      type: 'autocomplete',
-      label: 'Custom Autocomplete',
-      required: true,
-      values: [
-        { label: 'SQL' },
-        { label: 'C#' },
-        { label: 'JavaScript' },
-        { label: 'Java' },
-        { label: 'Python' },
-        { label: 'C++' },
-        { label: 'PHP' },
-        { label: 'Swift' },
-        { label: 'Ruby' },
-      ],
-    },
-    
-//    {
-//      label: 'Star Rating',
-//      attrs: {
-//        type: 'starRating',
-//      },
-//      icon: '🌟',
-//    },
-];
-
-
-//All field templates
-const templates = {
-//    starRating: function(fieldData) {
-//      return {
-//        field: '<span id="' + fieldData.name + '">',
-//        onRender: () => {
-//          $(document.getElementById(fieldData.name)).rateYo({ rating: 3.6 })
-//        },
-//      }
-//    },
-};
-
-//All input set fields (multiple input fields) template
-//Note: it is considered inputSet if it has fields[] beacause it means it can hold multiple fields.
-const inputSets = [
-    {
-       label: 'Yes / No / Undecided Question',
-       name: 'yes-no-undecided-text-question-template', 
-       fields: [
-            {
-                type: 'radio-group',
-                label: '<p>Enter your question here Lorem Ipsum is simply dummy text?</p>',
-                inline: true,
-                values: [
-                    {
-                        label: 'Yes',
-                        value: 'Y'
-                    },
-                    {
-                        label: 'No',
-                        value: 'N'
-                    },
-                    {
-                        label: 'Undecided',
-                        value: 'U'
-                    }
-                ]
-            }
-       ]
-    }, 
-    {
-        label:'Multiple Answer Question',
-        name: 'multiple-answer-question-template',
-        fields:[
-            {
-            type: 'checkbox-group',
-            required: false,
-            label: '<p>Enter your question here Lorem Ipsum is simply dummy text?</p>',
-            toggle: false,
-            inline: false,
-            access: false,
-            other: false,
-            values: [
-                {
-                    label: 'Option 1',
-                    value: 'option-1'
-                },
-                {
-                    label: 'Option 2',
-                    value: 'option-2'
-                },
-                {
-                    label: 'Option 3',
-                    value: 'option-3'
-                },
-                {
-                    label: 'Option 4',
-                    value: 'option-4'
-                }
-            ]
-            }
-        ]
-    },
-    
-    
-    
-    
-//    {
-//      label: 'User Details',
-//      icon: '<i class="far fa-question-circle"></i>',
-//      name: 'user-details', // optional
-//      showHeader: true, // optional
-//      fields: [
-//        {
-//          type: 'text',
-//          label: 'First Name',
-//          className: 'form-control',
-//        },
-//        {
-//          type: 'select',
-//          label: 'Profession',
-//          className: 'form-control',
-//          values: [
-//            {
-//              label: 'Street Sweeper',
-//              value: 'option-2',
-//              selected: false,
-//            },
-//            {
-//              label: 'Brain Surgeon',
-//              value: 'option-3',
-//              selected: false,
-//            },
-//          ],
-//        },
-//        {
-//          type: 'textarea',
-//          label: 'Short Bio:',
-//          className: 'form-control',
-//        },
-//      ],
-//    },
-];
-
 const fbOptions = {
-    fields: customFields,
-    templates: templates,
-    inputSets: inputSets,
+    dataType: 'json',
+    fields: fb_customFields,
+    inputSets: fb_inputSets,
+    templates: fb_templates,
+    sortableControls: true,
+    controlOrder: fb_controlOrder,
+    fieldRemoveWarn: true, // defaults to false
     onSave: function() {
-        alert($('.build-wrap').formBuilder('getData', 'json', true))
+        var fbJsonData = $('.build-wrap').formBuilder('getData', 'json', true);
+        
+        var assessment_name = $('#assessment_name').val();
+        var assessment_code = $('#assessment_code').val();
+        var assessment_obj = {'assessment_name': assessment_name,
+                              'assessment_code': assessment_code};
+        
+        if(fbJsonData == '[]'|| assessment_name == '' || assessment_code == ''){
+            alert('Please fill all the required field(s).');
+        } else {
+            
+            var is_confirm = confirm('Confirm save');
+            if(is_confirm == true){
+                var ajax_name = 'save_test';
+                $.ajax({
+                    url: APP_BASE_URL + "test/submitAjax",
+                    type: "POST",
+                    data: {"ajax_name" : ajax_name,  "formbuilder_json" : fbJsonData, "assessment_obj": assessment_obj},
+                    datatype: "json",
+                    success: function (response) {
+                       if(response == '1'){
+                           alert('Test saved');
+                           window.location.href = APP_BASE_URL + "test/search";
+                       } else {
+                           alert(JSON.stringify(response));
+                       }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                       console.log(textStatus, errorThrown);
+                    }
+                });
+            }
+        }
    },
 };
 
 $(document).ready(function(){
     var formbuilder_main = $('#build-wrap');
-    
     $(formbuilder_main).formBuilder(fbOptions);
-
-//    $('button.save-template').on('click', function(){
-//       alert('asfdaf'); 
-//    });
-    
-//    $('.save-template').on('click', function(){
-//
-//    }
-    
 });
