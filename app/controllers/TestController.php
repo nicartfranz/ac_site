@@ -50,7 +50,10 @@ class TestController extends Controller{
         //init model
         $test = $this->initModel('TestModel');
         $test_info = $test->getTest($_GET['id']);
-        
+
+        $questions = $this->loadQuestionsAdmin($test_info['question']);
+        $test_info['question'] = $questions;
+
          //load a view and put it in a variable for later use
         $content = $this->loadView('pages/admin/test_view', ['test' => $test_info]);
         

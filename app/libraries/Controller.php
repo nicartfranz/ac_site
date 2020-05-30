@@ -62,6 +62,191 @@ class Controller {
         return $content;
     }
     
+    //load Questions
+    public function loadQuestionsAdmin($raw_questions){
+        
+        $decoded_questions = json_decode($raw_questions);
+        
+        $questions_arr = [];
+        $page_inc = 0;
+        
+        //1) group the question by page start
+        foreach ($decoded_questions as $key => $question){
+            
+            //unset unnecessary fields
+            unset($decoded_questions[$key]->part);
+            unset($decoded_questions[$key]->section);
+            unset($decoded_questions[$key]->fldQOrder);
+            unset($decoded_questions[$key]->correctAns);
+            
+            //group the pages by startPageMarker
+            if($decoded_questions[$key]->type == 'startPageMarker'){
+                $page_inc++;
+            }            
+            $questions_arr['page'.$page_inc][] = $decoded_questions[$key];
+        }
+        
+        //check if valid test format level 1
+        if(isset($questions_arr['page0'])){
+            die('Invalid test format: Please add startPageMarker identifier at the beginning of the test page.');
+        }
+      
+        //2) sort questions by page group
+        $final_questions = [];
+        $startMarker = [];
+        $temp_questions = [];
+        $submitButton = [];
+        $endMarker = [];
+        foreach($questions_arr as $page => $questions){
+         
+            if(isset($questions[0]->randomize) && ($questions[0]->randomize === true || $questions[0]->randomize == 'true')){
+                shuffle($questions);
+            }
+
+            //Format the page
+            //1. startMarker
+            //2. questions
+            //3. submit button
+            //4. endMarker
+            foreach($questions as $question){
+                if(!in_array($question->type, ['startPageMarker', 'button', 'endPageMarker'])){
+                    $temp_questions[] = $question;
+                } else {
+                    if($question->type == 'startPageMarker'){
+                        $startMarker = $question;
+                    }
+                    if($question->type == 'button'){
+                        $submitButton = $question;
+                    }
+                    if($question->type == 'endPageMarker'){
+                        $endMarker = $question;
+                    }
+                }
+            }
+            
+            //Finally
+            if(isset($startMarker) && !empty($startMarker)){
+                $final_questions[] = (object)$startMarker;
+            }
+            if(isset($temp_questions) && !empty($temp_questions)){
+                foreach ($temp_questions as $q){
+                    $final_questions[] = (object)$q;
+                }
+            }
+            if(isset($submitButton) && !empty($submitButton)){
+                $final_questions[] = (object)$submitButton;
+            }
+            if(isset($endMarker) && !empty($endMarker)){
+                $final_questions[] = (object)$endMarker;
+            }
+            unset($temp_questions);//unset per page group
+                                    
+        }
+        
+        return json_encode($final_questions);
+        
+    }
+    
+    
+    //load question candidate
+    public function loadQuestionCandidate($raw_questions){
+        
+        $question_arr = [];
+        
+        $page_inc = 0;
+        //2.) remove unnecessary attr in the html question
+        $decoded_questions = json_decode($raw_questions);
+        foreach ($decoded_questions as $key => $question){
+            unset($decoded_questions[$key]->part);
+            unset($decoded_questions[$key]->section);
+            unset($decoded_questions[$key]->fldQOrder);
+            unset($decoded_questions[$key]->correctAns);
+        
+            //3.) Display the first page: identified by type:startPageMarker & type:endPageMarker
+            if($decoded_questions[$key]->type == 'startPageMarker'){
+                $page_inc++;
+            }
+            $test_info['page'.$page_inc][] = $decoded_questions[$key];
+
+        }
+        
+        //check if valid test format level 1
+        if(isset($questions_arr['page0'])){
+            die('Invalid test format: Please add startPageMarker identifier at the beginning of the test page.');
+        }
+        
+        //2.1) sort questions by page group
+        $final_questions = [];
+        $startMarker = [];
+        $temp_questions = [];
+        $submitButton = [];
+        $endMarker = [];
+        
+        for($i = 1; $i <= $page_inc; $i++){
+            
+            $questions = $test_info['page'.$i];
+            
+            //2) sort questions by page group
+            $final_questions = [];
+            $startMarker = [];
+            $temp_questions = [];
+            $submitButton = [];
+            $endMarker = [];
+            
+            if(isset($questions[0]->randomize) && ($questions[0]->randomize === true || $questions[0]->randomize == 'true')){
+                shuffle($questions);
+            }   
+
+            //Format the page
+            //1. startMarker
+            //2. questions
+            //3. submit button
+            //4. endMarker
+            foreach($questions as $question){
+                
+                if(!in_array($question->type, ['startPageMarker', 'button', 'endPageMarker'])){
+                    $temp_questions[] = $question;
+                } else {
+                    if($question->type == 'startPageMarker'){
+                        $startMarker = $question;
+                    }
+                    if($question->type == 'button'){
+                        $submitButton = $question;
+                    }
+                    if($question->type == 'endPageMarker'){
+                        $endMarker = $question;
+                    }
+                }
+            }
+            
+            //Finally
+            if(isset($startMarker) && !empty($startMarker)){
+                $final_questions[] = (object)$startMarker;
+            }
+            if(isset($temp_questions) && !empty($temp_questions)){
+                foreach ($temp_questions as $q){
+                    $final_questions[] = (object)$q;
+                }
+            }
+            if(isset($submitButton) && !empty($submitButton)){
+                $final_questions[] = (object)$submitButton;
+            }
+            if(isset($endMarker) && !empty($endMarker)){
+                $final_questions[] = (object)$endMarker;
+            }
+            
+            $test_info['page'.$i] = $final_questions;
+            unset($temp_questions);//make sure to unset this
+            
+        }
+            
+        
+        unset($test_info['question']); //not used
+        return $test_info;
+        
+    }
+    
+    
     //this controller method is for ajax requests only
     public function submitAjax(){
 

@@ -39,7 +39,8 @@ function siteBasicFooter($siteLevelJS = array()){
                 <script src='".APP_BASE_URL."public/js/jqueryui/jquery-ui.min.js'></script>
 
                 <!-- Custom scripts for all pages-->
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js'></script>    
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js'></script>  
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js'></script>  
                 ".includPageLevelJS($siteLevelJS)."
                 </body>
               </html>";
@@ -383,10 +384,115 @@ function getController(){
 //Franz: allow page access by user type
 function allowPageAccessByUser($allowed_usertypes){
     
+    array_push($allowed_usertypes, 'super_admin');//super_admin can visit any page
+    
     if(!in_array($_SESSION['usertype'], $allowed_usertypes)){
         header("Location:".APP_BASE_URL."site/index");
     }
     
 }
 
+//Franz: set the test timer
+//params: 
+//  $set_type = unset | init | continue 
+//  $ass_code = assessment code
+function testTimer($set_type = 'unset', $ass_code = '', $setMaxTime = 0){
+    
+    $now = date('Y-m-d H:i:s');
+    
+    if($set_type == 'init'){
+        
+        //ON init set the time
+        if(!isset($_SESSION[$ass_code]['test_timer_created_at'])){
+            $_SESSION[$ass_code]['test_timer_created_at'] = $now;
+            $_SESSION[$ass_code]['test_timer_last_modified_at'] = $now;
+            $_SESSION[$ass_code]['test_timer'] = $setMaxTime; //This is in minutes
+
+            $timer_in_secs = $setMaxTime * 60;
+            $get_test_time = getHourMinSec($timer_in_secs);
+
+            //elapse time
+            $_SESSION[$ass_code]['test_time_elapse_hr'] = $get_test_time['hrs'];        
+            $_SESSION[$ass_code]['test_time_elapse_min'] = $get_test_time['mins'];
+            $_SESSION[$ass_code]['test_time_elapse_sec'] = $get_test_time['secs'];        
+
+            //time remaining
+            $_SESSION[$ass_code]['test_time_remaining_hr'] = $get_test_time['hrs'];
+            $_SESSION[$ass_code]['test_time_remaining_min'] = $get_test_time['mins'];
+            $_SESSION[$ass_code]['test_time_remaining_sec'] = $get_test_time['secs'];
+            
+            //test start and end time
+            $_SESSION[$ass_code]['test_timer_start_time'] = $now;
+            $_SESSION[$ass_code]['test_timer_end_time'] = date('Y-m-d H:i:s', strtotime("{$now} +{$timer_in_secs} seconds"));
+            
+        } else { //if already initialized: start recording elapse time and time remaining
+            
+            $_SESSION[$ass_code]['test_timer_last_modified_at'] = $now;
+            $sec_elpase = strtotime($now) - strtotime($_SESSION[$ass_code]['test_timer_start_time']);
+            $sec_remaining = ($_SESSION[$ass_code]['test_timer'] * 60) - $sec_elpase;
+
+            $test_time_elapse = getHourMinSec($sec_elpase);
+            $test_time_remaining = getHourMinSec($sec_remaining);
+
+            //elapse time
+            $_SESSION[$ass_code]['test_time_elapse_hr'] = $test_time_elapse['hrs'];
+            $_SESSION[$ass_code]['test_time_elapse_min'] = $test_time_elapse['mins'];
+            $_SESSION[$ass_code]['test_time_elapse_sec'] = $test_time_elapse['secs'];        
+
+            //time remaining
+            $_SESSION[$ass_code]['test_time_remaining_hr'] = $test_time_remaining['hrs'];
+            $_SESSION[$ass_code]['test_time_remaining_min'] = $test_time_remaining['mins'];
+            $_SESSION[$ass_code]['test_time_remaining_sec'] = $test_time_remaining['secs'];
+            
+        }
+                
+    } else if ($set_type == 'continue'){
+        $_SESSION[$ass_code]['test_timer_last_modified_at'] = $now;
+        $sec_elpase = strtotime($now) - strtotime($_SESSION[$ass_code]['test_timer_start_time']);
+        $sec_remaining = ($_SESSION[$ass_code]['test_timer'] * 60) - $sec_elpase;
+        
+        $test_time_elapse = getHourMinSec($sec_elpase);
+        $test_time_remaining = getHourMinSec($sec_remaining);
+        
+        //elapse time
+        $_SESSION[$ass_code]['test_time_elapse_hr'] = $test_time_elapse['hrs'];
+        $_SESSION[$ass_code]['test_time_elapse_min'] = $test_time_elapse['mins'];
+        $_SESSION[$ass_code]['test_time_elapse_sec'] = $test_time_elapse['secs'];        
+
+        //time remaining
+        $_SESSION[$ass_code]['test_time_remaining_hr'] = $test_time_remaining['hrs'];
+        $_SESSION[$ass_code]['test_time_remaining_min'] = $test_time_remaining['mins'];
+        $_SESSION[$ass_code]['test_time_remaining_sec'] = $test_time_remaining['secs'];
+        
+    } else if ($set_type == 'unset') {
+        unset($_SESSION[$ass_code]['test_timer_created_at']);
+        unset($_SESSION[$ass_code]['test_timer_start_time']);
+        unset($_SESSION[$ass_code]['test_timer_end_time']);
+        unset($_SESSION[$ass_code]['test_timer_last_modified_at']);
+        unset($_SESSION[$ass_code]['test_timer']);
+        //time remaining and elapse time
+        unset($_SESSION[$ass_code]['test_time_elapse_hr']);
+        unset($_SESSION[$ass_code]['test_time_remaining_hr']);
+        unset($_SESSION[$ass_code]['test_time_elapse_min']);
+        unset($_SESSION[$ass_code]['test_time_remaining_min']);
+        unset($_SESSION[$ass_code]['test_time_elapse_sec']);        
+        unset($_SESSION[$ass_code]['test_time_remaining_sec']);
+    }
+    
+}
+
+//get the hr:min:sec equivalent
+function getHourMinSec($seconds){
+
+    $hours = floor($seconds / 3600);
+    $minutes = floor(($seconds / 60) % 60);
+    $seconds = $seconds % 60;
+
+    return [
+        'hrs' => str_pad($hours, 2, '0', STR_PAD_LEFT), 
+        'mins' => str_pad($minutes, 2, '0', STR_PAD_LEFT), 
+        'secs' => str_pad($seconds, 2, '0', STR_PAD_LEFT)
+    ];
+
+}
 

@@ -49,7 +49,6 @@ const fbOptions = {
             }
         }
    },
-//   disableInjectedStyle: true,
 };
 
 $(document).ready(function(){

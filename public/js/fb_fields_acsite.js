@@ -49,11 +49,11 @@ const fb_customFields = [
     },
     {
         type: "startPageMarker",
-        label: "<span class='text-info'>Start Page Marker</span> [SOP]",
+        label: "<span class='text-info'><b>Start Page Marker</b></span> [SOP]",
     },
     {
         type: "endPageMarker",
-        label: "<span class='text-info'>End Page Marker</span> [SOP]",
+        label: "<span class='text-danger'><b>End Page Marker</b></span> [SOP]",
     },
 
 ];
@@ -134,7 +134,7 @@ const fb_inputSets = [
        fields: [
             {
                 type: 'radio-group',
-                label: '<p><span class="text-warning">[ Enter your question here ]</span></p>',
+                label: '<span class="text-warning">[ Enter your question here ]</span>',
                 values: [
                     {
                         label: 'Yes',
@@ -180,47 +180,26 @@ const fb_inputSets = [
             }, 
         ]
     },
-//    {
-//        label: 'Multiple textbox template (Multiple/Single answer)',
-//        name: 'multi-textbox-template',
-//        fields: [
-//            {
-//                type: "paragraph",
-//                subtype: "p",
-//                className: "col-sm-12",
-//                label: "<span class='text-warning'>[ Enter your question here ]</span>*row-x ",
-//            },
-//            {
-//                type: "text",
-//                label: "<span class='text-warning'> [ Change > className = row-x ]</span> ***row-x col-sm-3 ",
-//                className: "form-control row-x col-sm-3",
-//                subtype: "textarea"
-//            },
-//            {
-//                type: "text",
-//                label: "<span class='text-warning'> [ Change > className = row-x ]</span> ***row-x col-sm-3 ",
-//                className: "form-control row-x col-sm-3",
-//                subtype: "textarea"
-//            },
-//            {
-//                type: "text",
-//                label: "<span class='text-warning'> [ Change > className = row-x ]</span> ***row-x col-sm-3 ",
-//                className: "form-control row-x col-sm-3",
-//                subtype: "textarea"
-//            },
-//            {
-//                type: "text",
-//                label: "<span class='text-warning'> [ Change > className = row-x ]</span> ***row-x col-sm-3 ",
-//                className: "form-control row-x col-sm-3",
-//                subtype: "textarea"
-//            },
-//           
-//        ]
-//    },
-   
 ];
 
 const fb_typeUserAttrs = {
+    'startPageMarker': {
+        randomize: {
+            label: 'Randomize',
+            options: {
+                false: 'No',
+                true : 'Yes',
+            },
+        },
+        setTimer: {
+            label: 'Add Timer (In Minutes)',
+            value: 0,
+        },
+        onTimerTimesUp: {
+            label: 'OnTimesUp (Javascript)',
+            value: 'alert("Times up! Your current answers will be submitted"); $("input").prop("required",false);  $("form#test_form").submit();',
+        }
+    },
     'autocomplete': {
         part: {
             label: 'Part', 

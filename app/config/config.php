@@ -1,4 +1,6 @@
 <?php
+    //set timezone
+    date_default_timezone_set('Asia/Manila');
 
     //DB Params
     define('DB_DRIVER', 'pdo_mysql');

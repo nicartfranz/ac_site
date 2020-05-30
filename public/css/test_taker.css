@@ -2,6 +2,131 @@
     margin-top: 5%;
 }
 
+#test_timer{
+    background: #eee;
+    border: 1px solid;
+    width: 125px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 3px;
+    float: right;
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    font-size: 14px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+div.formbuilder-startPageMarker{
+    display:none !important;
+}
+div.formbuilder-autocomplete{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
+div.formbuilder-button{
+    padding: 5px;
+}
+div.formbuilder-checkbox-group{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
+div.formbuilder-date{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
+div.formbuilder-file{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
+div.formbuilder-header{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
+div.formbuilder-number{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
+div.formbuilder-paragraph{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
+div.formbuilder-radio-group{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
+div.formbuilder-select{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
+div.formbuilder-text{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
+div.formbuilder-textarea{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;  
+}
+div.formbuilder-starRating{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;   
+}
+div.formbuilder-sliderTemplate{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;   
+}
+div.formbuilder-single-answer-template{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px; 
+}
+div.formbuilder-multiple-answer-template{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px; 
+}
+div.formbuilder-customHTMLTemplate{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;   
+}
+div.formbuilder-endPageMarker{
+    display:none !important;
+}
+
+
 
 .footer {
     position: absolute;

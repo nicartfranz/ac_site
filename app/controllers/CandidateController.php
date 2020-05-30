@@ -8,9 +8,12 @@ class CandidateController extends Controller{
     }
 
     public function index(){
-
+        
+        $test = $this->initModel('TestModel');
+        $tests = $test->getAllTests();
+        
         //load a view and put it in a variable for later use
-        $content = $this->loadView('pages/candidate/index');
+        $content = $this->loadView('pages/candidate/index', $tests);
         
         //create an array that will store data to be passed to the render view method
         $html = [
