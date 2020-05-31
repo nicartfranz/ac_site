@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit823f32ce99f75f4764daf40c0509da4f
 {
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Sinergi\\BrowserDetector\\' => 24,
+        ),
         'D' => 
         array (
             'Doctrine\\DBAL\\' => 14,
@@ -16,6 +20,10 @@ class ComposerStaticInit823f32ce99f75f4764daf40c0509da4f
     );
 
     public static $prefixDirsPsr4 = array (
+        'Sinergi\\BrowserDetector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sinergi/browser-detector/src',
+        ),
         'Doctrine\\DBAL\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL',

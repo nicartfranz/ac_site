@@ -6,7 +6,7 @@
  * Description: Auto Loader for the mvp core libraries, composer classes, db class, config, helper functions, ajax
  */
 //global variables
-global $db, $queryBuilder;
+global $db, $queryBuilder, $browser, $device, $os;
 
 //Configuration file
 require_once 'config/config.php';
@@ -28,6 +28,16 @@ $connectionParams = array(
 $db = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
 $queryBuilder = $db->createQueryBuilder();
 
+use Sinergi\BrowserDetector\Browser;
+use Sinergi\BrowserDetector\Device;
+use Sinergi\BrowserDetector\Os;
+$browser = new Browser();
+$device = new Device();
+$os = new Os();
+//echo 'Browser: ' .$browser->getName() . '<br>';
+//echo 'Browser version: ' .$browser->getVersion() . '<br>';
+//echo 'Device: ' .$device->getName() . '<br>';
+
 //Auto Loader for the libraries and classes
 spl_autoload_register(function($className){
     $className = str_replace("\\", DIRECTORY_SEPARATOR, $className);
@@ -42,3 +52,4 @@ require_once 'helpers/gen.ajax.php';
 
 //Start the session
 session_start();
+isSystemCompatible();

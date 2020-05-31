@@ -20,7 +20,7 @@ function siteBasicHeader($siteLevelCSS = array()){
                     <link href='".APP_BASE_URL."public/vendor/fontawesome-free/css/all.min.css' rel='stylesheet' type='text/css'>
                     <link href='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css' rel='stylesheet' type='text/css'> 
                     <!-- Custom fonts for this template-->
-                    ".includPageLevelCSS($siteLevelCSS)."
+                    ".includePageLevelCSS($siteLevelCSS)."
                     <title>".SITENAME."</title>
                 </head>
             <body>";
@@ -30,7 +30,9 @@ function siteBasicHeader($siteLevelCSS = array()){
 //Franz: Loads the site basic footer (DEFAULT)
 function siteBasicFooter($siteLevelJS = array()){
     
-    $html = "   <!-- Bootstrap core JavaScript-->
+    $html = "   <!-- JavaScript Babel Polyfill -->
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.10.1/polyfill.min.js'></script>
+                <!-- Bootstrap core JavaScript-->
                 <script src='".APP_BASE_URL."public/js/jquery/jquery.min.js'></script>
                 <script src='".APP_BASE_URL."public/js/bootstrap/js/bootstrap.bundle.min.js'></script>
 
@@ -41,7 +43,7 @@ function siteBasicFooter($siteLevelJS = array()){
                 <!-- Custom scripts for all pages-->
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js'></script>  
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js'></script>  
-                ".includPageLevelJS($siteLevelJS)."
+                ".includePageLevelJS($siteLevelJS)."
                 </body>
               </html>";
    
@@ -99,7 +101,7 @@ function siteAdminHeader($siteLevelCSS = array()){
                     <!-- Custom styles for this template-->
                     <link href='".APP_BASE_URL."public/css/sb-admin-2.min.css' rel='stylesheet'>"
                         
-                    .includPageLevelCSS($siteLevelCSS).
+                    .includePageLevelCSS($siteLevelCSS).
             
                     "<title>".SITENAME."</title>
                 </head>
@@ -110,7 +112,8 @@ function siteAdminHeader($siteLevelCSS = array()){
 
 //Franz: Loads the site admin footer (DEFAULT)
 function siteAdminFooter($siteLevelJS = array()){
-    $html = "
+    $html = "   <!-- JavaScript Babel Polyfill -->
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.10.1/polyfill.min.js'></script>
                 <!-- Bootstrap core JavaScript-->
                 <script src='".APP_BASE_URL."public/js/jquery/jquery.min.js'></script>
                 <script src='".APP_BASE_URL."public/js/bootstrap/js/bootstrap.bundle.min.js'></script>
@@ -127,8 +130,7 @@ function siteAdminFooter($siteLevelJS = array()){
                 //<!-- Page level custom scripts -->
                 //<script src='".APP_BASE_URL."public/js/demo/chart-area-demo.js'></script>
                 //<script src='".APP_BASE_URL."public/js/demo/chart-pie-demo.js'></script>
-                
-                .includPageLevelJS($siteLevelJS).
+                .includePageLevelJS($siteLevelJS).
                 "</body>
             </html>";
     return $html;
@@ -136,7 +138,7 @@ function siteAdminFooter($siteLevelJS = array()){
 
 
 //Franz: This function is used to include a particular css file(s) in a page.
-function includPageLevelCSS($css = array()){
+function includePageLevelCSS($css = array()){
     
     $html = '';
     if(!empty($css)){
@@ -150,18 +152,23 @@ function includPageLevelCSS($css = array()){
 }
 
 //Franz: This function is used to include a particular js file(s) in a page.
-function includPageLevelJS($js = array()){
+function includePageLevelJS($js = array()){
     
     $html = '';
     if(!empty($js)){
         foreach ($js as $include){
+            
+            $is_babel = '';
+//            if(in_array($include, ['public/js/formbuilder/control_plugins/customHTMLTemplate.js'])){
+//                $is_babel = 'type="text/babel" data-plugins="transform-class-properties" data-presets="react, es2015,stage-2"';
+//            }
             
             $is_module = '';
 //            if(in_array($include, array('public/js/formbuilder/src/js/form-builder.js', 'public/js/formbuilder/src/js/form-render.js'))){
 //                $is_module = "type='module'";
 //            }
             
-            $html .= " <script ".$is_module." src='".APP_BASE_URL.$include."'></script>";
+            $html .= " <script ".$is_babel." ".$is_module." src='".APP_BASE_URL.$include."'></script>";
         } 
     } 
     
@@ -496,3 +503,32 @@ function getHourMinSec($seconds){
 
 }
 
+
+function isSystemCompatible(){
+    global $browser, $device;
+
+    
+    if ($browser->getName() == 'Internet Explorer' && $browser->getVersion() < 11) {
+        echo    '   <div class="alert alert-danger" role="alert">
+                        Please upgrade your browser.
+                    </div>';
+    }
+        
+    if ($browser->getName() == 'Chrome' && $browser->getVersion() < 45) {
+        echo    '   <div class="alert alert-danger" role="alert">
+                        Please upgrade your browser.
+                    </div>';
+    }
+        
+    if ($browser->getName() == 'Firefox' && $browser->getVersion() < 34) {
+        echo    '   <div class="alert alert-danger" role="alert">
+                        Please upgrade your browser.
+                    </div>';
+    }
+        
+    if ($browser->getName() == 'Safari' && $browser->getVersion() < 9) {
+        echo    '   <div class="alert alert-danger" role="alert">
+                        Please upgrade your browser.
+                    </div>';
+    }
+}

@@ -65,7 +65,7 @@ const fb_templates = {
     starRating: function(fieldData) {
       return {
         field: '<span id="' + fieldData.name +'">',
-        onRender: () => {
+        onRender: function(){
           $("span#"+fieldData.name).rateYo({ rating: 0, halfStar: true })
         },
       }
@@ -79,7 +79,7 @@ const fb_templates = {
         var custom_html_value = fieldData.value || '';
         return {
             field: '<textarea style="min-height: 200px;" class="form-control" id="'+fieldData.name+'">'+custom_html_value+'</textarea>',
-//            onRender: () => {
+//            onRender: (){
 //                $('div#'+fieldData.name).html('sdad');
 //            }
         }
@@ -93,7 +93,7 @@ const fb_templates = {
         var note = fieldData.value;
         return {
             field: '<form method="POST"><p id="'+fieldData.name+'">'+note+'</p>',
-            onRender: () => {
+            onRender: function(){
                 $('p#'+fieldData.name).html(note).css('text-align', 'center');
             }
         }
@@ -107,7 +107,7 @@ const fb_templates = {
         var note = fieldData.value;
         return {
             field: '<p id="'+fieldData.name+'">'+note+'</p></form>',
-            onRender: () => {
+            onRender: function(){
                 $('p#'+fieldData.name).html(note).css('text-align', 'center');
             }
         }

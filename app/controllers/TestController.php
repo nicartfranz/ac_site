@@ -46,7 +46,7 @@ class TestController extends Controller{
     }
     
     public function view(){
-        
+               
         //init model
         $test = $this->initModel('TestModel');
         $test_info = $test->getTest($_GET['id']);

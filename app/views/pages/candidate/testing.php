@@ -38,7 +38,7 @@ $test_timer_end_time = (isset($_SESSION[$data['AssCode']]['test_timer_end_time']
 var test_time_remaining_hr = <?= $test_time_remaining_hr ?>;
 var test_time_remaining_min = <?= $test_time_remaining_min ?>;
 var test_time_remaining_sec = <?= $test_time_remaining_sec ?>;
-var test_timer_end_time = '<?= $test_timer_end_time ?>';
+var test_timer_end_time = '<?= date('m/d/Y H:i:s', strtotime($test_timer_end_time)) ?>'; // format as "mm/dd/yyyy hh:mm:ss" to fix IE Nan:Nan:Nan
 //On times up => run this js
 var onTimesup = '<?= $data['onTimesUp'] ?>';
 
