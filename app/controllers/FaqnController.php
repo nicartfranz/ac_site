@@ -220,7 +220,7 @@ class FaqnController extends Controller{
 //        echo '</pre>';
         
         //remove currently active timer
-        testTimer('stop', $this->ass_code, 0);
+        testTimer('unset', $this->ass_code, 0);
         
         $content = $this->loadView('pages/candidate/finish');
         

@@ -1,0 +1,91 @@
+AC TEST CREATOR (Documentation DEV)
+
+Create new test
+1. Login as site admin
+2. Go To: Test Manager (MENU) > Create Test (Page)
+3. Fill out the required fields in Create Test (Page)
+	*Assessment Name
+	*Assessment Code
+	*Drag and drop questions
+4. Test Creation Fields Format (1- 4):
+
+	(1)Start Page Marker => This is the start identifier of the test (page1)
+
+		(2)'autocomplete' => Autocomplete inputbox
+		(2)'checkbox-group' => Custom Autocomplete inputbox
+		(2)'date' => Date inputbox
+		(2)'file' => File upload button
+		(2)'header' => <h>Header</h>
+		(2)'hidden' => Hidden inputbox
+		(2)'number' => Number inputbox
+		(2)'paragraph' => <p>Paragraph</p>
+		(2)'radio-group' => Radio groups (single)
+		(2)'select' => Dropdown
+		(2)'text' => Text inputbox
+		(2)'textarea' => Textarea 
+		(2)'starRating' => Star Rating tag using a juery plugin
+		(2)'sliderTemplate' => Slider template
+		(2)'single-answer-template' => Radio group template accepting 1 answer 
+		(2)'multiple-answer-template' => Checkbox group template accepting multi answer
+		(2)'customHTMLTemplate' => Accepts any custom HTML you want to create.
+		
+		(3)'button' => Button button | submit | reset		
+
+	(4)End Page Marker => This is the ending identifier of the test (page1)
+
+5. More info on drag and drop fields:
+
+	Start Page Marker => This is the start identifier of the test (page1)
+		*Randomize = Yes | No
+			"Yes": It will randomize the fields inside Start Page Marker and End Page Marker. (except button field, fixed on the bottom part)
+
+				Example Output:
+
+					(1)Start Page Marker => This is the start identifier of the test (page1)
+
+						(Random Shuffle) 'autocomplete' 
+						(Random Shuffle) 'checkbox-group'
+						(Random Shuffle) 'date'
+						(Random Shuffle) 'file'
+						(Random Shuffle) 'header'
+						(Random Shuffle) 'hidden'
+						(Random Shuffle) 'number'
+						(Random Shuffle) 'paragraph'
+						(Random Shuffle) 'radio-group'
+						(Random Shuffle) 'select'
+						(Random Shuffle) 'text'
+						(Random Shuffle) 'textarea' 
+						(Random Shuffle) 'starRating'
+						(Random Shuffle) 'sliderTemplate'
+						(Random Shuffle) 'single-answer-template'
+						(Random Shuffle) 'multiple-answer-template'
+						(Random Shuffle) 'customHTMLTemplate'
+						
+						(3)'button' => Button button | submit | reset		
+
+					(4)End Page Marker => This is the ending identifier of the test (page1)
+
+			"No": Same as format seen in test creator page.
+
+		*Add Timer (In Minutes) = Add number to set a timer for the page. By default, timer is set to empty or none.
+			= Timer can be controlled in the {TestId}Controller using the global function below.
+
+				//initialize a new timer for this test page
+				(1)testTimer('init', $this->ass_code, $question_arr['page1'][0]->setTimer); 
+
+				// continue the timer set from the previous test page
+		        (2)testTimer('continue', $this->ass_code, 0); 
+		        
+		        //unset currently active timer
+		        (3)testTimer('unset', $this->ass_code, 0); 
+
+		*OnTimesUp (Javascript) = Add a javascript function that will run when the user reached the max time for the test.
+
+			Default Code OnTimesUp: alert("Times up! Your current answers will be submitted"); $("input").prop("required",false);  $("form#test_form").submit();
+
+
+
+
+
+
+

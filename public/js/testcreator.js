@@ -8,8 +8,11 @@ const fbOptions = {
     fields: fb_customFields,
     inputSets: fb_inputSets,
     templates: fb_templates,
+    disabledAttrs: ["multiple"],
+    replaceFields: fb_replaceFields,
     sortableControls: true,
     controlOrder: fb_controlOrder,
+    typeUserAttrs: fb_typeUserAttrs,
     fieldRemoveWarn: true, // defaults to false
     onSave: function() {
         var fbJsonData = $('.build-wrap').formBuilder('getData', 'json', true);

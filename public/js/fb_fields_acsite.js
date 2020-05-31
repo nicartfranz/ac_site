@@ -198,7 +198,7 @@ const fb_typeUserAttrs = {
         onTimerTimesUp: {
             label: 'OnTimesUp (Javascript)',
             value: 'alert("Times up! Your current answers will be submitted"); $("input").prop("required",false);  $("form#test_form").submit();',
-        }
+        },
     },
     'autocomplete': {
         part: {
