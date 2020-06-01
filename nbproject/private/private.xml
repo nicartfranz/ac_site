@@ -13,15 +13,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp/www/ac_site/app/helpers/gen.helpers.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/views/layouts/candidate.php</file>
-            <file>file:/C:/wamp/www/ac_site/public/js/formbuilder/control_plugins/startPageMarker.js</file>
+            <file>file:/C:/wamp/www/ac_site/app/libraries/Controller.php</file>
             <file>file:/C:/wamp/www/ac_site/app/views/pages/candidate/testing.php</file>
             <file>file:/C:/wamp/www/ac_site/public/js/testupdate.js</file>
             <file>file:/C:/wamp/www/ac_site/app/controllers/FaqnController.php</file>
             <file>file:/C:/wamp/www/ac_site/public/js/fb_fields_acsite.js</file>
             <file>file:/C:/wamp/www/ac_site/public/js/testcreator.js</file>
             <file>file:/C:/wamp/www/ac_site/public/js/testtaking.js</file>
-            <file>file:/C:/wamp/www/ac_site/app/controllers/Ie00Controller.php</file>
         </group>
     </open-files>
 </project-private>

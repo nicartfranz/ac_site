@@ -84,7 +84,9 @@ Create new test
 			Default Code OnTimesUp: alert("Times up! Your current answers will be submitted"); $("input").prop("required",false);  $("form#test_form").submit();
 
 
-
+5.1 Question ordering
+		Question Order: display_top    => display on the top. Use case: test progress bar, test header etc.
+		Question Order: display_bottom => display on the bottom. 
 
 
 

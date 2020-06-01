@@ -403,9 +403,13 @@ function allowPageAccessByUser($allowed_usertypes){
 //params: 
 //  $set_type = unset | init | continue 
 //  $ass_code = assessment code
-function testTimer($set_type = 'unset', $ass_code = '', $setMaxTime = 0){
+function testTimer($set_type = 'unset', $ass_code = '', $setMaxTime = -1){
     
     $now = date('Y-m-d H:i:s');
+    
+    if($set_type != 'unset' && $setMaxTime < 0){
+        return;
+    }
     
     if($set_type == 'init'){
         
@@ -472,18 +476,7 @@ function testTimer($set_type = 'unset', $ass_code = '', $setMaxTime = 0){
         $_SESSION[$ass_code]['test_time_remaining_sec'] = $test_time_remaining['secs'];
         
     } else if ($set_type == 'unset') {
-        unset($_SESSION[$ass_code]['test_timer_created_at']);
-        unset($_SESSION[$ass_code]['test_timer_start_time']);
-        unset($_SESSION[$ass_code]['test_timer_end_time']);
-        unset($_SESSION[$ass_code]['test_timer_last_modified_at']);
-        unset($_SESSION[$ass_code]['test_timer']);
-        //time remaining and elapse time
-        unset($_SESSION[$ass_code]['test_time_elapse_hr']);
-        unset($_SESSION[$ass_code]['test_time_remaining_hr']);
-        unset($_SESSION[$ass_code]['test_time_elapse_min']);
-        unset($_SESSION[$ass_code]['test_time_remaining_min']);
-        unset($_SESSION[$ass_code]['test_time_elapse_sec']);        
-        unset($_SESSION[$ass_code]['test_time_remaining_sec']);
+        unset($_SESSION[$ass_code]);
     }
     
 }

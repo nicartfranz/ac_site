@@ -19,7 +19,7 @@ class FaqnController extends Controller{
         $question_arr = $this->loadQuestionCandidate($test_data['question']);
         
         //3.) Set test page timer
-        testTimer('unset', $this->ass_code, 0); //unset timer on this page
+        testTimer('unset', $this->ass_code); //unset timer on this page
         
         //4.) Set the required test_info variables
         $test_info = [];

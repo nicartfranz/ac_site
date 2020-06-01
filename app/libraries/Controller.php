@@ -76,13 +76,14 @@ class Controller {
             //unset unnecessary fields
             unset($decoded_questions[$key]->part);
             unset($decoded_questions[$key]->section);
-            unset($decoded_questions[$key]->fldQOrder);
+//            unset($decoded_questions[$key]->fldQOrder);
             unset($decoded_questions[$key]->correctAns);
             
             //group the pages by startPageMarker
             if($decoded_questions[$key]->type == 'startPageMarker'){
                 $page_inc++;
             }            
+            $decoded_questions[$key]->setTimer = isset($decoded_questions[$key]->setTimer) ? $decoded_questions[$key]->setTimer : -1; 
             $questions_arr['page'.$page_inc][] = $decoded_questions[$key];
         }
         
@@ -94,8 +95,10 @@ class Controller {
         //2) sort questions by page group
         $final_questions = [];
         $startMarker = [];
+        $temp_top_field = [];
         $temp_questions = [];
         $submitButton = [];
+        $temp_bottom_field = [];
         $endMarker = [];
         foreach($questions_arr as $page => $questions){
          
@@ -110,7 +113,15 @@ class Controller {
             //4. endMarker
             foreach($questions as $question){
                 if(!in_array($question->type, ['startPageMarker', 'button', 'endPageMarker'])){
-                    $temp_questions[] = $question;
+                    
+                    if(isset($question->fldQOrder) && $question->fldQOrder == 'display_top'){
+                        $temp_top_field[] = $question;
+                    } else if (isset($question->fldQOrder) && $question->fldQOrder == 'display_bottom'){
+                        $temp_bottom_field[] = $question;
+                    } else {
+                        $temp_questions[] = $question;
+                    }
+                    
                 } else {
                     if($question->type == 'startPageMarker'){
                         $startMarker = $question;
@@ -128,6 +139,13 @@ class Controller {
             if(isset($startMarker) && !empty($startMarker)){
                 $final_questions[] = (object)$startMarker;
             }
+            
+            if(isset($temp_top_field) && !empty($temp_top_field)){
+                foreach ($temp_top_field as $q){
+                    $final_questions[] = (object)$q;
+                }
+            }
+            
             if(isset($temp_questions) && !empty($temp_questions)){
                 foreach ($temp_questions as $q){
                     $final_questions[] = (object)$q;
@@ -136,6 +154,13 @@ class Controller {
             if(isset($submitButton) && !empty($submitButton)){
                 $final_questions[] = (object)$submitButton;
             }
+            
+            if(isset($temp_bottom_field) && !empty($temp_bottom_field)){
+                foreach ($temp_bottom_field as $q){
+                    $final_questions[] = (object)$q;
+                }
+            }
+            
             if(isset($endMarker) && !empty($endMarker)){
                 $final_questions[] = (object)$endMarker;
             }
@@ -159,13 +184,15 @@ class Controller {
         foreach ($decoded_questions as $key => $question){
             unset($decoded_questions[$key]->part);
             unset($decoded_questions[$key]->section);
-            unset($decoded_questions[$key]->fldQOrder);
+//            unset($decoded_questions[$key]->fldQOrder);
             unset($decoded_questions[$key]->correctAns);
         
             //3.) Display the first page: identified by type:startPageMarker & type:endPageMarker
             if($decoded_questions[$key]->type == 'startPageMarker'){
                 $page_inc++;
             }
+            
+            $decoded_questions[$key]->setTimer = isset($decoded_questions[$key]->setTimer) ? $decoded_questions[$key]->setTimer : -1; 
             $test_info['page'.$page_inc][] = $decoded_questions[$key];
 
         }
@@ -189,8 +216,10 @@ class Controller {
             //2) sort questions by page group
             $final_questions = [];
             $startMarker = [];
+            $temp_top_field = [];
             $temp_questions = [];
             $submitButton = [];
+            $temp_bottom_field = [];
             $endMarker = [];
             
             if(isset($questions[0]->randomize) && ($questions[0]->randomize === true || $questions[0]->randomize == 'true')){
@@ -205,7 +234,15 @@ class Controller {
             foreach($questions as $question){
                 
                 if(!in_array($question->type, ['startPageMarker', 'button', 'endPageMarker'])){
-                    $temp_questions[] = $question;
+                    
+                    if(isset($question->fldQOrder) && $question->fldQOrder == 'display_top'){
+                        $temp_top_field[] = $question;
+                    } else if (isset($question->fldQOrder) && $question->fldQOrder == 'display_bottom'){
+                        $temp_bottom_field[] = $question;
+                    } else {
+                        $temp_questions[] = $question;
+                    }
+                    
                 } else {
                     if($question->type == 'startPageMarker'){
                         $startMarker = $question;
@@ -223,6 +260,13 @@ class Controller {
             if(isset($startMarker) && !empty($startMarker)){
                 $final_questions[] = (object)$startMarker;
             }
+            
+            if(isset($temp_top_field) && !empty($temp_top_field)){
+                foreach ($temp_top_field as $q){
+                    $final_questions[] = (object)$q;
+                }
+            }
+            
             if(isset($temp_questions) && !empty($temp_questions)){
                 foreach ($temp_questions as $q){
                     $final_questions[] = (object)$q;
@@ -231,6 +275,13 @@ class Controller {
             if(isset($submitButton) && !empty($submitButton)){
                 $final_questions[] = (object)$submitButton;
             }
+            
+            if(isset($temp_bottom_field) && !empty($temp_bottom_field)){
+                foreach ($temp_bottom_field as $q){
+                    $final_questions[] = (object)$q;
+                }
+            }
+            
             if(isset($endMarker) && !empty($endMarker)){
                 $final_questions[] = (object)$endMarker;
             }
