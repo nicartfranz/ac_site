@@ -68,5 +68,146 @@ $(document).ready(function(){
         str = str.toString();
         return str.length < max ? pad("0" + str, max) : str;
     }
+    //-=-=-=-=-=-=-=-=-=-=-= str_pad left -=-=-=-=-=-=-=-=-=-=-=
+    
+    //-=-=-=-=-=-=-=-=-=-=-= print screen detect key44 only -=-=-=-=-=-=-=-=-=-=-=
+    window.addEventListener("keyup", function(e) {
+        if (e.keyCode == 44) {
+            var printscreen = confirm('Printscreen is prohibited in this site, are you sure you want to continue?');
+            if(printscreen){
+                $('html').html('<h5>Printscreen is not allowed! you are disqualified</h5>');
+            }
+        }
+    });
+//    function stopPrntScr() {
+//        var inpFld = document.createElement("input");
+//        inpFld.setAttribute("value", ".");
+//        inpFld.setAttribute("width", "0");
+//        inpFld.style.height = "0px";
+//        inpFld.style.width = "0px";
+//        inpFld.style.border = "0px";
+//        document.body.appendChild(inpFld);
+//        inpFld.select();
+//        document.execCommand("copy");
+//        inpFld.remove(inpFld);
+//    }
+//    function AccessClipboardData() {
+//        try {
+//            window.clipboardData.setData('text', "Access Restricted");
+//        } catch (err) {
+//            console.log('ERROR: ' + err );
+//        }
+//    }
+//    setInterval(AccessClipboardData(), 100);
+    //-=-=-=-=-=-=-=-=-=-=-= print screen detect key44 only -=-=-=-=-=-=-=-=-=-=-=
+       
+    
+    //-=-=-=-=-=-=-=-=-=-=-= enableSnapshot -=-=-=-=-=-=-=-=-=-=-=
+    if(enableSnapshot == 'true'){
+        
+        Webcam.set({
+                width: 260,
+                height: 160,
+                image_format: 'jpeg',
+                jpeg_quality: 90
+        });
+        Webcam.attach('#mycamera');
+	Webcam.on('live', function() {
+            // camera is live, showing preview image
+            // (and user has allowed access)
+            console.log('live');
+            Webcam.snap( function(data_uri) {
+                var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+                document.getElementById('mysnapshot').value = raw_image_data;
+//                document.getElementById('myform').submit();
+            });
+	});
+	
+	Webcam.on('error', function(err) {
+                console.log('Error in webcam: ' + err);
+	});
+        
+    }
+    //-=-=-=-=-=-=-=-=-=-=-= enableSnapshot -=-=-=-=-=-=-=-=-=-=-=
+    
+    
+    //-=-=-=-=-=-=-=-=-=-=-= Least-Best PCA -=-=-=-=-=-=-=-=-=-=-=
+    $("div.least-best-checkbox").on("click", function() {
+        var selectedBoxParent = $(this).parent("div");
+        var selectedBox = $(this).children("input:first");
+
+        //Checking the input[checkbox]
+        if (selectedBox.prop("checked")) {
+            selectedBox.prop("checked", false);
+            $(this).attr("class", "least-best-checkbox"); //get back to original state
+            return false;
+        } else {
+            selectedBox.prop("checked", true);
+        }
+
+        //Limiting the allowed checks
+        var limit = 2;
+        var countChecks = $("#" + selectedBoxParent.attr("id") + ' input[type="checkbox"]').filter(":checked").length;
+        if (countChecks > limit) {
+            selectedBox.prop("checked", false);
+            return false;
+        }
+
+
+        //Tagging as least or best answer
+        if (!$(this).hasClass("bg-least") && !$(this).hasClass("bg-best")) {
+
+            var default_setting = 'least_first'; //first selection is least answer, second selection best answer
+            if (default_setting == 'least_first') {
+                if (countChecks == 1) {
+                    $(this).addClass("bg-least");
+                } else {
+
+                    var hasClass = '';
+                    $("#" + selectedBoxParent.attr("id") + ' > div.least-best-checkbox').each(function(i, obj) {
+                        if ($(obj).hasClass('bg-least')) {
+                            hasClass = 'bg-least';
+                        }
+                        if ($(obj).hasClass('bg-best')) {
+                            hasClass = 'bg-best';
+                        }
+                    });
+
+                    if (hasClass == 'bg-least') {
+                        $(this).addClass("bg-best");
+                    } else {
+                        $(this).addClass("bg-least");
+                    }
+
+                }
+            } else {
+                if (countChecks == 1) {
+                    $(this).addClass("bg-best");
+                } else {
+
+                    var hasClass = '';
+                    $("#" + selectedBoxParent.attr("id") + ' > div.least-best-checkbox').each(function(i, obj) {
+                        if ($(obj).hasClass('bg-least')) {
+                            hasClass = 'bg-least';
+                        }
+                        if ($(obj).hasClass('bg-best')) {
+                            hasClass = 'bg-best';
+                        }
+                    });
+
+                    if (hasClass == 'bg-least') {
+                        $(this).addClass("bg-best");
+                    } else {
+                        $(this).addClass("bg-least");
+                    }
+
+                }
+            }
+
+        }
+
+    });
+    //-=-=-=-=-=-=-=-=-=-=-= Least-Best PCA -=-=-=-=-=-=-=-=-=-=-=
+    
     
 });

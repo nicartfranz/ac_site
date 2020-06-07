@@ -32,14 +32,6 @@ class TestingController extends Controller{
         //7.) load the candidate template page, pass the candidate testing inside page then load the page.
         $html = [
             'includeSiteLevelJS' => [
-                'public/js/formbuilder/form-builder.min.js', 
-                'public/js/formbuilder/form-render.min.js', 
-                'public/js/formbuilder/control_plugins/starRating.js', 
-                'public/js/formbuilder/control_plugins/sliderTemplate.js', 
-                'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
-                'public/js/formbuilder/control_plugins/startPageMarker.js', 
-                'public/js/formbuilder/control_plugins/endPageMarker.js', 
-                'public/js/fb_fields_acsite.js',
                 'public/js/testtaking.js'
             ],
             'content' => $content, 

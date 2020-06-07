@@ -165,6 +165,8 @@ class Controller {
                 $final_questions[] = (object)$endMarker;
             }
             unset($temp_questions);//unset per page group
+            unset($temp_top_field);//unset per page group
+            unset($temp_bottom_field);//unset per page group
                                     
         }
         
@@ -287,7 +289,9 @@ class Controller {
             }
             
             $test_info['page'.$i] = $final_questions;
-            unset($temp_questions);//make sure to unset this
+            unset($temp_questions);//unset per page group
+            unset($temp_top_field);//unset per page group
+            unset($temp_bottom_field);//unset per page group
             
         }
             
@@ -320,6 +324,33 @@ class Controller {
             if(!isset($_SESSION['is_authenticated']) && $_SESSION['is_authenticated'] != '1'){
                 header("Location:".APP_BASE_URL."site/index");
             } 
+        }
+        
+    }
+    
+    
+    //submit form 
+    public function submitForm(){
+        
+        if(isset($_POST)){
+//            echo '<pre>';
+//            print_r($_POST);
+//            echo '</pre>';
+        }
+        
+    }
+    
+    //saves the snapshot to a directory
+    public function saveSnapshot($directory = ''){
+        
+        if(isset($_POST['mysnapshot']) && !empty($_POST['mysnapshot'])){
+            $encoded_data = $_POST['mysnapshot'];
+            $binary_data = base64_decode( $encoded_data );
+
+            // save to server (beware of permissions)
+            $unique_pic_name = strtotime(date('Y-m-d H:i:s'));
+            $result = file_put_contents("img/snapshots/{$unique_pic_name}.jpg", $binary_data );
+            if (!$result) die("Could not save image!  Check file permissions.");
         }
         
     }

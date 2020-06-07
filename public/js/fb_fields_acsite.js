@@ -55,7 +55,31 @@ const fb_customFields = [
         type: "endPageMarker",
         label: "<span class='text-danger'><b>End Page Marker</b></span> [SOP]",
     },
-
+    {
+        type: "likertQuestion",
+        required: false,
+        label: "<b>#1 Likert Scale</b>",
+        className: "form-control",
+        access: false,
+        value: "",
+        attrs: {
+            type: 'textarea',
+            subtype: 'textarea',
+        }
+    },
+    {
+        type: "LeastBestQuestion",
+        required: false,
+        label: "<b>#2 Least - Best Answer</b>",
+        className: "form-control",
+        access: false,
+        value: "",
+        attrs: {
+            type: 'textarea',
+            subtype: 'textarea',
+        }
+    },
+    
 ];
 
 
@@ -78,7 +102,7 @@ const fb_templates = {
     customHTMLTemplate: function(fieldData) { 
         var custom_html_value = fieldData.value || '';
         return {
-            field: '<textarea style="min-height: 200px;" class="form-control" id="'+fieldData.name+'">'+custom_html_value+'</textarea>',
+            field: '<textarea style="min-height: 200px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
 //            onRender: (){
 //                $('div#'+fieldData.name).html('sdad');
 //            }
@@ -112,6 +136,65 @@ const fb_templates = {
             }
         }
     },
+    likertQuestion: function(fieldData) { 
+        var setDefaultValue = "\
+<table class='table table-striped likert'>\n\
+<thead>\n\
+    <tr>\n\
+        <th></th>\n\
+        <th><center>Strongly Disagree</center></th>\n\
+        <th><center>Disagree</center></th>\n\
+        <th><center>Neutral</center></th>\n\
+        <th><center>Agree</center></th>\n\
+        <th><center>Strongly Agree</center></th>\n\
+    </tr>\n\
+</thead>\n\
+<tbody>\n\
+    <tr>\n\
+        <td>Question</td>\n\
+        <td><center><input type='radio' name='q1' value='1'></center></td>\n\
+        <td><center><input type='radio' name='q1' value='2'></center></td>\n\
+        <td><center><input type='radio' name='q1' value='3'></center></td>\n\
+        <td><center><input type='radio' name='q1' value='4'></center></td>\n\
+        <td><center><input type='radio' name='q1' value='5'></center></td>\n\
+    </tr>\n\
+</tbody>\n\
+</table>"
+        var custom_html_value = fieldData.value || setDefaultValue;
+        return {
+            field: '<textarea style="min-height: 500px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
+//            field: custom_html_value,
+//            onRender: function(){
+//                $('div#'+fieldData.name).html(custom_html_value);
+//            }
+        }
+    },
+    LeastBestQuestion: function(fieldData){
+        var setDefaultValue = "\n\
+<p>Least - Best Question (PCA)</p>\n\
+<div class='least-best-div' id='q1'>\n\
+  <div class='least-best-checkbox'>\n\
+    CHOICE 1\n\
+    <input type='checkbox' name='q1[]' value='1'>\n\
+  </div>\n\
+  <div class='least-best-checkbox'>\n\
+    CHOICE 2\n\
+    <input type='checkbox' name='q1[]' value='2'>\n\
+  </div>\n\
+  <div class='least-best-checkbox'>\n\
+    CHOICE 3\n\
+    <input type='checkbox' name='q1[]' value='3'>\n\
+  </div>\n\
+  <div class='least-best-checkbox'>\n\
+    CHOICE 4\n\
+    <input type='checkbox' name='q1[]' value='4'>\n\
+  </div>\n\
+</div>";
+        var custom_html_value = fieldData.value || setDefaultValue;
+        return {
+            field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
+        }
+    }
     
 };
 
@@ -199,6 +282,13 @@ const fb_typeUserAttrs = {
             label: 'OnTimesUp (Javascript)',
             value: 'alert("Times up! Your current answers will be submitted"); $("input").prop("required",false);  $("form#test_form").submit();',
         },
+        enableSnapshot: {
+            label: 'Take Snapshot (Desktop)',
+            options: {
+                false: 'No',
+                true : 'Yes',
+            },
+        }
     },
     'autocomplete': {
         part: {
@@ -477,5 +567,7 @@ const fb_controlOrder = [
     'single-answer-template',
     'multiple-answer-template',
     'customHTMLTemplate',
+    'likertQuestion',
+    'LeastBestQuestion',
     'endPageMarker',
 ];

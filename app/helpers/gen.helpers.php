@@ -39,6 +39,22 @@ function siteBasicFooter($siteLevelJS = array()){
                 <!-- Core plugin JavaScript-->
                 <script src='".APP_BASE_URL."public/js/jquery-easing/jquery.easing.min.js'></script>
                 <script src='".APP_BASE_URL."public/js/jqueryui/jquery-ui.min.js'></script>
+                
+                    
+                <!-- TEST TAKING JS -->
+                <script src='".APP_BASE_URL."public/js/formbuilder/form-builder.min.js'></script> 
+                <script src='".APP_BASE_URL."public/js/formbuilder/form-render.min.js'></script> 
+                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/starRating.js'></script> 
+                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/sliderTemplate.js'></script> 
+                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/customHTMLTemplate.js'></script> 
+                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/startPageMarker.js'></script> 
+                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/endPageMarker.js'></script>
+                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/likertQuestion.js'></script>
+                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/LeastBestQuestion.js'></script>
+                <script src='".APP_BASE_URL."public/js/fb_fields_acsite.js'></script>
+                
+                <!-- Webcam plugin -->
+                <script src='".APP_BASE_URL."public/js/webcam/webcam.min.js'></script>
 
                 <!-- Custom scripts for all pages-->
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js'></script>  
@@ -53,7 +69,7 @@ function siteBasicFooter($siteLevelJS = array()){
 //Franz: Loads the site basic top nav (DEFAULT)
 function siteBasicTopbar(){
     
-    $link['logout'] = (isset($_SESSION['usertype']) && $_SESSION['usertype'] == 'test_taker') ? "<li class='nav-item'> <a class='nav-link' href='../site/logout'>Logout</a></li>" : "";  
+    $link['logout'] = (isset($_SESSION['usertype']) && $_SESSION['usertype'] == 'test_taker') ? "<li class='nav-item'> <a class='nav-link' href='".APP_BASE_URL."site/logout'>Logout</a></li>" : "";  
     
     $html = "   <!-- Navigation -->
                 <nav class='navbar navbar-expand-lg navbar-light bg-light static-top'>
@@ -99,6 +115,7 @@ function siteAdminHeader($siteLevelCSS = array()){
                     <link href='https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' rel='stylesheet'>
 
                     <!-- Custom styles for this template-->
+                    <link href='".APP_BASE_URL."public/css/admin.css' rel='stylesheet'>
                     <link href='".APP_BASE_URL."public/css/sb-admin-2.min.css' rel='stylesheet'>"
                         
                     .includePageLevelCSS($siteLevelCSS).
@@ -121,8 +138,9 @@ function siteAdminFooter($siteLevelJS = array()){
                 <!-- Core plugin JavaScript-->
                 <script src='".APP_BASE_URL."public/js/jquery-easing/jquery.easing.min.js'></script>
                 <script src='".APP_BASE_URL."public/js/jqueryui/jquery-ui.min.js'></script>
-
+                    
                 <!-- Custom scripts for all pages-->
+                <script src='".APP_BASE_URL."public/js/admin.js'></script>
                 <script src='".APP_BASE_URL."public/js/sb-admin-2.min.js'></script>
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js'></script>"
 

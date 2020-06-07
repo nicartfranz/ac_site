@@ -23,4 +23,42 @@ class CandidateController extends Controller{
         
     }
     
+    public function privacy_consent(){
+        
+        //load a view and put it in a variable for later use
+        $content = $this->loadView('pages/candidate/privacy_consent');
+        
+        //create an array that will store data to be passed to the render view method
+        $html = [
+            'content' => $content, //this is the pages/admin/dashboard html
+            'includeSiteLevelJS' => [
+                'public/js/candidate.js'
+            ],
+        ];
+        $this->renderView('layouts/candidate', $html);
+        
+    }
+    
+    public function candidate_demographics(){
+        
+       
+        if(isset($_POST['submit'])){
+            header("Location:".APP_BASE_URL.'candidate/index');
+        }
+        
+        
+        //load a view and put it in a variable for later use
+        $content = $this->loadView('pages/candidate/candidate_demographics');
+        
+        //create an array that will store data to be passed to the render view method
+        $html = [
+            'content' => $content, //this is the pages/admin/dashboard html
+            'includeSiteLevelJS' => [
+                'public/js/candidate.js'
+            ],
+        ];
+        $this->renderView('layouts/candidate', $html);
+        
+    }
+    
 }

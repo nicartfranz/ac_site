@@ -34,7 +34,7 @@ class SiteController extends Controller{
                 $_SESSION['username'] = 'candidate';
                 $_SESSION['is_authenticated'] = true;
                 $_SESSION['usertype'] = 'test_taker';
-                header("Location:".APP_BASE_URL."candidate/index");
+                header("Location:".APP_BASE_URL."candidate/privacy_consent");
             } else{
 
                 $error = [

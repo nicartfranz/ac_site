@@ -1,7 +1,26 @@
-.test-content{
-    margin-top: 5%;
+/*nav*/
+nav {
+    display: flex;
+    list-style: none;
 }
+/*end nav*/
 
+/*privacy consent*/
+#agree-1-2-error-msg{
+    margin: 0px 2% 0px 2%;
+    font-size: 12px;   
+    font-style: italic;
+    display:none;
+}
+/*end privacy consent*/
+
+/*test content*/
+.test-content{
+    margin-top: 3%;
+}
+/*end test content*/
+
+/*test timer*/
 #test_timer{
     background: #eee;
     border: 1px solid;
@@ -19,7 +38,9 @@
     cursor: -moz-grab;
     cursor: -webkit-grab;
 }
+/*end test timer*/
 
+/*formbuilder controls*/
 div.formbuilder-startPageMarker{
     display:none !important;
 }
@@ -122,12 +143,46 @@ div.formbuilder-customHTMLTemplate{
     padding: 5px;
     border-radius: 3px;   
 }
+div.formbuilder-likertQuestion{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
+div.formbuilder-LeastBestQuestion{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
 div.formbuilder-endPageMarker{
     display:none !important;
 }
 
+/*PCA - Least - Best*/
+.least-best-div > div {
+  cursor:pointer;
+  padding:5px;
+  border:1px solid;
+  width:100%;
+  height:50px;
+  margin-bottom:10px;
+  border-radius: 3px; 
+}
+.least-best-checkbox > input {
+  opacity:0;
+}
+.bg-least{
+  background: red;
+}
+.bg-best{
+  background: blue;
+}
+
+/*end formbuilder controls*/
 
 
+/*footer*/
 .footer {
     position: absolute;
     bottom: 0;
@@ -138,7 +193,19 @@ div.formbuilder-endPageMarker{
     padding-right: 20px;
     font-size: 0.8em;
 }
-nav {
-    display: flex;
-    list-style: none;
+/*end footer*/
+
+
+
+
+
+/*When media wide is 500 less*/
+@media only screen and (max-width: 500px) {
+    html, body {
+        font-size: 85%;
+    }
+    table{
+        font-size: 85%;
+    }
 }
+/*End media wide is 500 less*/

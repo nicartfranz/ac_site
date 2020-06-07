@@ -1,0 +1,19 @@
+/*PCA - Least - Best*/
+.least-best-div > div {
+  cursor:pointer;
+  padding:5px;
+  border:1px solid;
+  width:100%;
+  height:50px;
+  margin-bottom:10px;
+  border-radius: 3px; 
+}
+.least-best-checkbox > input {
+  opacity:0;
+}
+.bg-least{
+  background: red;
+}
+.bg-best{
+  background: blue;
+}

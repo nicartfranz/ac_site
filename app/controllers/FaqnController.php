@@ -29,7 +29,9 @@ class FaqnController extends Controller{
         $test_info['question'] = json_encode($question_arr['page1']);
         //4.3) Javascript to run on timer times up
         $test_info['onTimesUp'] = $question_arr['page1'][0]->onTimerTimesUp;
-        //4.4) Set the submit_page
+        //4.4) Snapshot
+        $test_info['enableSnapshot'] = $question_arr['page1'][0]->enableSnapshot;
+        //4.5) Set the submit_page
         $test_info['submit_page'] = (__FUNCTION__ == 'index') ? 'page2' : 'index'; 
         
         //5.) Load the testing page and pass the test_info array
@@ -38,14 +40,6 @@ class FaqnController extends Controller{
         //6.) Load the candidate template page, pass the candidate testing page then load the page.
         $html = [
             'includeSiteLevelJS' => [
-                'public/js/formbuilder/form-builder.min.js', 
-                'public/js/formbuilder/form-render.min.js', 
-                'public/js/formbuilder/control_plugins/starRating.js', 
-                'public/js/formbuilder/control_plugins/sliderTemplate.js', 
-                'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
-                'public/js/formbuilder/control_plugins/startPageMarker.js', 
-                'public/js/formbuilder/control_plugins/endPageMarker.js', 
-                'public/js/fb_fields_acsite.js',
                 'public/js/testtaking.js'
             ],
             'content' => $content, 
@@ -60,9 +54,11 @@ class FaqnController extends Controller{
     
     public function page2(){
         
-//        echo '<pre>';
-//        print_r($_POST);
-//        echo '</pre>';
+        //--SUBMIT PREV FORM---//
+        $this->submitForm();
+        $this->saveSnapshot();
+        //--------------------//
+        
         
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -83,7 +79,9 @@ class FaqnController extends Controller{
         $test_info['question'] = json_encode($question_arr['page2']);
         //4.3) Javascript to run on timer times up
         $test_info['onTimesUp'] = $question_arr['page2'][0]->onTimerTimesUp;
-        //4.4) Set the submit_page
+        //4.4) Snapshot
+        $test_info['enableSnapshot'] = $question_arr['page2'][0]->enableSnapshot;
+        //4.5) Set the submit_page
         $test_info['submit_page'] = 'page3'; 
         
         //5.) Load the testing page and pass the test_info array
@@ -92,14 +90,6 @@ class FaqnController extends Controller{
         //6.) Load the candidate template page, pass the candidate testing page then load the page.
         $html = [
             'includeSiteLevelJS' => [
-                'public/js/formbuilder/form-builder.min.js', 
-                'public/js/formbuilder/form-render.min.js', 
-                'public/js/formbuilder/control_plugins/starRating.js', 
-                'public/js/formbuilder/control_plugins/sliderTemplate.js', 
-                'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
-                'public/js/formbuilder/control_plugins/startPageMarker.js', 
-                'public/js/formbuilder/control_plugins/endPageMarker.js', 
-                'public/js/fb_fields_acsite.js',
                 'public/js/testtaking.js'
             ],
             'content' => $content, 
@@ -111,9 +101,10 @@ class FaqnController extends Controller{
     
     public function page3(){
         
-//        echo '<pre>';
-//        print_r($_POST);
-//        echo '</pre>';
+        //--SUBMIT PREV FORM---//
+        $this->submitForm();
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -135,7 +126,9 @@ class FaqnController extends Controller{
         $test_info['question'] = json_encode($question_arr['page3']);
         //4.3) Javascript to run on timer times up
         $test_info['onTimesUp'] = $question_arr['page3'][0]->onTimerTimesUp;
-        //4.4) Set the submit_page
+        //4.4) Snapshot
+        $test_info['enableSnapshot'] = $question_arr['page3'][0]->enableSnapshot;
+        //4.5) Set the submit_page
         $test_info['submit_page'] = 'page4'; 
         
         //5.) Load the testing page and pass the test_info array
@@ -144,14 +137,6 @@ class FaqnController extends Controller{
         //6.) Load the candidate template page, pass the candidate testing page then load the page.
         $html = [
             'includeSiteLevelJS' => [
-                'public/js/formbuilder/form-builder.min.js', 
-                'public/js/formbuilder/form-render.min.js', 
-                'public/js/formbuilder/control_plugins/starRating.js', 
-                'public/js/formbuilder/control_plugins/sliderTemplate.js', 
-                'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
-                'public/js/formbuilder/control_plugins/startPageMarker.js', 
-                'public/js/formbuilder/control_plugins/endPageMarker.js', 
-                'public/js/fb_fields_acsite.js',
                 'public/js/testtaking.js'
             ],
             'content' => $content, 
@@ -162,9 +147,10 @@ class FaqnController extends Controller{
     
     public function page4(){
  
-//        echo '<pre>';
-//        print_r($_POST);
-//        echo '</pre>';
+        //--SUBMIT PREV FORM---//
+        $this->submitForm();
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -188,7 +174,9 @@ class FaqnController extends Controller{
         $test_info['question'] = json_encode($question_arr['page4']);
         //4.3) Javascript to run on timer times up
         $test_info['onTimesUp'] = $question_arr['page4'][0]->onTimerTimesUp;
-        //4.4) Set the submit_page
+        //4.4) Snapshot
+        $test_info['enableSnapshot'] = $question_arr['page4'][0]->enableSnapshot;
+        //4.5) Set the submit_page
         $test_info['submit_page'] = 'finish'; 
         
         //5.) Load the testing page and pass the test_info array
@@ -197,14 +185,6 @@ class FaqnController extends Controller{
         //6.) Load the candidate template page, pass the candidate testing page then load the page.
         $html = [
             'includeSiteLevelJS' => [
-                'public/js/formbuilder/form-builder.min.js', 
-                'public/js/formbuilder/form-render.min.js', 
-                'public/js/formbuilder/control_plugins/starRating.js', 
-                'public/js/formbuilder/control_plugins/sliderTemplate.js', 
-                'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
-                'public/js/formbuilder/control_plugins/startPageMarker.js', 
-                'public/js/formbuilder/control_plugins/endPageMarker.js', 
-                'public/js/fb_fields_acsite.js',
                 'public/js/testtaking.js'
             ],
             'content' => $content, 
@@ -215,9 +195,10 @@ class FaqnController extends Controller{
    
     public function finish(){
         
-//        echo '<pre>';
-//        print_r($_POST);
-//        echo '</pre>';
+        //--SUBMIT PREV FORM---//
+        $this->submitForm();
+        $this->saveSnapshot();
+        //--------------------//
         
         //remove currently active timer
         testTimer('unset', $this->ass_code, 0);
@@ -226,14 +207,7 @@ class FaqnController extends Controller{
         
         $html = [
             'includeSiteLevelJS' => [
-                'public/js/formbuilder/form-builder.min.js', 
-                'public/js/formbuilder/form-render.min.js', 
-                'public/js/formbuilder/control_plugins/starRating.js', 
-                'public/js/formbuilder/control_plugins/sliderTemplate.js', 
-                'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
-                'public/js/formbuilder/control_plugins/startPageMarker.js', 
-                'public/js/formbuilder/control_plugins/endPageMarker.js', 
-                'public/js/fb_fields_acsite.js',
+                'public/js/testtaking.js'
             ],
             'content' => $content, 
         ];

@@ -29,11 +29,22 @@ $test_timer_end_time = (isset($_SESSION[$data['AssCode']]['test_timer_end_time']
     <?php endif; ?>
    
     <form id="test_form" method="POST" action="<?= APP_BASE_URL.$data['AssCode'].'/'.$data['submit_page'] ?>">
+        
+        <?php if($data['enableSnapshot']): ?>
+        <!--<form id="myform" method="post" action="myscript.php">-->
+            <input id="mysnapshot" type="hidden" name="mysnapshot" value=""/>
+        <!--</form>-->
+        <div style="display: none;" id="mycamera"></div>
+        <?php endif; ?>
+        
         <div id="build-wrap"></div>
     </form>
     
 </div>
 <script>
+//APP BASE URL
+var APP_BASE_URL = '<?= APP_BASE_URL ?>';
+    
 //Timer JS vars
 var test_time_remaining_hr = <?= $test_time_remaining_hr ?>;
 var test_time_remaining_min = <?= $test_time_remaining_min ?>;
@@ -41,6 +52,8 @@ var test_time_remaining_sec = <?= $test_time_remaining_sec ?>;
 var test_timer_end_time = '<?= date('m/d/Y H:i:s', strtotime($test_timer_end_time)) ?>'; // format as "mm/dd/yyyy hh:mm:ss" to fix IE Nan:Nan:Nan
 //On times up => run this js
 var onTimesup = '<?= $data['onTimesUp'] ?>';
+//Snapshot
+var enableSnapshot = '<?= $data['enableSnapshot'] ?>';
 
 //Question JSON data
 var questionsJSON = <?= $data['question'] ?> 
