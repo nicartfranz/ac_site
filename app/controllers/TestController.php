@@ -70,6 +70,7 @@ class TestController extends Controller{
                 'public/js/formbuilder/control_plugins/endPageMarker.js', 
                 'public/js/formbuilder/control_plugins/likertQuestion.js',
                 'public/js/formbuilder/control_plugins/LeastBestQuestion.js',
+                'public/js/formbuilder/control_plugins/rankingQuestion.js',
                 'public/js/fb_fields_acsite.js',
                 'public/js/testview.js'
             ], 

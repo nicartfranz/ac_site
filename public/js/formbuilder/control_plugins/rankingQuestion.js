@@ -11,16 +11,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 if (!window.fbControls) window.fbControls = new Array();
 window.fbControls.push(function (controlClass) {
 
-  var controllikertQuestion = function (_controlClass) {
-    _inherits(controllikertQuestion, _controlClass);
+  var controlrankingQuestion = function (_controlClass) {
+    _inherits(controlrankingQuestion, _controlClass);
 
-    function controllikertQuestion() {
-      _classCallCheck(this, controllikertQuestion);
+    function controlrankingQuestion() {
+      _classCallCheck(this, controlrankingQuestion);
 
-      return _possibleConstructorReturn(this, (controllikertQuestion.__proto__ || Object.getPrototypeOf(controllikertQuestion)).apply(this, arguments));
+      return _possibleConstructorReturn(this, (controlrankingQuestion.__proto__ || Object.getPrototypeOf(controlrankingQuestion)).apply(this, arguments));
     }
 
-    _createClass(controllikertQuestion, [{
+    _createClass(controlrankingQuestion, [{
       key: 'configure',
       value: function configure() {
         this.js = '';
@@ -40,42 +40,40 @@ window.fbControls.push(function (controlClass) {
     }, {
       key: 'onRender',
       value: function onRender() {
-        var html_value = this.config.value || "\
-<table class='table table-striped likert'>\n\
-<thead>\n\
-    <!-- LIKERT QUESTION -->\n\
-    <tr>\n\
-        <th></th>\n\
-        <th><center>Strongly Disagree</center></th>\n\
-        <th><center>Disagree</center></th>\n\
-        <th><center>Neutral</center></th>\n\
-        <th><center>Agree</center></th>\n\
-        <th><center>Strongly Agree</center></th>\n\
-    </tr>\n\
-</thead>\n\
-<tbody>\n\
-    <tr>\n\
-        <td>Question</td>\n\
-        <td><center><input type='radio' name='q1_1' value='1'></center></td>\n\
-        <td><center><input type='radio' name='q1_1' value='2'></center></td>\n\
-        <td><center><input type='radio' name='q1_1' value='3'></center></td>\n\
-        <td><center><input type='radio' name='q1_1' value='4'></center></td>\n\
-        <td><center><input type='radio' name='q1_1' value='5'></center></td>\n\
-    </tr>\n\
-</tbody>\n\
-</table>";
+        var html_value = this.config.value || "\n\
+<div class='container-fluid'>\n\
+    <div class='row ranking-question'>\n\
+        <div class='col-sm ranking-question-box-left' id='q1'>\n\
+            <p>Which is most like you?<input type='hidden' id='q1_1' name='q1_1'></p>\n\
+            <p>Which is least like you?<input type='hidden' id='q1_2' name='q1_2'></p>\n\
+            <p>Of the remaining two, which is more like you?<input type='hidden' id='q1_3' name='q1_3'></p>\n\
+        </div>\n\
+        <div class='col-sm ranking-question-box-right'>\n\
+        <div class='row ranking-choice-box' id='q1'>\n\
+            <div class='col-xs ranking-choice c1_1'>Playful</div>\n\
+            <div class='col-xs ranking-choice c1_2'>Strong-willed</div>\n\
+            <div class='col-xs ranking-choice c1_3'>Intellectual</div>\n\
+            <div class='col-xs ranking-choice c1_4'>Cooperative</div>\n\
+        </div>\n\
+        <br>\n\
+        <p><b>Playful</b> - I am full of fun and good humor.</p>\n\
+        <p><b>Strong-willed</b> - I am determined to have my way.</p>\n\
+        <p><b>Intellectual</b> - I am intelligent or knowledgeable; I am an academic.</p>\n\
+        <p><b>Cooperative</b> - I am obliging, helpful, and supportive.</p>\n\
+    </div>\n\
+</div>";
         //remove the label
-        $('.formbuilder-likertQuestion-label').remove();
+        $('.formbuilder-rankingQuestion-label').remove();
         $('div#' + this.config.name).html(html_value);  
       }
     }]);
 
-    return controllikertQuestion;
+    return controlrankingQuestion;
   }(controlClass);
 
   // register this control for the following types & text subtypes
 
-  controlClass.register('likertQuestion', controllikertQuestion);
-  return controllikertQuestion;
+  controlClass.register('rankingQuestion', controlrankingQuestion);
+  return controlrankingQuestion;
 });
 

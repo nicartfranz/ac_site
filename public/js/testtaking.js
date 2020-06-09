@@ -113,18 +113,15 @@ $(document).ready(function(){
         });
         Webcam.attach('#mycamera');
 	Webcam.on('live', function() {
-            // camera is live, showing preview image
-            // (and user has allowed access)
             console.log('live');
             Webcam.snap( function(data_uri) {
                 var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
                 document.getElementById('mysnapshot').value = raw_image_data;
-//                document.getElementById('myform').submit();
             });
 	});
 	
 	Webcam.on('error', function(err) {
-                console.log('Error in webcam: ' + err);
+            console.log('Error in webcam: ' + err);
 	});
         
     }
@@ -209,5 +206,35 @@ $(document).ready(function(){
     });
     //-=-=-=-=-=-=-=-=-=-=-= Least-Best PCA -=-=-=-=-=-=-=-=-=-=-=
     
+    //-=-=-=-=-=-=-=-=-=-=-= Ranking DISC -=-=-=-=-=-=-=-=-=-=-=
+    $(document).on('click', 'span#remove-ranking-choice', function(){
+  	var selected_choice_class = $(this).attr('class').split(' ');
+        //selected_choice_class[2] = the choice id
+        $('div.'+selected_choice_class[2]).css('display', 'block');
+        $(this).prev().val('');
+        $(this).remove();
+    });
+  
+
+    $('div.ranking-choice').on('click', function(){
+        var selected_choice_parent_id = $(this).parent().attr('id');
+        var selected_choice_class = $(this).attr('class');
+        var selected_choice_value = $(this).text();
+        var has_unanswered = 0;
+        //check hidden inupt fields if has answer
+        $("div.ranking-question-box-left#" + selected_choice_parent_id + ' > p > input').each(function(i, obj) {
+            if($(obj).val() == ''){
+                $(obj).val(selected_choice_value.trim());
+                $(obj).after('<span id="remove-ranking-choice" class="'+selected_choice_class+'">'+selected_choice_value+'<span class="xmark">x</span></span>');
+                has_unanswered++;
+                return false;
+            } 
+        });
+        //hide the selected option
+        if(has_unanswered > 0){
+            $(this).css('display', 'none');
+        }
+    });
+    //-=-=-=-=-=-=-=-=-=-=-= Ranking DISC -=-=-=-=-=-=-=-=-=-=-=
     
 });

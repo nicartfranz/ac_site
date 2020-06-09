@@ -36,7 +36,7 @@ $device = new Device();
 $os = new Os();
 //echo 'Browser: ' .$browser->getName() . '<br>';
 //echo 'Browser version: ' .$browser->getVersion() . '<br>';
-//echo 'Device: ' .$device->getName() . '<br>';
+//echo 'OS: ' . $os->getName(). '<br>';
 
 //Auto Loader for the libraries and classes
 spl_autoload_register(function($className){

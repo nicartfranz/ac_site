@@ -49,16 +49,16 @@ const fb_customFields = [
     },
     {
         type: "startPageMarker",
-        label: "<span class='text-info'><b>Start Page Marker</b></span> [SOP]",
+        label: "<span class='text-info'><b>Start Page Marker</b></span>",
     },
     {
         type: "endPageMarker",
-        label: "<span class='text-danger'><b>End Page Marker</b></span> [SOP]",
+        label: "<span class='text-danger'><b>End Page Marker</b></span>",
     },
     {
         type: "likertQuestion",
         required: false,
-        label: "<b>#1 Likert Scale</b>",
+        label: "<b>#1 Likert Scale</b> (PEOPA)",
         className: "form-control",
         access: false,
         value: "",
@@ -70,7 +70,19 @@ const fb_customFields = [
     {
         type: "LeastBestQuestion",
         required: false,
-        label: "<b>#2 Least - Best Answer</b>",
+        label: "<b>#2 Least - Best Answer</b> (PCA)",
+        className: "form-control",
+        access: false,
+        value: "",
+        attrs: {
+            type: 'textarea',
+            subtype: 'textarea',
+        }
+    },
+    {
+        type: "rankingQuestion",
+        required: false,
+        label: "<b>#3 Ranking Answer</b> (DISC)",
         className: "form-control",
         access: false,
         value: "",
@@ -152,11 +164,11 @@ const fb_templates = {
 <tbody>\n\
     <tr>\n\
         <td>Question</td>\n\
-        <td><center><input type='radio' name='q1' value='1'></center></td>\n\
-        <td><center><input type='radio' name='q1' value='2'></center></td>\n\
-        <td><center><input type='radio' name='q1' value='3'></center></td>\n\
-        <td><center><input type='radio' name='q1' value='4'></center></td>\n\
-        <td><center><input type='radio' name='q1' value='5'></center></td>\n\
+        <td><center><input type='radio' name='q1_1' value='1'></center></td>\n\
+        <td><center><input type='radio' name='q1_1' value='2'></center></td>\n\
+        <td><center><input type='radio' name='q1_1' value='3'></center></td>\n\
+        <td><center><input type='radio' name='q1_1' value='4'></center></td>\n\
+        <td><center><input type='radio' name='q1_1' value='5'></center></td>\n\
     </tr>\n\
 </tbody>\n\
 </table>"
@@ -191,6 +203,34 @@ const fb_templates = {
   </div>\n\
 </div>";
         var custom_html_value = fieldData.value || setDefaultValue;
+        return {
+            field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
+        }
+    },
+    rankingQuestion: function (fieldData){
+        var setDefaultValue = "\n\
+<div class='container-fluid'>\n\
+    <div class='row ranking-question'>\n\
+        <div class='col-sm ranking-question-box-left' id='q1'>\n\
+            <p>Which is most like you?<input type='hidden' id='q1_1' name='q1_1'></p>\n\
+            <p>Which is least like you?<input type='hidden' id='q1_2' name='q1_2'></p>\n\
+            <p>Of the remaining two, which is more like you?<input type='hidden' id='q1_3' name='q1_3'></p>\n\
+        </div>\n\
+        <div class='col-sm ranking-question-box-right'>\n\
+        <div class='row ranking-choice-box' id='q1'>\n\
+            <div class='col-xs ranking-choice c1_1'>Playful</div>\n\
+            <div class='col-xs ranking-choice c1_2'>Strong-willed</div>\n\
+            <div class='col-xs ranking-choice c1_3'>Intellectual</div>\n\
+            <div class='col-xs ranking-choice c1_4'>Cooperative</div>\n\
+        </div>\n\
+        <br>\n\
+        <p><b>Playful</b> - I am full of fun and good humor.</p>\n\
+        <p><b>Strong-willed</b> - I am determined to have my way.</p>\n\
+        <p><b>Intellectual</b> - I am intelligent or knowledgeable; I am an academic.</p>\n\
+        <p><b>Cooperative</b> - I am obliging, helpful, and supportive.</p>\n\
+    </div>\n\
+</div>";
+        var custom_html_value = fieldData.valu1e || setDefaultValue;
         return {
             field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
         }
@@ -569,5 +609,6 @@ const fb_controlOrder = [
     'customHTMLTemplate',
     'likertQuestion',
     'LeastBestQuestion',
+    'rankingQuestion',
     'endPageMarker',
 ];

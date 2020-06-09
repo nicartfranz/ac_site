@@ -39,7 +39,8 @@ function siteBasicFooter($siteLevelJS = array()){
                 <!-- Core plugin JavaScript-->
                 <script src='".APP_BASE_URL."public/js/jquery-easing/jquery.easing.min.js'></script>
                 <script src='".APP_BASE_URL."public/js/jqueryui/jquery-ui.min.js'></script>
-                
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
+                    
                     
                 <!-- TEST TAKING JS -->
                 <script src='".APP_BASE_URL."public/js/formbuilder/form-builder.min.js'></script> 
@@ -51,6 +52,7 @@ function siteBasicFooter($siteLevelJS = array()){
                 <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/endPageMarker.js'></script>
                 <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/likertQuestion.js'></script>
                 <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/LeastBestQuestion.js'></script>
+                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/rankingQuestion.js'></script>
                 <script src='".APP_BASE_URL."public/js/fb_fields_acsite.js'></script>
                 
                 <!-- Webcam plugin -->

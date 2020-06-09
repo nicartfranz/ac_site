@@ -155,8 +155,24 @@ div.formbuilder-LeastBestQuestion{
     padding: 5px;
     border-radius: 3px;
 }
+div.formbuilder-rankingQuestion{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
 div.formbuilder-endPageMarker{
     display:none !important;
+}
+
+/*Likert*/
+table.likert > tbody > tr > td > center > input {
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #ccc;
+    border-radius: 50%;
 }
 
 /*PCA - Least - Best*/
@@ -173,10 +189,45 @@ div.formbuilder-endPageMarker{
   opacity:0;
 }
 .bg-least{
-  background: red;
+  background: #dc3545;
+  color:#FFF;
 }
 .bg-best{
-  background: blue;
+  background: #007bff;
+  color:#FFF;
+}
+
+/*Ranking*/
+.ranking-question {
+  background: #f8f9fa;
+  margin-top: 20px;
+}
+
+.ranking-question-box-left, .ranking-question-box-right {
+  border: solid 1px #6c757d;
+  padding: 10px;
+  border-radius: 2px;
+}
+.ranking-choice-box{
+  padding:10px;
+}
+.ranking-choice{
+  border: solid 1px #6c757d;
+  border-radius: 2px;
+  padding: 3px 5px 3px 5px;
+  background: #fff;
+  margin:5px;
+  width:auto;
+  cursor:pointer;
+}
+.ranking-choice:hover {
+  background: #007bff;
+  color:#FFF;
+}
+.xmark{
+  vertical-align: text-bottom;
+  font-size: 16px !important;
+  color: red;
 }
 
 /*end formbuilder controls*/
@@ -202,10 +253,12 @@ div.formbuilder-endPageMarker{
 /*When media wide is 500 less*/
 @media only screen and (max-width: 500px) {
     html, body {
-        font-size: 85%;
+        font-size: 90%;
+        font-weight: 300;
     }
     table{
-        font-size: 85%;
+        font-size: 90%;
+        font-weight: 300;
     }
 }
 /*End media wide is 500 less*/

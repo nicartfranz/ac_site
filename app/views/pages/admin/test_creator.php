@@ -7,7 +7,7 @@
     </div>
     <div class="form-group">
         <label for="assessment_code" class="formbuilder-text-label">Assessment Code<span style="color:red">&nbsp;*</span></label>
-        <input class="form-control col-lg-4" name="assessment_code" type="text" id="assessment_code">
+        <input class="form-control col-lg-4" name="assessment_code" minlength="4" maxlength="4" type="text" id="assessment_code">
     </div>
     
     <label class="formbuilder-text-label">Drag and Drop<span style="color:red">&nbsp;*</span></label>

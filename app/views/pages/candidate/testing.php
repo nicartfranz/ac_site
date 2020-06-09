@@ -1,9 +1,7 @@
 <?php 
-//echo '<pre>';
-//print_r($_SESSION);
-//echo '</pre>';
-//current datetime;
+global $os;
 $now = date('Y-m-d H:i:s');
+$machine_os = $os->getName();
 
 //Timer sessions
 $test_time_remaining_hr = (isset($_SESSION[$data['AssCode']]['test_time_remaining_hr'])) ? $_SESSION[$data['AssCode']]['test_time_remaining_hr'] : -1;
@@ -53,7 +51,7 @@ var test_timer_end_time = '<?= date('m/d/Y H:i:s', strtotime($test_timer_end_tim
 //On times up => run this js
 var onTimesup = '<?= $data['onTimesUp'] ?>';
 //Snapshot
-var enableSnapshot = '<?= $data['enableSnapshot'] ?>';
+var enableSnapshot = '<?= (in_array($machine_os, ['Windows', 'OS X'])) ? $data['enableSnapshot'] : false; ?>';
 
 //Question JSON data
 var questionsJSON = <?= $data['question'] ?> 

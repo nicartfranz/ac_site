@@ -114,9 +114,9 @@ class FaqnController extends Controller{
         $question_arr = $this->loadQuestionCandidate($test_data['question']);
         
         //3.) Set test page timer
-        //testTimer('unset', '', 0); //unset timer on this page
-        //testTimer('init', $this->ass_code, $question_arr['page2'][0]->setTimer); //initialize a new timer for this test page
-        testTimer('continue', $this->ass_code, 0); // continue the timer set from the previous test page
+        testTimer('unset', $this->ass_code, 0); //unset currently active timer
+        testTimer('init', $this->ass_code, $question_arr['page3'][0]->setTimer); //initialize a new timer for this test page
+        //testTimer('continue', $this->ass_code, 0); // continue the timer set from the previous test page
         
         //4.) Set the required test_info variables
         $test_info = [];
@@ -160,7 +160,7 @@ class FaqnController extends Controller{
         $question_arr = $this->loadQuestionCandidate($test_data['question']);
         
         //3.) Set test page timer
-        //testTimer('unset', '', 0); //unset timer on this page
+        //testTimer('unset', $this->ass_code, 0); //unset timer on this page
         //testTimer('init', $this->ass_code, $question_arr['page2'][0]->setTimer); //initialize a new timer for this test page
         //testTimer('continue', $this->ass_code, 0); // continue the timer set from the previous test page
         testTimer('unset', $this->ass_code, 0); //unset currently active timer
@@ -190,29 +190,6 @@ class FaqnController extends Controller{
             'content' => $content, 
         ];
         $this->renderView('layouts/candidate', $html);
-        
-    }
-   
-    public function finish(){
-        
-        //--SUBMIT PREV FORM---//
-        $this->submitForm();
-        $this->saveSnapshot();
-        //--------------------//
-        
-        //remove currently active timer
-        testTimer('unset', $this->ass_code, 0);
-        
-        $content = $this->loadView('pages/candidate/finish');
-        
-        $html = [
-            'includeSiteLevelJS' => [
-                'public/js/testtaking.js'
-            ],
-            'content' => $content, 
-        ];
-        $this->renderView('layouts/candidate', $html);
-        
         
     }
     

@@ -301,6 +301,29 @@ class Controller {
         
     }
     
+    public function finish(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm();
+        $this->saveSnapshot();
+        //--------------------//
+        
+        //remove currently active timer
+        testTimer('unset', $this->ass_code, 0);
+        
+        $content = $this->loadView('pages/candidate/finish');
+        
+        $html = [
+            'includeSiteLevelJS' => [
+                'public/js/testtaking.js'
+            ],
+            'content' => $content, 
+        ];
+        $this->renderView('layouts/candidate', $html);
+        
+        
+    }
+    
     
     //this controller method is for ajax requests only
     public function submitAjax(){
@@ -333,9 +356,9 @@ class Controller {
     public function submitForm(){
         
         if(isset($_POST)){
-//            echo '<pre>';
-//            print_r($_POST);
-//            echo '</pre>';
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
         }
         
     }
