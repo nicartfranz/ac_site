@@ -91,7 +91,18 @@ const fb_customFields = [
             subtype: 'textarea',
         }
     },
-    
+    {
+        type: "sliderQuestion",
+        required: false,
+        label: "<b>#4 Slider Type Answer</b> (CPB)",
+        className: "form-control",
+        access: false,
+        value: "",
+        attrs: {
+            type: 'textarea',
+            subtype: 'textarea',
+        }
+    }
 ];
 
 
@@ -123,28 +134,28 @@ const fb_templates = {
     startPageMarker: function (fieldData){
         
         if(fieldData.value == '' || fieldData.value === undefined){
-            fieldData.value = '######### START OF PAGE ###########';
+            fieldData.value = 'NEW PAGE';
         }
         
         var note = fieldData.value;
         return {
-            field: '<form method="POST"><p id="'+fieldData.name+'">'+note+'</p>',
+            field: '<form method="POST">', //VERY IMPORTANT: opens the <form>
             onRender: function(){
-                $('p#'+fieldData.name).html(note).css('text-align', 'center');
+                $('p#'+fieldData.name).html(note);
             }
         }
     },
     endPageMarker: function (fieldData){
         
         if(fieldData.value == '' || fieldData.value === undefined){
-            fieldData.value = '######### END OF PAGE ###########';
+            fieldData.value = 'END PAGE';
         }
         
         var note = fieldData.value;
         return {
-            field: '<p id="'+fieldData.name+'">'+note+'</p></form>',
+            field: '</form>', //VERY IMPORTANT: close the <form>
             onRender: function(){
-                $('p#'+fieldData.name).html(note).css('text-align', 'center');
+                $('p#'+fieldData.name).html(note);
             }
         }
     },
@@ -164,11 +175,11 @@ const fb_templates = {
 <tbody>\n\
     <tr>\n\
         <td>Question</td>\n\
-        <td><center><input type='radio' name='q1_1' value='1'></center></td>\n\
-        <td><center><input type='radio' name='q1_1' value='2'></center></td>\n\
-        <td><center><input type='radio' name='q1_1' value='3'></center></td>\n\
-        <td><center><input type='radio' name='q1_1' value='4'></center></td>\n\
-        <td><center><input type='radio' name='q1_1' value='5'></center></td>\n\
+        <td><center><input type='radio' name='q_lk_1_1' value='1'></center></td>\n\
+        <td><center><input type='radio' name='q_lk_1_1' value='2'></center></td>\n\
+        <td><center><input type='radio' name='q_lk_1_1' value='3'></center></td>\n\
+        <td><center><input type='radio' name='q_lk_1_1' value='4'></center></td>\n\
+        <td><center><input type='radio' name='q_lk_1_1' value='5'></center></td>\n\
     </tr>\n\
 </tbody>\n\
 </table>"
@@ -230,7 +241,24 @@ const fb_templates = {
         <p><b>Cooperative</b> - I am obliging, helpful, and supportive.</p>\n\
     </div>\n\
 </div>";
-        var custom_html_value = fieldData.valu1e || setDefaultValue;
+        var custom_html_value = fieldData.value || setDefaultValue;
+        return {
+            field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
+        }
+    },
+    sliderQuestion: function(fieldData){
+        var setDefaultValue = "\n\
+  <div class='sliderTypeQuestion'>\n\
+    <div>\n\
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book\n\
+    </div>\n\
+    <br>\n\
+    <div class='sliderTypeQuestion_text' id='q_sl_1'><span>Neutral</span></div>\n\
+    <br>\n\
+    <div class='sliderTypeQuestion_choice' id='q_sl_1'>\n\
+    <input type='range' class='custom-range' min='1' max='5' step='1' id='sliderTypeQuestion_range' name='q_sl_1'>\n\
+  </div>";
+        var custom_html_value = fieldData.value || setDefaultValue;
         return {
             field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
         }
@@ -320,7 +348,11 @@ const fb_typeUserAttrs = {
         },
         onTimerTimesUp: {
             label: 'OnTimesUp (Javascript)',
-            value: 'alert("Times up! Your current answers will be submitted"); $("input").prop("required",false);  $("form#test_form").submit();',
+            options: {
+                'console.log("Times up!");' : 'Do nothing',
+                'alert("Times up! Your current answers will be submitted");': 'Alert Candidate',
+                'alert("Times up! Your current answers will be submitted"); $("input").prop("required",false);  $("form#test_form").submit();': 'Alert Candidate | Auto Submit Form',
+            },
         },
         enableSnapshot: {
             label: 'Take Snapshot (Desktop)',
@@ -610,5 +642,6 @@ const fb_controlOrder = [
     'likertQuestion',
     'LeastBestQuestion',
     'rankingQuestion',
+    'sliderQuestion',
     'endPageMarker',
 ];

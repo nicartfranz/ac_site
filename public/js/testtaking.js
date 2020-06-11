@@ -225,7 +225,7 @@ $(document).ready(function(){
         $("div.ranking-question-box-left#" + selected_choice_parent_id + ' > p > input').each(function(i, obj) {
             if($(obj).val() == ''){
                 $(obj).val(selected_choice_value.trim());
-                $(obj).after('<span id="remove-ranking-choice" class="'+selected_choice_class+'">'+selected_choice_value+'<span class="xmark">x</span></span>');
+                $(obj).after('<span id="remove-ranking-choice" class="'+selected_choice_class+'">'+selected_choice_value+'<span class="xmark">&nbsp;x&nbsp;</span></span>');
                 has_unanswered++;
                 return false;
             } 
@@ -236,5 +236,35 @@ $(document).ready(function(){
         }
     });
     //-=-=-=-=-=-=-=-=-=-=-= Ranking DISC -=-=-=-=-=-=-=-=-=-=-=
+    
+    
+    //-=-=-=-=-=-=-=-=-=-=-= slider type question CPB -=-=-=-=-=-=-=-=-=-=-=
+    $('input#sliderTypeQuestion_range').on('change', function(){
+        
+        var q_sl = $(this).attr('name');
+        var slider_value = $(this).val();
+        
+        var sl_bg = {'background': '#848484'};
+        var sl_text = 'Neutral';
+        if(slider_value == 1){
+            sl_bg = {'background': 'rgb(255, 110, 110)'};
+            sl_text = 'Strongly Disagree';
+        } else if (slider_value == 2){
+            sl_bg = {'background': 'rgb(255, 173, 39)'};
+            sl_text = 'Disagree';
+        } else if (slider_value == 3){
+            sl_bg = sl_bg;
+            sl_text = sl_text;
+        } else if (slider_value == 4){
+            sl_bg = {'background': 'rgb(50, 167, 111)'};
+            sl_text = 'Agree';
+        } else if (slider_value == 5){
+            sl_bg = {'background': 'rgb(38, 216, 131)'};
+            sl_text = 'Strongly Agree';
+        }
+        $('div.sliderTypeQuestion_text#'+q_sl).css(sl_bg);
+        $('div.sliderTypeQuestion_text#'+q_sl+' > span').text(sl_text);
+    });
+    //-=-=-=-=-=-=-=-=-=-=-= slider type question CPB -=-=-=-=-=-=-=-=-=-=-=
     
 });

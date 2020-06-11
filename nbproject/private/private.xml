@@ -14,8 +14,8 @@
         <group>
             <file>file:/C:/wamp/www/ac_site/public/css/test_taker.css</file>
             <file>file:/C:/wamp/www/ac_site/app/helpers/gen.helpers.php</file>
-            <file>file:/C:/wamp/www/ac_site/public/js/formbuilder/control_plugins/rankingQuestion.js</file>
             <file>file:/C:/wamp/www/ac_site/app/libraries/Controller.php</file>
+            <file>file:/C:/wamp/www/ac_site/public/js/formbuilder/control_plugins/sliderQuestion.js</file>
             <file>file:/C:/wamp/www/ac_site/app/views/pages/candidate/testing.php</file>
             <file>file:/C:/wamp/www/ac_site/app/controllers/IeasController.php</file>
             <file>file:/C:/wamp/www/ac_site/app/controllers/FaqnController.php</file>

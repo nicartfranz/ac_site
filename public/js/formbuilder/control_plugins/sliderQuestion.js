@@ -11,16 +11,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 if (!window.fbControls) window.fbControls = new Array();
 window.fbControls.push(function (controlClass) {
 
-  var controllikertQuestion = function (_controlClass) {
-    _inherits(controllikertQuestion, _controlClass);
+  var controlsliderQuestion = function (_controlClass) {
+    _inherits(controlsliderQuestion, _controlClass);
 
-    function controllikertQuestion() {
-      _classCallCheck(this, controllikertQuestion);
+    function controlsliderQuestion() {
+      _classCallCheck(this, controlsliderQuestion);
 
-      return _possibleConstructorReturn(this, (controllikertQuestion.__proto__ || Object.getPrototypeOf(controllikertQuestion)).apply(this, arguments));
+      return _possibleConstructorReturn(this, (controlsliderQuestion.__proto__ || Object.getPrototypeOf(controlsliderQuestion)).apply(this, arguments));
     }
 
-    _createClass(controllikertQuestion, [{
+    _createClass(controlsliderQuestion, [{
       key: 'configure',
       value: function configure() {
         this.js = '';
@@ -40,42 +40,29 @@ window.fbControls.push(function (controlClass) {
     }, {
       key: 'onRender',
       value: function onRender() {
-        var html_value = this.config.value || "\
-<table class='table table-striped likert'>\n\
-<thead>\n\
-    <!-- LIKERT QUESTION -->\n\
-    <tr>\n\
-        <th></th>\n\
-        <th><center>Strongly Disagree</center></th>\n\
-        <th><center>Disagree</center></th>\n\
-        <th><center>Neutral</center></th>\n\
-        <th><center>Agree</center></th>\n\
-        <th><center>Strongly Agree</center></th>\n\
-    </tr>\n\
-</thead>\n\
-<tbody>\n\
-    <tr>\n\
-        <td>Question</td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='1'></center></td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='2'></center></td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='3'></center></td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='4'></center></td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='5'></center></td>\n\
-    </tr>\n\
-</tbody>\n\
-</table>";
+        var html_value = this.config.value || "\n\
+  <div class='sliderTypeQuestion'>\n\
+    <div>\n\
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book\n\
+    </div>\n\
+    <br>\n\
+    <div class='sliderTypeQuestion_text' id='q_sl_1'><span>Neutral</span></div>\n\
+    <br>\n\
+    <div class='sliderTypeQuestion_choice' id='q_sl_1'>\n\
+    <input type='range' class='custom-range' min='1' max='5' step='1' id='sliderTypeQuestion_range' name='q_sl_1'>\n\
+  </div>";
         //remove the label
-        $('.formbuilder-likertQuestion-label').remove();
+        $('.formbuilder-sliderQuestion-label').remove();
         $('div#' + this.config.name).html(html_value);  
       }
     }]);
 
-    return controllikertQuestion;
+    return controlsliderQuestion;
   }(controlClass);
 
   // register this control for the following types & text subtypes
 
-  controlClass.register('likertQuestion', controllikertQuestion);
-  return controllikertQuestion;
+  controlClass.register('sliderQuestion', controlsliderQuestion);
+  return controlsliderQuestion;
 });
 

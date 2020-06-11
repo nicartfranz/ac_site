@@ -41,20 +41,6 @@ function siteBasicFooter($siteLevelJS = array()){
                 <script src='".APP_BASE_URL."public/js/jqueryui/jquery-ui.min.js'></script>
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
                     
-                    
-                <!-- TEST TAKING JS -->
-                <script src='".APP_BASE_URL."public/js/formbuilder/form-builder.min.js'></script> 
-                <script src='".APP_BASE_URL."public/js/formbuilder/form-render.min.js'></script> 
-                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/starRating.js'></script> 
-                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/sliderTemplate.js'></script> 
-                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/customHTMLTemplate.js'></script> 
-                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/startPageMarker.js'></script> 
-                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/endPageMarker.js'></script>
-                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/likertQuestion.js'></script>
-                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/LeastBestQuestion.js'></script>
-                <script src='".APP_BASE_URL."public/js/formbuilder/control_plugins/rankingQuestion.js'></script>
-                <script src='".APP_BASE_URL."public/js/fb_fields_acsite.js'></script>
-                
                 <!-- Webcam plugin -->
                 <script src='".APP_BASE_URL."public/js/webcam/webcam.min.js'></script>
 

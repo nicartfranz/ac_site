@@ -356,9 +356,9 @@ class Controller {
     public function submitForm(){
         
         if(isset($_POST)){
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';
+//            echo '<pre>';
+//            print_r($_POST);
+//            echo '</pre>';
         }
         
     }

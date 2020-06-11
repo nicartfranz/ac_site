@@ -161,6 +161,12 @@ div.formbuilder-rankingQuestion{
     padding: 5px;
     border-radius: 3px;
 }
+div.formbuilder-sliderQuestion{
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
 div.formbuilder-endPageMarker{
     display:none !important;
 }
@@ -206,14 +212,14 @@ table.likert > tbody > tr > td > center > input {
 .ranking-question-box-left, .ranking-question-box-right {
   border: solid 1px #6c757d;
   padding: 10px;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 .ranking-choice-box{
   padding:10px;
 }
 .ranking-choice{
   border: solid 1px #6c757d;
-  border-radius: 2px;
+  border-radius: 3px;
   padding: 3px 5px 3px 5px;
   background: #fff;
   margin:5px;
@@ -225,9 +231,23 @@ table.likert > tbody > tr > td > center > input {
   color:#FFF;
 }
 .xmark{
-  vertical-align: text-bottom;
-  font-size: 16px !important;
-  color: red;
+    vertical-align: text-bottom;
+    font-weight:500;
+    color: red;
+}
+
+/*slider type question*/
+div.sliderTypeQuestion{
+  border:1px solid;
+  padding:10px;
+  border-radius: 3px;
+}
+div.sliderTypeQuestion_text{
+  width:100%;
+  text-align:center;
+  background: #848484;
+  padding:5px;
+  color:#fff;
 }
 
 /*end formbuilder controls*/

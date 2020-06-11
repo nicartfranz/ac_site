@@ -3,6 +3,21 @@
 class FaqnController extends Controller{
     
     public $ass_code = 'faqn';
+    public $site_level_form_builder_js = [
+        'public/js/formbuilder/form-builder.min.js', 
+        'public/js/formbuilder/form-render.min.js', 
+        'public/js/formbuilder/control_plugins/starRating.js', 
+        'public/js/formbuilder/control_plugins/sliderTemplate.js', 
+        'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
+        'public/js/formbuilder/control_plugins/startPageMarker.js', 
+        'public/js/formbuilder/control_plugins/endPageMarker.js',
+        'public/js/formbuilder/control_plugins/likertQuestion.js',
+        'public/js/formbuilder/control_plugins/LeastBestQuestion.js',
+        'public/js/formbuilder/control_plugins/rankingQuestion.js',
+        'public/js/formbuilder/control_plugins/sliderQuestion.js',
+        'public/js/fb_fields_acsite.js',
+        'public/js/testtaking.js',
+    ];
 
     public function __construct() {
         parent::__construct();
@@ -38,12 +53,8 @@ class FaqnController extends Controller{
         $content = $this->loadView('pages/candidate/testing', $test_info);
         
         //6.) Load the candidate template page, pass the candidate testing page then load the page.
-        $html = [
-            'includeSiteLevelJS' => [
-                'public/js/testtaking.js'
-            ],
-            'content' => $content, 
-        ];
+        $html['includeSiteLevelJS'] = $this->site_level_form_builder_js;
+        $html['content'] = $content;
         $this->renderView('layouts/candidate', $html);
         
     }
@@ -88,12 +99,8 @@ class FaqnController extends Controller{
         $content = $this->loadView('pages/candidate/testing', $test_info);
         
         //6.) Load the candidate template page, pass the candidate testing page then load the page.
-        $html = [
-            'includeSiteLevelJS' => [
-                'public/js/testtaking.js'
-            ],
-            'content' => $content, 
-        ];
+        $html['includeSiteLevelJS'] = $this->site_level_form_builder_js;
+        $html['content'] = $content;
         $this->renderView('layouts/candidate', $html);
 
     }
@@ -135,12 +142,8 @@ class FaqnController extends Controller{
         $content = $this->loadView('pages/candidate/testing', $test_info);
         
         //6.) Load the candidate template page, pass the candidate testing page then load the page.
-        $html = [
-            'includeSiteLevelJS' => [
-                'public/js/testtaking.js'
-            ],
-            'content' => $content, 
-        ];
+        $html['includeSiteLevelJS'] = $this->site_level_form_builder_js;
+        $html['content'] = $content;
         $this->renderView('layouts/candidate', $html);
      
     }
@@ -183,12 +186,8 @@ class FaqnController extends Controller{
         $content = $this->loadView('pages/candidate/testing', $test_info);
         
         //6.) Load the candidate template page, pass the candidate testing page then load the page.
-        $html = [
-            'includeSiteLevelJS' => [
-                'public/js/testtaking.js'
-            ],
-            'content' => $content, 
-        ];
+        $html['includeSiteLevelJS'] = $this->site_level_form_builder_js;
+        $html['content'] = $content;
         $this->renderView('layouts/candidate', $html);
         
     }

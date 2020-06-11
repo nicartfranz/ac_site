@@ -59,6 +59,21 @@ function ajax_save_test(){
                     class ".ucfirst($assessment_code)."Controller extends Controller{
 
                         public \$ass_code = '".$assessment_code."';
+                        public \$site_level_form_builder_js = [
+                            'public/js/formbuilder/form-builder.min.js', 
+                            'public/js/formbuilder/form-render.min.js', 
+                            'public/js/formbuilder/control_plugins/starRating.js', 
+                            'public/js/formbuilder/control_plugins/sliderTemplate.js', 
+                            'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
+                            'public/js/formbuilder/control_plugins/startPageMarker.js', 
+                            'public/js/formbuilder/control_plugins/endPageMarker.js',
+                            'public/js/formbuilder/control_plugins/likertQuestion.js',
+                            'public/js/formbuilder/control_plugins/LeastBestQuestion.js',
+                            'public/js/formbuilder/control_plugins/rankingQuestion.js',
+                            'public/js/formbuilder/control_plugins/sliderQuestion.js',
+                            'public/js/fb_fields_acsite.js',
+                            'public/js/testtaking.js',
+                        ];
 
                         public function __construct() {
                             parent::__construct();

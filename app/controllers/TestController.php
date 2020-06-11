@@ -51,32 +51,44 @@ class TestController extends Controller{
         $test = $this->initModel('TestModel');
         $test_info = $test->getTest($_GET['id']);
 
-        $questions = $this->loadQuestionsAdmin($test_info['question']);
-        $test_info['question'] = $questions;
+        if(!empty($test_info['question'])){
+            
+            $questions = $this->loadQuestionsAdmin($test_info['question']);
+            $test_info['question'] = $questions;
 
-         //load a view and put it in a variable for later use
-        $content = $this->loadView('pages/admin/test_view', ['test' => $test_info]);
+             //load a view and put it in a variable for later use
+            $content = $this->loadView('pages/admin/test_view', ['test' => $test_info]);
+
+            //create an array that will store data to be passed to the render view method
+            $html = [
+                'page_name' => 'View Test: '.$test_info['AssName'],
+                'includeSiteLevelJS' => [
+                    'public/js/formbuilder/form-builder.min.js', 
+                    'public/js/formbuilder/form-render.min.js', 
+                    'public/js/formbuilder/control_plugins/starRating.js', 
+                    'public/js/formbuilder/control_plugins/sliderTemplate.js', 
+                    'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
+                    'public/js/formbuilder/control_plugins/startPageMarker.js', 
+                    'public/js/formbuilder/control_plugins/endPageMarker.js', 
+                    'public/js/formbuilder/control_plugins/likertQuestion.js',
+                    'public/js/formbuilder/control_plugins/LeastBestQuestion.js',
+                    'public/js/formbuilder/control_plugins/rankingQuestion.js',
+                    'public/js/formbuilder/control_plugins/sliderQuestion.js',
+                    'public/js/fb_fields_acsite.js',
+                    'public/js/testview.js'
+                ], 
+                'content' => $content, //this is the pages/admin/test_creator html
+            ];
+            $this->renderView('layouts/admin', $html);
+            
+        }else {
+            $html['page_name'] = 'View Test: '.$test_info['AssName'];
+            $html['content'] = 'Invalid Question Data';
+            $this->renderView('layouts/admin', $html);
+        }
+            
+
         
-        //create an array that will store data to be passed to the render view method
-        $html = [
-            'page_name' => 'View Test: '.$test_info['AssName'],
-            'includeSiteLevelJS' => [
-                'public/js/formbuilder/form-builder.min.js', 
-                'public/js/formbuilder/form-render.min.js', 
-                'public/js/formbuilder/control_plugins/starRating.js', 
-                'public/js/formbuilder/control_plugins/sliderTemplate.js', 
-                'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
-                'public/js/formbuilder/control_plugins/startPageMarker.js', 
-                'public/js/formbuilder/control_plugins/endPageMarker.js', 
-                'public/js/formbuilder/control_plugins/likertQuestion.js',
-                'public/js/formbuilder/control_plugins/LeastBestQuestion.js',
-                'public/js/formbuilder/control_plugins/rankingQuestion.js',
-                'public/js/fb_fields_acsite.js',
-                'public/js/testview.js'
-            ], 
-            'content' => $content, //this is the pages/admin/test_creator html
-        ];
-        $this->renderView('layouts/admin', $html);
     }
     
     
