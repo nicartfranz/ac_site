@@ -10,14 +10,78 @@
 class SiteController extends Controller{
     
     public function index(){
-
-        $error = [];
-        $content = $this->loadView('pages/login', $error);
+        
+        $candidate_site_req = $this->initModel('CandidateSiteRequirementsModel');
+        $requirements = $candidate_site_req->get_requirements();
+        
+        $error_site_requirement = $this->isSystemCompatible();
+        $inside_page_data = [
+            'invalid_login' => '',
+            'error_site_requirement' => $error_site_requirement,
+            'requirements' => $requirements,
+        ];
+        
+        $content = $this->getView('pages/login', $inside_page_data);
         $data = [
-            'content' => $content, 
+            'includeSiteLevelJS' => [
+                'public/js/system_check.js'
+            ],
+            'content' => $content,
         ];
         $this->renderView('pages/index', $data);
         
+    }
+    
+    public function isSystemCompatible(){
+        global $browser, $device, $os;
+        
+//        echo '<pre>';
+//        print_r($_COOKIE);
+//        echo '</pre>';
+//        
+//        echo 'Browser: ' .$browser->getName() . '<br>';
+//        echo 'Browser version: ' .$browser->getVersion() . '<br>';
+//        echo 'OS: ' . $os->getName(). '<br>';
+//        echo 'Device: ' . getDevice(). '<br>';
+        
+        $error = [];
+        $candidate_site_req = $this->initModel('CandidateSiteRequirementsModel');
+        $requirements = $candidate_site_req->get_requirements();
+        
+//        echo '<pre>';
+//        print_r($requirements);
+//        echo '</pre>';
+        
+        $valid_web_browsers = explode(',', $requirements['web_browsers']);
+        if(!in_array($browser->getName(), $valid_web_browsers)){
+            $error[] = '<b>' .ucfirst($browser->getName()). ' browser is currently not supported</b>.<br>Please use the following web browser(s): ' . implode(', ', $valid_web_browsers) . '.';
+        }
+        $valid_devices = explode(',', $requirements['devices']);
+        if(!in_array(getDevice(), $valid_devices)){
+            $error[] = '<b>' .ucfirst(getDevice()). ' device is currently not supported</b>.<br>Please use the following device: ' . implode(', ', $valid_devices) . '.';
+        }
+        $valid_os = explode(',', $requirements['os']);
+        if(!in_array($os->getName(), $valid_os)){
+            $error[] = '<b>' .ucfirst($os->getName()). ' OS is currently not supported</b>.<br>Please use a device with the following operating system: ' . implode(', ', $valid_os) . '.';
+        }
+        
+        //Cookie checker
+        if(!checkCookies() && $requirements['cookies'] == '1'){
+            $error[] = 'This website uses cookies to give you the best possible experience. Click here if you <a href="'.APP_BASE_URL.'site/accept_cookie_usage">agree</a>.';
+        }
+        
+        //IF mobile and camera required, add error message
+        if(in_array(getDevice(), ['mobile', 'tablet']) && $requirements['camera'] == '1'){
+            $error[] = '<b>Camera is currently not supported in mobile and tablet</b>.<br>Please use a laptop or PC/desktop with camera attahed.';
+        }
+        
+        return $error;
+        
+    }
+    
+    public function accept_cookie_usage(){
+        setcookie("is_cookie_usage_accepted", true);
+        header("Location:".APP_BASE_URL.'site/');
     }
     
     public function login(){
@@ -38,9 +102,11 @@ class SiteController extends Controller{
             } else{
 
                 $error = [
-                    'invalid_login' => 'Invalid login credentials'
+                    'invalid_login' => 'Invalid login credentials',
+                    'error_site_requirement' => [],
+                    'requirements' => [],
                 ];
-                $content = $this->loadView('pages/login', $error);
+                $content = $this->getView('pages/login', $error);
                 $data = [
                     'content' => $content, 
                 ];
@@ -68,11 +134,12 @@ class SiteController extends Controller{
             $params["secure"], $params["httponly"]
            );
         }
+        //setcookie('is_cookie_usage_accepted', '');
 
         session_destroy(); 
         
         //redirect to login
-        header("Location:".APP_BASE_URL."site/index");
+        header("Location:".APP_BASE_URL."site/");
         
     }
     

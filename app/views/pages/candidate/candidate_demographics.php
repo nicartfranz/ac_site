@@ -15,7 +15,7 @@
                 <div class="col-md-4">
                    <div class="radio">
                       <label for="radio-male">
-                      <input type="radio" name="gender" id="radio-male" value="1">
+                      <input type="radio" name="gender" id="radio-male" value="1" required>
                       Male
                       </label>
                    </div>
@@ -39,7 +39,7 @@
                 <div class="col-md-5">
                    <div class="radio">
                       <label for="radio-hs">
-                      <input type="radio" name="educational_attaiment" id="radio-hs" value="1">
+                      <input type="radio" name="educational_attaiment" id="radio-hs" value="1" required>
                       High School Graduate
                       </label>
                    </div>
@@ -86,10 +86,10 @@
                 <label class="col-md-4 control-label" for="work_exp_yr"><b>Work Experience:</b></label>  
                 <div class="row col-12">
                     <div class="col-4">
-                      <input type="number" class="form-control" id="work_exp_yr" name="work_exp_yr"> Year(s)
+                        <input type="number" class="form-control" id="work_exp_yr" name="work_exp_yr" required> Year(s)
                     </div>
                     <div class="col-4">
-                      <input type="number" class="form-control" id="work_exp_mon" name="work_exp_mon"> Month(s)
+                        <input type="number" class="form-control" id="work_exp_mon" name="work_exp_mon" required> Month(s)
                     </div>
                 </div>
              </div>
@@ -99,7 +99,7 @@
                 <div class="col-md-4">
                    <div class="radio">
                       <label for="radio-staff">
-                      <input type="radio" name="position" id="radio-staff" value="1">
+                      <input type="radio" name="position" id="radio-staff" value="1" required>
                       Staff Level
                       </label>
                    </div>

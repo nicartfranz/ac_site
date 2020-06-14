@@ -2,4 +2,12 @@
 <?=siteBasicHeader($siteLevelCSS);?>
 <?=siteBasicTopbar();?>
     <?= $data['content']; ?>
-<?=siteBasicFooter();?>
+<?php 
+    $siteLevelJS=[]; 
+    if(isset($data['includeSiteLevelJS'])){ 
+        foreach($data['includeSiteLevelJS'] as $includeSiteLevelJS){
+            array_push($siteLevelJS, $includeSiteLevelJS);
+        }
+    }
+?>
+<?= siteBasicFooter($siteLevelJS); ?>

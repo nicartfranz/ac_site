@@ -54,7 +54,7 @@
         
         <center>
             <button id="take_assessment" class="btn btn-primary btn-md" role="button">Take Assessment</button>
-            <a class="btn btn-danger btn-md" href="<?= APP_BASE_URL.'logout.php' ?>" role="button">Logout</a>
+            <a class="btn btn-danger btn-md" href="<?= APP_BASE_URL.'site/logout' ?>" role="button">Logout</a>
         </center>
         
     </div>

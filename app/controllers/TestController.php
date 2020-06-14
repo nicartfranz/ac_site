@@ -10,7 +10,7 @@ class TestController extends Controller{
     public function index(){
         
         //load a view and put it in a variable for later use
-        $content = $this->loadView('pages/admin/test_creator');
+        $content = $this->getView('pages/admin/test_creator');
         
         //create an array that will store data to be passed to the render view method
         $html = [
@@ -34,7 +34,7 @@ class TestController extends Controller{
         $tests = $test->getAllTests();
         
          //load a view and put it in a variable for later use
-        $content = $this->loadView('pages/admin/test_search', ['tests' => $tests]);
+        $content = $this->getView('pages/admin/test_search', ['tests' => $tests]);
         
         //create an array that will store data to be passed to the render view method
         $html = [
@@ -57,7 +57,7 @@ class TestController extends Controller{
             $test_info['question'] = $questions;
 
              //load a view and put it in a variable for later use
-            $content = $this->loadView('pages/admin/test_view', ['test' => $test_info]);
+            $content = $this->getView('pages/admin/test_view', ['test' => $test_info]);
 
             //create an array that will store data to be passed to the render view method
             $html = [
@@ -99,7 +99,7 @@ class TestController extends Controller{
         $test_info = $test->getTest($_GET['id']);
         
          //load a view and put it in a variable for later use
-        $content = $this->loadView('pages/admin/test_update', ['test' => $test_info]);
+        $content = $this->getView('pages/admin/test_update', ['test' => $test_info]);
         
 //        $json_q = json_decode($test_info['question']);
 //        echo '<pre>';

@@ -32,11 +32,7 @@ use Sinergi\BrowserDetector\Browser;
 use Sinergi\BrowserDetector\Device;
 use Sinergi\BrowserDetector\Os;
 $browser = new Browser();
-$device = new Device();
 $os = new Os();
-//echo 'Browser: ' .$browser->getName() . '<br>';
-//echo 'Browser version: ' .$browser->getVersion() . '<br>';
-//echo 'OS: ' . $os->getName(). '<br>';
 
 //Auto Loader for the libraries and classes
 spl_autoload_register(function($className){
@@ -52,4 +48,3 @@ require_once 'helpers/gen.ajax.php';
 
 //Start the session
 session_start();
-isSystemCompatible();

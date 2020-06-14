@@ -48,7 +48,7 @@ class Controller {
     }
     
     //loads a view and store it in a variable
-    public function loadView($view, $data = []){
+    public function getView($view, $data = []){
         $content = '';
         if(file_exists('../app/views/' . $view . '.php')){
             ob_start();
@@ -311,7 +311,7 @@ class Controller {
         //remove currently active timer
         testTimer('unset', $this->ass_code, 0);
         
-        $content = $this->loadView('pages/candidate/finish');
+        $content = $this->getView('pages/candidate/finish');
         
         $html = [
             'includeSiteLevelJS' => [

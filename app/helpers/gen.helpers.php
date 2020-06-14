@@ -18,7 +18,7 @@ function siteBasicHeader($siteLevelCSS = array()){
                     <meta name='author' content=''>
                     <link href='".APP_BASE_URL."public/css/bootstrap/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
                     <link href='".APP_BASE_URL."public/vendor/fontawesome-free/css/all.min.css' rel='stylesheet' type='text/css'>
-                    <link href='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css' rel='stylesheet' type='text/css'> 
+                    <link href='".APP_BASE_URL."public/css/jquery.rateyo.min.css' rel='stylesheet' type='text/css'> 
                     <!-- Custom fonts for this template-->
                     ".includePageLevelCSS($siteLevelCSS)."
                     <title>".SITENAME."</title>
@@ -30,8 +30,8 @@ function siteBasicHeader($siteLevelCSS = array()){
 //Franz: Loads the site basic footer (DEFAULT)
 function siteBasicFooter($siteLevelJS = array()){
     
-    $html = "   <!-- JavaScript Babel Polyfill -->
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.10.1/polyfill.min.js'></script>
+    $html = "   <!-- JavaScript Babel Polyfill 7.10.1 -->
+                <script src='".APP_BASE_URL."public/js/babel-polyfill/polyfill.min.js'></script>
                 <!-- Bootstrap core JavaScript-->
                 <script src='".APP_BASE_URL."public/js/jquery/jquery.min.js'></script>
                 <script src='".APP_BASE_URL."public/js/bootstrap/js/bootstrap.bundle.min.js'></script>
@@ -39,14 +39,14 @@ function siteBasicFooter($siteLevelJS = array()){
                 <!-- Core plugin JavaScript-->
                 <script src='".APP_BASE_URL."public/js/jquery-easing/jquery.easing.min.js'></script>
                 <script src='".APP_BASE_URL."public/js/jqueryui/jquery-ui.min.js'></script>
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
+                <script src='".APP_BASE_URL."public/js/jqueryui-touch-punch/jquery.ui.touch-punch.min.js'></script>
                     
                 <!-- Webcam plugin -->
+                <script src='".APP_BASE_URL."public/js/DetectRTC/DetectRTC.js'></script>
                 <script src='".APP_BASE_URL."public/js/webcam/webcam.min.js'></script>
 
                 <!-- Custom scripts for all pages-->
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js'></script>  
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js'></script>  
+                <script src='".APP_BASE_URL."public/js/rateYo/jquery.rateyo.min.js'></script>  
                 ".includePageLevelJS($siteLevelJS)."
                 </body>
               </html>";
@@ -99,7 +99,7 @@ function siteAdminHeader($siteLevelCSS = array()){
 
                     <!-- Custom fonts for this template-->
                     <link href='".APP_BASE_URL."public/vendor/fontawesome-free/css/all.min.css' rel='stylesheet' type='text/css'>
-                    <link href='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css' rel='stylesheet' type='text/css'> 
+                    <link href='".APP_BASE_URL."public/css/jquery.rateyo.min.css' rel='stylesheet' type='text/css'> 
                     <link href='https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' rel='stylesheet'>
 
                     <!-- Custom styles for this template-->
@@ -117,8 +117,8 @@ function siteAdminHeader($siteLevelCSS = array()){
 
 //Franz: Loads the site admin footer (DEFAULT)
 function siteAdminFooter($siteLevelJS = array()){
-    $html = "   <!-- JavaScript Babel Polyfill -->
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.10.1/polyfill.min.js'></script>
+    $html = "   <!-- JavaScript Babel Polyfill 7.10.1 -->
+                <script src='".APP_BASE_URL."public/js/babel-polyfill/polyfill.min.js'></script>
                 <!-- Bootstrap core JavaScript-->
                 <script src='".APP_BASE_URL."public/js/jquery/jquery.min.js'></script>
                 <script src='".APP_BASE_URL."public/js/bootstrap/js/bootstrap.bundle.min.js'></script>
@@ -130,7 +130,7 @@ function siteAdminFooter($siteLevelJS = array()){
                 <!-- Custom scripts for all pages-->
                 <script src='".APP_BASE_URL."public/js/admin.js'></script>
                 <script src='".APP_BASE_URL."public/js/sb-admin-2.min.js'></script>
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js'></script>"
+                <script src='".APP_BASE_URL."public/js/rateYo/jquery.rateyo.min.js'></script>"
 
                 //<script src='".APP_BASE_URL."public/js/fb_fields_acsite.js'></script>
                 //<!-- Page level custom scripts -->
@@ -239,6 +239,22 @@ function adminSidebar(){
                         <a class="collapse-item" href="#">Create MS Word Template</a>
                         <a class="collapse-item" href="#">Create MS Excel Template</a>
                         <a class="collapse-item" href="#">Search Template</a>
+                      </div>
+                    </div>
+                  </li>
+                  
+                  <!-- Nav Item - Utilities Collapse Menu -->
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3" aria-expanded="true" aria-controls="collapseUtilities">
+                      <i class="fas fa-fw fa-file-pdf"></i>
+                      <span>Candidate Site Manager</span>
+                    </a>
+                    <div id="collapseUtilities3" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Controls:</h6>
+                        <a class="collapse-item" href="'.APP_BASE_URL.'candidatesitesettings/requirements">Set Site Requirements</a>
+                        <a class="collapse-item" href="#">Privacy Consent</a>
+                        <a class="collapse-item" href="#">Candidate Demographics</a>
                       </div>
                     </div>
                   </li>
@@ -502,32 +518,114 @@ function getHourMinSec($seconds){
 
 }
 
+//get device type
+function getDevice(){
 
-function isSystemCompatible(){
-    global $browser, $device;
+    $tablet_browser = 0;
+    $mobile_browser = 0;
 
+    if (preg_match('/(tablet|ipad|playbook)|(android(?!.*(mobi|opera mini)))/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+        $tablet_browser++;
+    }
+
+    if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|android|iemobile)/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+        $mobile_browser++;
+    }
+
+    if ((strpos(strtolower($_SERVER['HTTP_ACCEPT']),'application/vnd.wap.xhtml+xml') > 0) or ((isset($_SERVER['HTTP_X_WAP_PROFILE']) or isset($_SERVER['HTTP_PROFILE'])))) {
+        $mobile_browser++;
+    }
+
+    $mobile_ua = strtolower(substr($_SERVER['HTTP_USER_AGENT'], 0, 4));
+    $mobile_agents = array(
+        'w3c ','acs-','alav','alca','amoi','audi','avan','benq','bird','blac',
+        'blaz','brew','cell','cldc','cmd-','dang','doco','eric','hipt','inno',
+        'ipaq','java','jigs','kddi','keji','leno','lg-c','lg-d','lg-g','lge-',
+        'maui','maxo','midp','mits','mmef','mobi','mot-','moto','mwbp','nec-',
+        'newt','noki','palm','pana','pant','phil','play','port','prox',
+        'qwap','sage','sams','sany','sch-','sec-','send','seri','sgh-','shar',
+        'sie-','siem','smal','smar','sony','sph-','symb','t-mo','teli','tim-',
+        'tosh','tsm-','upg1','upsi','vk-v','voda','wap-','wapa','wapi','wapp',
+        'wapr','webc','winw','winw','xda ','xda-');
+
+    if (in_array($mobile_ua,$mobile_agents)) {
+        $mobile_browser++;
+    }
+
+    if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'opera mini') > 0) {
+        $mobile_browser++;
+        //Check for tablets on opera mini alternative headers
+        $stock_ua = strtolower(isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA'])?$_SERVER['HTTP_X_OPERAMINI_PHONE_UA']:(isset($_SERVER['HTTP_DEVICE_STOCK_UA'])?$_SERVER['HTTP_DEVICE_STOCK_UA']:''));
+        if (preg_match('/(tablet|ipad|playbook)|(android(?!.*mobile))/i', $stock_ua)) {
+          $tablet_browser++;
+        }
+    }
+
+    if ($tablet_browser > 0) {
+       return 'tablet';
+    }
+    else if ($mobile_browser > 0) {
+       return 'mobile';
+    }
+    else {
+       return 'desktop';
+    } 
+}
+
+
+//Usage: to determine if multi-option dropdown is selected
+function isMultiOptionSelected($this_option, $options, $is_comma_separated = true){
     
-    if ($browser->getName() == 'Internet Explorer' && $browser->getVersion() < 11) {
-        echo    '   <div class="alert alert-danger" role="alert">
-                        Please upgrade your browser.
-                    </div>';
+    if($is_comma_separated){
+        $options = explode(',', $options);
+        if(in_array($this_option, $options)){
+            return 'selected';
+        }
+    } else {
+        if(in_array($this_option, $options)){
+            return 'selected';
+        }
     }
-        
-    if ($browser->getName() == 'Chrome' && $browser->getVersion() < 45) {
-        echo    '   <div class="alert alert-danger" role="alert">
-                        Please upgrade your browser.
-                    </div>';
+    
+    return '';
+    
+}
+
+//Usage: to determine if checkbox is selected
+function isCheckboxChecked($this_option, $options, $is_comma_separated = true){
+    
+    if($is_comma_separated){
+        $options = explode(',', $options);
+        if(in_array($this_option, $options)){
+            return 'checked';
+        }
+    } else {
+        if(in_array($this_option, $options)){
+            return 'checked';
+        }
     }
-        
-    if ($browser->getName() == 'Firefox' && $browser->getVersion() < 34) {
-        echo    '   <div class="alert alert-danger" role="alert">
-                        Please upgrade your browser.
-                    </div>';
+    
+    return '';
+    
+}
+
+
+//Usage: to determine if radiobox is selected
+function isRadioboxChecked($this_option, $radio_value){
+    
+    if($this_option == $radio_value){
+        return 'checked';
     }
-        
-    if ($browser->getName() == 'Safari' && $browser->getVersion() < 9) {
-        echo    '   <div class="alert alert-danger" role="alert">
-                        Please upgrade your browser.
-                    </div>';
+    
+    return '';
+    
+}
+
+//check if user allowed to store cookies
+function checkCookies(){
+    if(isset($_COOKIE['is_cookie_usage_accepted']) && $_COOKIE['is_cookie_usage_accepted'] == true){
+        return true;
+    } else {
+        return false;
     }
 }

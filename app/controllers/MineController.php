@@ -51,7 +51,7 @@ class MineController extends Controller{
         $test_info['submit_page'] = 'finish'; 
         
         //5.) Load the testing page and pass the test_info array
-        $content = $this->loadView('pages/candidate/testing', $test_info);
+        $content = $this->getView('pages/candidate/testing', $test_info);
         
         //6.) Load the candidate template page, pass the candidate testing page then load the page.
         $html['includeSiteLevelJS'] = $this->site_level_form_builder_js;

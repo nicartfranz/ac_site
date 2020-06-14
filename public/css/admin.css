@@ -1,3 +1,9 @@
+/*ADMIN SITE*/
+select#selectmultiple_webbrowser{
+    height:165px;
+}
+
+
 /*start/end page marker*/
 div.startpage-marker, div.endpage-marker{
     border: 1px solid;

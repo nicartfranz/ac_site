@@ -4,7 +4,6 @@ class CandidateController extends Controller{
     
     public function __construct() {
         parent::__construct();
-        allowPageAccessByUser(['test_taker']);
     }
 
     public function index(){
@@ -13,7 +12,7 @@ class CandidateController extends Controller{
         $tests = $test->getAllTests();
         
         //load a view and put it in a variable for later use
-        $content = $this->loadView('pages/candidate/index', $tests);
+        $content = $this->getView('pages/candidate/index', $tests);
         
         //create an array that will store data to be passed to the render view method
         $html = [
@@ -26,7 +25,7 @@ class CandidateController extends Controller{
     public function privacy_consent(){
         
         //load a view and put it in a variable for later use
-        $content = $this->loadView('pages/candidate/privacy_consent');
+        $content = $this->getView('pages/candidate/privacy_consent');
         
         //create an array that will store data to be passed to the render view method
         $html = [
@@ -48,7 +47,7 @@ class CandidateController extends Controller{
         
         
         //load a view and put it in a variable for later use
-        $content = $this->loadView('pages/candidate/candidate_demographics');
+        $content = $this->getView('pages/candidate/candidate_demographics');
         
         //create an array that will store data to be passed to the render view method
         $html = [
