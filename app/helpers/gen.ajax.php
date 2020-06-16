@@ -63,7 +63,6 @@ function ajax_save_test(){
                             'public/js/formbuilder/form-builder.min.js', 
                             'public/js/formbuilder/form-render.min.js', 
                             'public/js/formbuilder/control_plugins/starRating.js', 
-                            'public/js/formbuilder/control_plugins/sliderTemplate.js', 
                             'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
                             'public/js/formbuilder/control_plugins/startPageMarker.js', 
                             'public/js/formbuilder/control_plugins/endPageMarker.js',

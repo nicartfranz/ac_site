@@ -17,7 +17,8 @@ class SiteController extends Controller{
         $error_site_requirement = $this->isSystemCompatible();
         $inside_page_data = [
             'invalid_login' => '',
-            'error_site_requirement' => $error_site_requirement,
+            'error_site_requirement' => $error_site_requirement['errors'],
+            'warning_site_requirement' => $error_site_requirement['warnings'],
             'requirements' => $requirements,
         ];
         
@@ -45,6 +46,7 @@ class SiteController extends Controller{
 //        echo 'Device: ' . getDevice(). '<br>';
         
         $error = [];
+        $warning = [];
         $candidate_site_req = $this->initModel('CandidateSiteRequirementsModel');
         $requirements = $candidate_site_req->get_requirements();
         
@@ -67,7 +69,7 @@ class SiteController extends Controller{
         
         //Cookie checker
         if(!checkCookies() && $requirements['cookies'] == '1'){
-            $error[] = 'This website uses cookies to give you the best possible experience. Click here if you <a href="'.APP_BASE_URL.'site/accept_cookie_usage">agree</a>.';
+            $warning[] = 'This website uses cookies to give you the best possible experience. Click here if you <a href="'.APP_BASE_URL.'site/accept_cookie_usage">agree</a>.';
         }
         
         //IF mobile and camera required, add error message
@@ -75,7 +77,7 @@ class SiteController extends Controller{
             $error[] = '<b>Camera is currently not supported in mobile and tablet</b>.<br>Please use a laptop or PC/desktop with camera attahed.';
         }
         
-        return $error;
+        return array('errors' => $error, 'warnings' => $warning);
         
     }
     

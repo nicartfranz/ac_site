@@ -7,7 +7,6 @@ class MineController extends Controller{
         'public/js/formbuilder/form-builder.min.js', 
         'public/js/formbuilder/form-render.min.js', 
         'public/js/formbuilder/control_plugins/starRating.js', 
-        'public/js/formbuilder/control_plugins/sliderTemplate.js', 
         'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
         'public/js/formbuilder/control_plugins/startPageMarker.js', 
         'public/js/formbuilder/control_plugins/endPageMarker.js',
@@ -54,7 +53,8 @@ class MineController extends Controller{
         $content = $this->getView('pages/candidate/testing', $test_info);
         
         //6.) Load the candidate template page, pass the candidate testing page then load the page.
-        $html['includeSiteLevelJS'] = $this->site_level_form_builder_js;
+        $html['includeSiteLevelCSS'] = array(); //include site level css
+        $html['includeSiteLevelJS'] = $this->site_level_form_builder_js; //include site level js
         $html['content'] = $content;
         $this->renderView('layouts/candidate', $html);
         

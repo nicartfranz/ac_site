@@ -22,7 +22,16 @@ $count_system_req_errs = count($data['error_site_requirement']);
         <div class="alert alert-warning mt-3" id="microphone_permission" style="display:none;">
             Please allow/accept microphone permission in your browser. <button class="btn btn-success" onclick="activate_microphone();">Activate Microphone</button>
         </div>
-    <?php endif; ?>     
+    <?php endif; ?>   
+        
+    <?php  if(isset($data['warning_site_requirement']) && !empty($data['warning_site_requirement'])): ?>
+        <br>
+        <?php foreach($data['warning_site_requirement'] as $warning): ?>
+            <div class="alert alert-warning">
+                <?= $warning ?>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>    
         
     <?php if($count_system_req_errs == 0 || $count_system_req_errs == ''): ?>    
         <div id="login-row" class="row justify-content-center align-items-center">

@@ -119,12 +119,6 @@ div.formbuilder-starRating{
     padding: 5px;
     border-radius: 3px;   
 }
-div.formbuilder-sliderTemplate{
-    border: 1px solid #f8f9fa;
-    background: #f8f9fa;
-    padding: 5px;
-    border-radius: 3px;   
-}
 div.formbuilder-single-answer-template{
     border: 1px solid #f8f9fa;
     background: #f8f9fa;
@@ -273,11 +267,11 @@ div.sliderTypeQuestion_text{
 /*When media wide is 500 less*/
 @media only screen and (max-width: 500px) {
     html, body {
-        font-size: 90%;
+        font-size: 82%;
         font-weight: 300;
     }
     table{
-        font-size: 90%;
+        font-size: 82%;
         font-weight: 300;
     }
 }

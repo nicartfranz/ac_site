@@ -28,14 +28,6 @@ const fb_customFields = [
       },
     },
     {
-      type: 'sliderTemplate',
-      label: 'Slider template (Single answer) 0-5 Steps',
-      attrs: {
-        type: 'sliderTemplate',
-      },
-      icon: '',
-    },
-    {
         type: "customHTMLTemplate",
         required: false,
         label: "Custom HTML",
@@ -116,11 +108,6 @@ const fb_templates = {
           $("span#"+fieldData.name).rateYo({ rating: 0, halfStar: true })
         },
       }
-    },
-    sliderTemplate: function(fieldData) { 
-        return {
-            field: '<input type="range" class="custom-range" min="0" max="5" id="'+fieldData.name+'">'
-        }
     },
     customHTMLTemplate: function(fieldData) { 
         var custom_html_value = fieldData.value || '';
@@ -543,24 +530,6 @@ const fb_typeUserAttrs = {
             value: '1:0;2:0;3:0;4:0;5:1;',
         },
     },
-    sliderTemplate: {
-        part: {
-            label: 'Part', 
-            value: '0',
-        },
-        section: {
-            label: 'Section', 
-            value: '0',
-        },
-        fldQOrder: {
-            label: 'Question Order', 
-            value: '0',
-        },
-        correctAns: {
-            label: 'Correct Answer', 
-            value: '1:0;2:0;3:0;4:0;5:1;',
-        },
-    },
     'single-answer-template': {
         part: {
             label: 'Part', 
@@ -621,21 +590,19 @@ const fb_typeUserAttrs = {
 
 const fb_controlOrder = [
     'startPageMarker',
-    'autocomplete',
-    'button',
-    'checkbox-group',
-    'date',
-    'file',
     'header',
+    'paragraph',
+    'autocomplete',
+    'checkbox-group',
+    'select',
+    'radio-group',
+    'date',
     'hidden',
     'number',
-    'paragraph',
-    'radio-group',
-    'select',
     'text',
     'textarea',
+    'file',
     'starRating',
-    'sliderTemplate',
     'single-answer-template',
     'multiple-answer-template',
     'customHTMLTemplate',
@@ -643,5 +610,6 @@ const fb_controlOrder = [
     'LeastBestQuestion',
     'rankingQuestion',
     'sliderQuestion',
+    'button',
     'endPageMarker',
 ];
