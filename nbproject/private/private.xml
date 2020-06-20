@@ -12,15 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/ac_site/public/css/test_taker.css</file>
+            <file>file:/C:/wamp/www/ac_site/app/views/pages/admin/test_conversion.php</file>
             <file>file:/C:/wamp/www/ac_site/app/helpers/gen.helpers.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/views/pages/login.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/controllers/MineController.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/controllers/IeasController.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/controllers/FaqnController.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/models/TestModel.php</file>
             <file>file:/C:/wamp/www/ac_site/public/js/fb_fields_acsite.js</file>
-            <file>file:/C:/wamp/www/ac_site/app/controllers/SiteController.php</file>
-            <file>file:/C:/wamp/www/ac_site/public/js/testtaking.js</file>
             <file>file:/C:/wamp/www/ac_site/app/controllers/TestController.php</file>
         </group>
     </open-files>

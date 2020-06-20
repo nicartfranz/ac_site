@@ -73,18 +73,14 @@ class Controller {
         //1) group the question by page start
         foreach ($decoded_questions as $key => $question){
             
-            //unset unnecessary fields
-            unset($decoded_questions[$key]->part);
-            unset($decoded_questions[$key]->section);
-//            unset($decoded_questions[$key]->fldQOrder);
-            unset($decoded_questions[$key]->correctAns);
-            
             //group the pages by startPageMarker
             if($decoded_questions[$key]->type == 'startPageMarker'){
                 $page_inc++;
             }            
             $decoded_questions[$key]->setTimer = isset($decoded_questions[$key]->setTimer) ? $decoded_questions[$key]->setTimer : -1; 
             $questions_arr['page'.$page_inc][] = $decoded_questions[$key];
+        
+            
         }
         
         //check if valid test format level 1
@@ -184,10 +180,6 @@ class Controller {
         //2.) remove unnecessary attr in the html question
         $decoded_questions = json_decode($raw_questions);
         foreach ($decoded_questions as $key => $question){
-            unset($decoded_questions[$key]->part);
-            unset($decoded_questions[$key]->section);
-//            unset($decoded_questions[$key]->fldQOrder);
-            unset($decoded_questions[$key]->correctAns);
         
             //3.) Display the first page: identified by type:startPageMarker & type:endPageMarker
             if($decoded_questions[$key]->type == 'startPageMarker'){
@@ -353,14 +345,16 @@ class Controller {
     
     
     //submit form 
-    public function submitForm(){
+    public function submitForm($confirm_submit = true){
         
-        if(isset($_POST)){
-//            echo '<pre>';
-//            print_r($_POST);
-//            echo '</pre>';
+        if($confirm_submit){
+            //back end saving
+        } else {
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
         }
-        
+
     }
     
     //saves the snapshot to a directory

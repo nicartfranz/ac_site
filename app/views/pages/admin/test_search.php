@@ -2,11 +2,11 @@
 <div class="container-fluid">
 
     <div class="form-group">
-        <form class="">
+        <form class="" method="POST" action="<?= APP_BASE_URL.'test/search/' ?>">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-1 col-lg-4" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <input value="<?= isset($_POST['assessment_name']) ? $_POST['assessment_name']  : ''; ?>" type="text" name="assessment_name" class="form-control bg-light border-1 col-lg-4" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button type="submit" name="search" class="btn btn-primary" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
