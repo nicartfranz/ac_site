@@ -89,11 +89,10 @@ class TestModel extends Model{
                                             WHERE 1=1 
                                             AND tbtest_items.QuesCode LIKE ? 
                                             ORDER BY 
-                                            tbdimension.dimensionNumber ASC,
                                             tbtest_items.fldQOrder ASC, 
+                                            tbdimension.dimensionNumber ASC,
                                             tbtest_items.level ASC', array($assCode.'-%'));
         return $test_items;
-        
 
     }
     

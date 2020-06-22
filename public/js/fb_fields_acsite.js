@@ -240,7 +240,7 @@ const fb_templates = {
       Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book\n\
     </div>\n\
     <br>\n\
-    <div class='sliderTypeQuestion_text' id='q_sl_1'><span>Neutral</span></div>\n\
+    <div class='sliderTypeQuestion_text' id='q_sl_1'><span>#</span></div>\n\
     <br>\n\
     <div class='sliderTypeQuestion_choice' id='q_sl_1'>\n\
     <input type='range' class='custom-range' min='1' max='5' step='1' id='sliderTypeQuestion_range' name='q_sl_1'>\n\
@@ -684,6 +684,21 @@ question_type: {
                 'wh':'wh',
                 'yn1':'yn1',
                 'yn2':'yn2',
+            },
+        },
+    },
+    sliderQuestion:{
+        question_type: {
+            label: 'Question Type',
+            options: {
+                'lkr':'lkr',
+            },
+        },
+        slider_options: {
+            label: 'Slider Options',
+            options: {
+                '1':'"1-Strongly Disagree", "2-Disagree", "3-Neutral", "4-Agree", "5-Strongly Agree"',
+                '2':'"1-Very Untrue of Me", "2-Untrue of Me", "3-Somewhat Untrue of Me", "4-Neither True or Untrue", "5-Somewhat True of Me", "6-True of Me", "7-Very True of Me"',
             },
         },
     }

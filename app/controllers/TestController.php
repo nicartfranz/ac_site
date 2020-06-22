@@ -249,7 +249,7 @@ class TestController extends Controller{
     
     protected function generate_question($inc, $question_info){
         
-        $valid_question_types = ['mc1', 'mc2', 'mc3', 'mc4'];
+        $valid_question_types = ['mc1', 'mc2', 'mc3', 'mc4', 'cd', 'wh', 'tf1', 'tf2', 'yn1', 'yn2', 'ein', 'lkr'];
         $error = '';
         
         if(!in_array($question_info['QuesType'], $valid_question_types)){
@@ -282,13 +282,264 @@ class TestController extends Controller{
                 } else {
                     return $this->singleAnswerQuestion($inc, $question_info['question'], $question_info['options']);
                 }
-                
                 break;
+                
+            case 'cd':
+                //contributes (C) or (1)
+                //detracts (D) or (2)
+                return $this->singleAnswerQuestion_CD($inc, $question_info['question']);
+                break;
+            case 'wh':    
+                //what kind of (W) or (1)
+                //how (H) or (2)
+                return $this->singleAnswerQuestion_WH($inc, $question_info['question']);
+                break;
+            case 'tf1':
+                //True (T) or (1)
+                //False (F) or (2)
+                return $this->singleAnswerQuestion_TF1($inc, $question_info['question']);
+                break;
+            case 'tf2':
+                //True (T) or (1)
+                //False (F) or (2)
+                //Undecided (U) or (3)
+                return $this->singleAnswerQuestion_TF2($inc, $question_info['question']);
+                break;
+            case 'yn1':
+                //Yes (Y) or (1)
+                //No (N) or (2)
+                return $this->singleAnswerQuestion_YN1($inc, $question_info['question']);
+                break;
+            case 'yn2':
+                //Yes (Y) or (1)
+                //No (N) or (2)
+                //Undecided (U) or (3)
+                return $this->singleAnswerQuestion_YN2($inc, $question_info['question']);
+            case 'ein':    
+                //Effective (E) or (1)
+                //Ineffective (I) or (2)
+                //Neutral (N) or (0)
+                return $this->singleAnswerQuestion_EIN($inc, $question_info['question']);
+            case 'lkr':
+                //Likert
+                
+                //default
+//                $options['key'] = [1,2,3,4,5];
+//                $options['val'] = ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'];
+//                $initial_option = "Neutral";
+//                
+//                $options['key'] = [1,2,3,4,5,6,7];
+//                $options['val'] = ['Very Untrue of Me', 'Untrue of Me', 'Somewhat Untrue of Me', 'Neither True or Untrue', 'Somewhat True of Me', 'True of Me', 'Very True of Me'];
+//                $initial_option = "Neither True or Untrue";
+                
+                //explode tbtest_items.CorrectAns
+                $CorrectAns = explodeData('CorrectAns', $question_info['CorrectAns']);
+                //count correct answers
+                $count_options = count($CorrectAns);
+                
+                if($count_options == 5){
+                    $options['options_type'] = '1';
+                    $options['key'] = [1,2,3,4,5];
+                    $options['val'] = ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'];
+                    $initial_option = "Neutral";
+                } else if ($count_options == 7){
+                    $options['options_type'] = '2';
+                    $options['key'] = [1,2,3,4,5,6,7];
+                    $options['val'] = ['Very Untrue of Me', 'Untrue of Me', 'Somewhat Untrue of Me', 'Neither True or Untrue', 'Somewhat True of Me', 'True of Me', 'Very True of Me'];
+                    $initial_option = "Neither True or Untrue";
+                } else {
+                    //default
+                    $options['options_type'] = '1';
+                    $options['key'] = [1,2,3,4,5];
+                    $options['val'] = ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'];
+                    $initial_option = "Neutral";
+                }
+                
+                return $this->singleAnswerQuestion_LKR($inc, $question_info['question'], $options, $initial_option);
             default:
                 return '';
         }
          
     }
+    
+    protected function singleAnswerQuestion_LKR($inc, $question, $options, $initial_option = "Neutral"){
+        
+        $values = [];
+        $total_options = count($options['val']);
+        $data_options_type = $options['options_type']; 
+        $imploded_options_key = implode(':', $options['key']);
+        $imploded_options_val = implode(':', $options['val']);
+
+        $value = "<div class=\"sliderTypeQuestion\">\t<div>{$question}</div>\t<br>\t";
+        $value .= "<div class=\"sliderTypeQuestion_text\" id=\"q_sl_{$inc}\">\t\t<span>{$initial_option}</span>\t</div>\t<br>\t<div class=\"sliderTypeQuestion_choice\" id=\"q_sl_{$inc}\">\t\t<input type=\"range\" class=\"custom-range\" min=\"1\" max=\"{$total_options}\" step=\"1\" id=\"sliderTypeQuestion_range\" name=\"q_sl_{$inc}\" data-options-key=\"{$imploded_options_key}\" data-options-val=\"{$imploded_options_val}\" data-options-type=\"{$data_options_type}\">\t</div></div>";
+        
+        return (object)[
+            "type" => "sliderQuestion",
+            "required" => false,
+            "label" => '<b>Slider Type Answer</b>',
+            "name" => "sliderQuestion-".$inc."",
+            "access" => false,
+            "value" => $value,
+            "question_type" => "lkr",
+            "slider_options" => $data_options_type,
+        ];
+    }
+    
+    
+    protected function singleAnswerQuestion_EIN($inc, $question, $options = ['1' => 'Effective', '2' => 'Ineffective', '0' => 'Neutral']){
+        
+        $values = [];
+        foreach($options as $opt_key => $opt_value){
+            $values[] = (object)[
+                "label" => $opt_value,
+                "value" => $opt_key,
+            ];
+        }
+        
+        return (object)[
+            "type" => "radio-group",
+            "required" => false,
+            "label" => htmlentities(strip_tags($question)),
+            "inline" => false,
+            "name" => "radio-group-".$inc."",
+            "access" => false,
+            "other" => false,
+            "values" => $values
+        ];
+    }
+    
+    protected function singleAnswerQuestion_YN2($inc, $question, $options = ['1' => 'Yes', '2' => 'No', '3' => 'Undecided']){
+        
+        $values = [];
+        foreach($options as $opt_key => $opt_value){
+            $values[] = (object)[
+                "label" => $opt_value,
+                "value" => $opt_key,
+            ];
+        }
+        
+        return (object)[
+            "type" => "radio-group",
+            "required" => false,
+            "label" => htmlentities(strip_tags($question)),
+            "inline" => false,
+            "name" => "radio-group-".$inc."",
+            "access" => false,
+            "other" => false,
+            "values" => $values
+        ];
+    }
+    
+    protected function singleAnswerQuestion_YN1($inc, $question, $options = ['1' => 'Yes', '2' => 'No']){
+        
+        $values = [];
+        foreach($options as $opt_key => $opt_value){
+            $values[] = (object)[
+                "label" => $opt_value,
+                "value" => $opt_key,
+            ];
+        }
+        
+        return (object)[
+            "type" => "radio-group",
+            "required" => false,
+            "label" => htmlentities(strip_tags($question)),
+            "inline" => false,
+            "name" => "radio-group-".$inc."",
+            "access" => false,
+            "other" => false,
+            "values" => $values
+        ];
+    }
+    
+    protected function singleAnswerQuestion_TF2($inc, $question, $options = ['1' => 'True', '2' => 'False', '3' => 'Undecided']){
+        
+        $values = [];
+        foreach($options as $opt_key => $opt_value){
+            $values[] = (object)[
+                "label" => $opt_value,
+                "value" => $opt_key,
+            ];
+        }
+        
+        return (object)[
+            "type" => "radio-group",
+            "required" => false,
+            "label" => htmlentities(strip_tags($question)),
+            "inline" => false,
+            "name" => "radio-group-".$inc."",
+            "access" => false,
+            "other" => false,
+            "values" => $values
+        ];
+    }
+    
+    protected function singleAnswerQuestion_TF1($inc, $question, $options = ['1' => 'True', '2' => 'False']){
+        
+        $values = [];
+        foreach($options as $opt_key => $opt_value){
+            $values[] = (object)[
+                "label" => $opt_value,
+                "value" => $opt_key,
+            ];
+        }
+        
+        return (object)[
+            "type" => "radio-group",
+            "required" => false,
+            "label" => htmlentities(strip_tags($question)),
+            "inline" => false,
+            "name" => "radio-group-".$inc."",
+            "access" => false,
+            "other" => false,
+            "values" => $values
+        ];
+    }
+    
+    protected function singleAnswerQuestion_WH($inc, $question, $options = ['1' => 'What kind of', '2' => 'How']){
+        
+        $values = [];
+        foreach($options as $opt_key => $opt_value){
+            $values[] = (object)[
+                "label" => $opt_value,
+                "value" => $opt_key,
+            ];
+        }
+        
+        return (object)[
+            "type" => "radio-group",
+            "required" => false,
+            "label" => htmlentities(strip_tags($question)),
+            "inline" => false,
+            "name" => "radio-group-".$inc."",
+            "access" => false,
+            "other" => false,
+            "values" => $values
+        ];
+    }
+    
+    protected function singleAnswerQuestion_CD($inc, $question, $options = ['1' => 'Contributes', '2' => 'Detracts']){
+        
+        $values = [];
+        foreach($options as $opt_key => $opt_value){
+            $values[] = (object)[
+                "label" => $opt_value,
+                "value" => $opt_key,
+            ];
+        }
+        
+        return (object)[
+            "type" => "radio-group",
+            "required" => false,
+            "label" => htmlentities(strip_tags($question)),
+            "inline" => false,
+            "name" => "radio-group-".$inc."",
+            "access" => false,
+            "other" => false,
+            "values" => $values
+        ];
+    }
+   
     
     protected function singleAnswerQuestion($inc, $question, $options){
         
@@ -312,6 +563,7 @@ class TestController extends Controller{
             "values" => $values
         ];
     }
+    
 
     protected function multiAnswerQuestion($inc, $question, $options){
         

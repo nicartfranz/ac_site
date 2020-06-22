@@ -243,27 +243,83 @@ $(document).ready(function(){
         
         var q_sl = $(this).attr('name');
         var slider_value = $(this).val();
+        var data_options_key = $(this).attr('data-options-key');//1:2:3:4:5
+        var data_options_val = $(this).attr('data-options-val');//Strongly Disagree:Disagree:Neutral:Agree:Strongly Agree
+        var data_options_val_arr = data_options_val.split(':');
+        var data_options_type = $(this).attr('data-options-type');
+        
+        //alert(data_options_key + ' ' + data_options_val + ' ' + data_options_type);
         
         var sl_bg = {'background': '#848484'};
-        var sl_text = 'Neutral';
-        if(slider_value == 1){
-            sl_bg = {'background': 'rgb(255, 110, 110)'};
-            sl_text = 'Strongly Disagree';
-        } else if (slider_value == 2){
-            sl_bg = {'background': 'rgb(255, 173, 39)'};
-            sl_text = 'Disagree';
-        } else if (slider_value == 3){
-            sl_bg = sl_bg;
-            sl_text = sl_text;
-        } else if (slider_value == 4){
-            sl_bg = {'background': 'rgb(50, 167, 111)'};
-            sl_text = 'Agree';
-        } else if (slider_value == 5){
-            sl_bg = {'background': 'rgb(38, 216, 131)'};
-            sl_text = 'Strongly Agree';
+        if(data_options_type == '1'){
+            
+            var sl_bg = {'background': '#848484'};
+            if(slider_value == 1){
+                sl_bg = {'background': 'rgb(255, 110, 110)'};
+                sl_text = data_options_val_arr[0];
+            } else if (slider_value == 2){
+                sl_bg = {'background': 'rgb(255, 173, 39)'};
+                sl_text = data_options_val_arr[1];
+            } else if (slider_value == 3){
+                sl_bg = sl_bg;
+                sl_text = data_options_val_arr[2];
+            } else if (slider_value == 4){
+                sl_bg = {'background': 'rgb(50, 167, 111)'};
+                sl_text = data_options_val_arr[3];
+            } else if (slider_value == 5){
+                sl_bg = {'background': 'rgb(38, 216, 131)'};
+                sl_text = data_options_val_arr[4];
+            }
+            $('div.sliderTypeQuestion_text#'+q_sl).css(sl_bg);
+            $('div.sliderTypeQuestion_text#'+q_sl+' > span').text(sl_text);
+            
+        } else if (data_options_type == '2'){
+            
+            var data_options_val_arr = data_options_val.split(':');
+            var sl_bg = {'background': '#2cabe1'};
+            if(slider_value == 1){
+                sl_text = data_options_val_arr[0];
+            } else if (slider_value == 2){
+                sl_text = data_options_val_arr[1];
+            } else if (slider_value == 3){
+                sl_text = data_options_val_arr[2];
+            } else if (slider_value == 4){
+                sl_bg = {'background': '#848484'};
+                sl_text = data_options_val_arr[3];
+            } else if (slider_value == 5){
+                sl_text = data_options_val_arr[4];
+            } else if (slider_value == 6){
+                sl_text = data_options_val_arr[5];
+            } else if (slider_value == 7){
+                sl_text = data_options_val_arr[6];
+            }
+            $('div.sliderTypeQuestion_text#'+q_sl).css(sl_bg);
+            $('div.sliderTypeQuestion_text#'+q_sl+' > span').text(sl_text);
+            
+        } else {
+            
+            var sl_bg = {'background': '#848484'};
+            if(slider_value == 1){
+                sl_bg = {'background': 'rgb(255, 110, 110)'};
+                sl_text = data_options_val_arr[0];
+            } else if (slider_value == 2){
+                sl_bg = {'background': 'rgb(255, 173, 39)'};
+                sl_text = data_options_val_arr[1];
+            } else if (slider_value == 3){
+                sl_bg = sl_bg;
+                sl_text = data_options_val_arr[2];
+            } else if (slider_value == 4){
+                sl_bg = {'background': 'rgb(50, 167, 111)'};
+                sl_text = data_options_val_arr[3];
+            } else if (slider_value == 5){
+                sl_bg = {'background': 'rgb(38, 216, 131)'};
+                sl_text = data_options_val_arr[4];
+            }
+            $('div.sliderTypeQuestion_text#'+q_sl).css(sl_bg);
+            $('div.sliderTypeQuestion_text#'+q_sl+' > span').text(sl_text);
+            
         }
-        $('div.sliderTypeQuestion_text#'+q_sl).css(sl_bg);
-        $('div.sliderTypeQuestion_text#'+q_sl+' > span').text(sl_text);
+       
     });
     //-=-=-=-=-=-=-=-=-=-=-= slider type question CPB -=-=-=-=-=-=-=-=-=-=-=
     
