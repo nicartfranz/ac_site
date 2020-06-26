@@ -1,8 +1,8 @@
 <?php 
 
-class PssaController extends Controller{
+class GoseController extends Controller{
 
-    public $ass_code = 'pssa';
+    public $ass_code = 'gose';
     public $site_level_form_builder_js = [
         'public/js/formbuilder/form-builder.min.js', 
         'public/js/formbuilder/form-render.min.js', 
@@ -25,6 +25,11 @@ class PssaController extends Controller{
     
     
     public function index(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -65,6 +70,11 @@ class PssaController extends Controller{
 
                 
     public function page2(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -99,6 +109,11 @@ class PssaController extends Controller{
             
             
     public function page3(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -133,6 +148,11 @@ class PssaController extends Controller{
             
             
     public function page4(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -167,6 +187,11 @@ class PssaController extends Controller{
             
             
     public function page5(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -201,6 +226,11 @@ class PssaController extends Controller{
             
             
     public function page6(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -235,6 +265,11 @@ class PssaController extends Controller{
             
             
     public function page7(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -269,6 +304,11 @@ class PssaController extends Controller{
             
             
     public function page8(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -303,6 +343,11 @@ class PssaController extends Controller{
             
             
     public function page9(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -337,6 +382,11 @@ class PssaController extends Controller{
             
             
     public function page10(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -371,6 +421,11 @@ class PssaController extends Controller{
             
             
     public function page11(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -405,6 +460,11 @@ class PssaController extends Controller{
             
             
     public function page12(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -439,6 +499,11 @@ class PssaController extends Controller{
             
             
     public function page13(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -473,6 +538,11 @@ class PssaController extends Controller{
             
             
     public function page14(){
+        
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -494,74 +564,6 @@ class PssaController extends Controller{
         $test_info['onTimesUp'] = $question_arr['page14'][0]->onTimerTimesUp;
         //4.4) Snapshot
         $test_info['enableSnapshot'] = $question_arr['page14'][0]->enableSnapshot;
-        $test_info['submit_page'] = 'page15';
-        //5.) Load the testing page and pass the test_info array
-        $content = $this->getView('pages/candidate/testing', $test_info);
-
-        //6.) Load the candidate template page, pass the candidate testing page then load the page.
-        $html['includeSiteLevelCSS'] = array(); //include site level css
-        $html['includeSiteLevelJS'] = $this->site_level_form_builder_js; //include site level js
-        $html['content'] = $content;
-        $this->renderView('layouts/candidate', $html);
-    }
-            
-            
-    public function page15(){
-
-        //1.) Initialize Model Class -> TestModel (For DB functions)
-        $test = $this->initModel('TestModel');
-        $test_data = $test->getTestByAssCode($this->ass_code);
-
-        //2.) Get questions from db
-        $question_arr = $this->loadQuestionCandidate($test_data['question']);
-
-        //3.) Set test page timer
-        testTimer('unset', $this->ass_code, 0); //unset timer on this page
-
-        //4.) Set the required test_info variables
-        $test_info = [];
-        //4.1) Set AssCode
-        $test_info['AssCode'] = $this->ass_code;
-        //4.2) Set the questions to display
-        $test_info['question'] = json_encode($question_arr['page15']);
-        //4.3) Javascript to run on timer times up
-        $test_info['onTimesUp'] = $question_arr['page15'][0]->onTimerTimesUp;
-        //4.4) Snapshot
-        $test_info['enableSnapshot'] = $question_arr['page15'][0]->enableSnapshot;
-        $test_info['submit_page'] = 'page16';
-        //5.) Load the testing page and pass the test_info array
-        $content = $this->getView('pages/candidate/testing', $test_info);
-
-        //6.) Load the candidate template page, pass the candidate testing page then load the page.
-        $html['includeSiteLevelCSS'] = array(); //include site level css
-        $html['includeSiteLevelJS'] = $this->site_level_form_builder_js; //include site level js
-        $html['content'] = $content;
-        $this->renderView('layouts/candidate', $html);
-    }
-            
-            
-    public function page16(){
-
-        //1.) Initialize Model Class -> TestModel (For DB functions)
-        $test = $this->initModel('TestModel');
-        $test_data = $test->getTestByAssCode($this->ass_code);
-
-        //2.) Get questions from db
-        $question_arr = $this->loadQuestionCandidate($test_data['question']);
-
-        //3.) Set test page timer
-        testTimer('unset', $this->ass_code, 0); //unset timer on this page
-
-        //4.) Set the required test_info variables
-        $test_info = [];
-        //4.1) Set AssCode
-        $test_info['AssCode'] = $this->ass_code;
-        //4.2) Set the questions to display
-        $test_info['question'] = json_encode($question_arr['page16']);
-        //4.3) Javascript to run on timer times up
-        $test_info['onTimesUp'] = $question_arr['page16'][0]->onTimerTimesUp;
-        //4.4) Snapshot
-        $test_info['enableSnapshot'] = $question_arr['page16'][0]->enableSnapshot;
         $test_info['submit_page'] = 'finish';
         //5.) Load the testing page and pass the test_info array
         $content = $this->getView('pages/candidate/testing', $test_info);

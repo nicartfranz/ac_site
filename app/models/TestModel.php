@@ -71,6 +71,26 @@ class TestModel extends Model{
         return $test_items;
     }
     
+    public function get_instruction_per_dimension($assCode, $dimensionNumber){
+         $test_dimensions = $this->db->fetchAssoc('SELECT tbdimension.*, tbassessment_category.* FROM tbdimension ' 
+                                                . 'LEFT JOIN tbassessment_category ON tbassessment_category.CategoryCode = CONCAT(tbdimension.AssCode,"-part:",tbdimension.dimensionNumber) '
+                                                . 'WHERE 1=1 ' 
+                                                . 'AND tbdimension.AssCode = ? ' 
+                                                . 'AND tbdimension.dimensionNumber = ? ' 
+                                                . 'LIMIT 1', array($assCode, $dimensionNumber));
+        return $test_dimensions;
+    }
+    
+     public function get_instruction_by_topicCode($assCode, $CategoryCode){
+         $test_dimensions = $this->db->fetchAssoc('SELECT tbdimension.*, tbassessment_category.* FROM tbdimension ' 
+                                                . 'LEFT JOIN tbassessment_category ON tbassessment_category.CategoryCode = CONCAT(tbdimension.AssCode,"-part:",tbdimension.dimensionNumber) '
+                                                . 'WHERE 1=1 ' 
+                                                . 'AND tbdimension.AssCode = ? ' 
+                                                . 'AND tbassessment_category.CategoryCode = ? ' 
+                                                . 'LIMIT 1', array($assCode, $CategoryCode));
+        return $test_dimensions;
+    }
+    
     public function getQuestionsForConversion($assCode){
         
         $test_items = $this->db->fetchAll('SELECT 
@@ -177,6 +197,11 @@ $open .= "
 
             $page_methods .= "
     public function ".$method_name."(){
+        
+        //--SUBMIT PREV FORM---//
+        \$this->submitForm(false);
+        \$this->saveSnapshot();
+        //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         \$test = \$this->initModel('TestModel');

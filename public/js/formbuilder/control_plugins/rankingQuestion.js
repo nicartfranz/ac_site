@@ -40,6 +40,28 @@ window.fbControls.push(function (controlClass) {
     }, {
       key: 'onRender',
       value: function onRender() {
+          
+        //console.log(JSON.stringify(this.config)); 
+        var question_id = this.config.name.split('-')[1];
+        var rn_question = this.config.rn_question;
+        
+        if(rn_question == '1'){
+
+            var ranking_question_html = "\
+<p>Which is most like you?<input type='hidden' id='q"+question_id+"_1' name='q"+question_id+"_1'></p>\n\
+<p>Which is least like you?<input type='hidden' id='q"+question_id+"_2' name='q"+question_id+"_2'></p>\n\
+<p>Of the remaining two, which is more like you?<input type='hidden' id='"+question_id+"_3' name='q"+question_id+"_3'></p>";
+             
+        } else if (rn_question == '2'){
+            var ranking_question_html = "\
+<p>1-Least like you<input type='hidden' id='q"+question_id+"_1' name='q"+question_id+"_1'></p>\n\
+<p>2-Next Least like you<input type='hidden' id='q"+question_id+"_2' name='q"+question_id+"_2'></p>\n\
+<p>3-Next Most like you<input type='hidden' id='"+question_id+"_3' name='q"+question_id+"_3'></p>\n\
+<p>4-Most like you<input type='hidden' id='"+question_id+"_4' name='q"+question_id+"_4'></p>";
+
+        }
+        
+          
         var html_value = this.config.value || "\n\
 <div class='container-fluid'>\n\
     <div class='row ranking-question'>\n\
@@ -64,7 +86,9 @@ window.fbControls.push(function (controlClass) {
 </div>";
         //remove the label
         $('.formbuilder-rankingQuestion-label').remove();
-        $('div#' + this.config.name).html(html_value);  
+        $('div#' + this.config.name).html(html_value);
+        $('div.ranking-question-box-left#q'+question_id).empty();
+        $('div.ranking-question-box-left#q'+question_id).html(ranking_question_html);
       }
     }]);
 

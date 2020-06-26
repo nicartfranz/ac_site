@@ -318,6 +318,23 @@ const fb_inputSets = [
             }, 
         ]
     },
+    {
+        label: 'Single Character Question template',
+        name: 'single_char_question_template',
+        fields:[
+        {
+            type: "paragraph",
+            subtype: "p",
+            label: "<font color=\"#000000\">&lt;input type=\"text\" onkeyup=\"javascript:char_question_onKeyUp(this);\" onblur=\"javascript:char_question_onBlur(this);\" maxlength=\"1\" style=\"width:75px;\" id=\"char_question_1\" name=\"char_question_1\"&gt;&amp;nbsp;Question&lt;hr&gt;</font>",
+            access: false
+          },
+        ]
+    }
+    
+
+
+    
+    
 ];
 
 const fb_typeUserAttrs = {
@@ -701,6 +718,49 @@ question_type: {
                 '2':'"1-Very Untrue of Me", "2-Untrue of Me", "3-Somewhat Untrue of Me", "4-Neither True or Untrue", "5-Somewhat True of Me", "6-True of Me", "7-Very True of Me"',
             },
         },
+    },
+    rankingQuestion:{
+        question_type: {
+            label: 'Question Type',
+            options: {
+                'rn1':'rn1',
+                'rn2':'rn2',
+                'rn3':'rn3',
+            },
+        },
+        rn_question: {
+            label: 'Ranking Question',
+            options: {
+                '1':'"1-Which is most like you?", "2-Which is least like you?", "3-Of the remaining two, which is more like you?"',
+                '2':'"1-Least like you", "2-Next Least like you", "3-Next Most like you", "4-Most like you"',
+            },
+        }
+    },
+    enumeration_answer_template:{
+        question_type: {
+            label: 'Question Type',
+            options: {
+                '': 'none',
+                'adap_mc':'adap_mc',
+                'cd':'cd',
+                'ein':'ein',
+                'lkr':'lkr',
+                'mc1':'mc1',
+                'mc2':'mc2',
+                'mc3':'mc3',
+                'mc4':'mc4',
+                'pti':'pti',
+                'rn1':'rn1',
+                'rn2':'rn2',
+                'rn3':'rn3',
+                'scor_mc':'scor_mc',
+                'tf1':'tf1',
+                'tf2':'tf2',
+                'wh':'wh',
+                'yn1':'yn1',
+                'yn2':'yn2',
+            },
+        },
     }
     
 };
@@ -723,6 +783,7 @@ const fb_controlOrder = [
     'starRating',
     'single-answer-template',
     'multiple-answer-template',
+    'single_char_question_template',
     'customHTMLTemplate',
     'likertQuestion',
     'LeastBestQuestion',

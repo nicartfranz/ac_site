@@ -96,6 +96,11 @@ class TestController extends Controller{
             #Get items for conversion 
             $items_for_conversion = $test->getQuestionsForConversion($test_info['AssCode']);
             $test_info['items_for_conversion'] = $items_for_conversion;
+            
+//            echo '<pre>';
+//            print_r($items_for_conversion);
+//            echo '</pre>';
+            
             $content = $this->getView('pages/admin/test_conversion', ['test' => $test_info]);
             
             $html['page_name'] = 'View Test: '.$test_info['AssName'];
@@ -152,11 +157,16 @@ class TestController extends Controller{
         $items_for_conversion['tb_dimensions'] = $tb_dimensions;
         $items_for_conversion['questions'] = $test->getQuestionsForConversion($tb_assessment['AssCode']);
         
-        $build_test = $this->buildTest($items_for_conversion);
+        list($build_test, $total_pages) = $this->buildTest($items_for_conversion);
+        
+//        echo '<pre>';
+//        print_r($build_test);
+//        echo '</pre>';
+        
         if(!$this->has_error){
             $insert = [];
             $insert['ass_code'] = $tb_assessment['AssCode']; 
-            $insert['total_pages'] = count($tb_dimensions); 
+            $insert['total_pages'] = $total_pages; 
             $insert['question'] = json_encode($build_test);
             $test->save_tbtest_items_summary($insert);
             //conversion end
@@ -168,8 +178,12 @@ class TestController extends Controller{
     }
         
     function buildTest($data){
+        
+        $test = $this->initModel('TestModel');
 
         $final_test = array();
+        $total_pages = 0;
+        $assessment_id = xss_clean($_GET['id']);
         $error = [];
         
         
@@ -179,37 +193,112 @@ class TestController extends Controller{
         
         
         //Start building the test
-        $inc = 0;
-        foreach($data['tb_dimensions'] as $dimension){
+        if(isset($_POST['group_test_by'])){
             
-            //Start Marker
-            $final_test[] = $this->startMarker($inc);
-            
-            //Questions
-            foreach($data['questions'] as $question_info){
-                
-                if($dimension['dimensionNumber'] == $question_info['level']){
+            if(xss_clean($_POST['group_test_by']) == '1'){ // GROUP BY DimensionNumber
+                $inc = 0;
+                foreach($data['tb_dimensions'] as $dimension){
                     
-                    $generate_question = $this->generate_question($inc++, $question_info);
-                    if($this->has_error){
-                        return (is_array($generate_question)) ? implode(', ', $generate_question) : $generate_question;
-                    } else {
-                        $final_test[] = $generate_question;
+                    //page instruction
+                    $page_instruction = $test->get_instruction_per_dimension($dimension['AssCode'], $dimension['dimensionNumber']);
+                    $final_test[] = $this->startMarker($inc);
+                    $final_test[] = $this->instructionPage($inc, $page_instruction['CategoryInst']);
+                    $final_test[] = $this->defaultSubmitButton($inc);
+                    $final_test[] = $this->endMarker($inc);  
+                    $total_pages++;
+
+                    
+                    //Start Marker
+                    $final_test[] = $this->startMarker($inc);
+                    $total_pages++;
+                    //Questions
+                    foreach($data['questions'] as $question_info){
+
+                        if($dimension['dimensionNumber'] == $question_info['level']){
+                            $generate_question = $this->generate_question($inc++, $question_info);
+                            if($this->has_error){
+                                return (is_array($generate_question)) ? array(implode(', ', $generate_question), $total_pages) : array($generate_question, $total_pages);
+                            } else {
+                                $final_test[] = $generate_question;
+                            }
+                        } else {
+                            continue;
+                            //$this->has_error = true;
+                            //return array('Error: tbdimension.dimensionNumber and tbtest_items.level does not match. 11 ' .$question_info['fldQOrder'] .' '.  $dimension['dimensionNumber'] .'=='. $question_info['level'], $total_pages);
+                        }
                     }
+                    //Submit Button
+                    $final_test[] = $this->defaultSubmitButton($inc);
+                    //End Marker
+                    $final_test[] = $this->endMarker($inc);       
+                }
+                
+            } else if (xss_clean($_POST['group_test_by']) == '2'){ // GROUP BY TopicCode
+                $inc = 0;
+                
+                $question_by_topic_code = [];
+                foreach($data['questions'] as $question_info){
+                    $question_by_topic_code[$question_info['TopicCode']][] = $question_info;
+                }
+
+                $question_info = [];
+                
+                foreach($question_by_topic_code as $key => $question_info){
+
+                    //page instruction
+                    $page_instruction = $test->get_instruction_by_topicCode($data['tb_dimensions'][0]['AssCode'], $key);
+                    $final_test[] = $this->startMarker($inc);
+                    $final_test[] = $this->instructionPage($inc, $page_instruction['CategoryInst']);
+                    $final_test[] = $this->defaultSubmitButton($inc);
+                    $final_test[] = $this->endMarker($inc);  
+                    $total_pages++;
+                    
+                    
+                    //Start Marker
+                    $final_test[] = $this->startMarker($inc);
+                    $total_pages++;
+                    
+                    //Questions
+                    foreach ($question_info as $question){
+                    
+                        $csv_level = $question['level'];
+                        $exploded_csv_level = explode(',', $csv_level);
+                        if($question['dimensionNumber'] == $question['level']){
+                            $generate_question = $this->generate_question($inc++, $question);
+                            if($this->has_error){
+                                return (is_array($generate_question)) ? array(implode(', ', $generate_question), $total_pages) : array($generate_question, $total_pages);
+                            } else {
+                                $final_test[] = $generate_question;
+                            }
+                        } else if (in_array($question['dimensionNumber'], $exploded_csv_level)) { //example tests: pti
+                            $generate_question = $this->generate_question($inc++, $question);
+                            if($this->has_error){
+                                return (is_array($generate_question)) ? array(implode(', ', $generate_question), $total_pages) : array($generate_question, $total_pages);
+                            } else {
+                                $final_test[] = $generate_question;
+                            }
+                        } else {
+                            $this->has_error = true;
+                            return array('Error: tbdimension.dimensionNumber and tbtest_items.level does not match. 22', $total_pages);
+                        }
+                        
+                    }
+                    
+                    //Submit Button
+                    $final_test[] = $this->defaultSubmitButton($inc);
+                    //End Marker
+                    $final_test[] = $this->endMarker($inc);  
                     
                 }
                 
             }
-            
-            //Submit Button
-            $final_test[] = $this->defaultSubmitButton($inc);
-                    
-            //End Marker
-            $final_test[] = $this->endMarker($inc);       
-            
         }
         
-        return $final_test;
+//        echo '<pre>';
+//        print_r($total_pages);
+//        echo '</pre>';
+        
+        return array($final_test, $total_pages);
     }
     
     protected function startMarker($inc){
@@ -249,7 +338,7 @@ class TestController extends Controller{
     
     protected function generate_question($inc, $question_info){
         
-        $valid_question_types = ['mc1', 'mc2', 'mc3', 'mc4', 'cd', 'wh', 'tf1', 'tf2', 'yn1', 'yn2', 'ein', 'lkr'];
+        $valid_question_types = ['mc1', 'mc2', 'mc3', 'mc4', 'cd', 'wh', 'tf1', 'tf2', 'yn1', 'yn2', 'ein', 'lkr', 'pti', 'rn1', 'rn2'];
         $error = '';
         
         if(!in_array($question_info['QuesType'], $valid_question_types)){
@@ -323,15 +412,6 @@ class TestController extends Controller{
             case 'lkr':
                 //Likert
                 
-                //default
-//                $options['key'] = [1,2,3,4,5];
-//                $options['val'] = ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'];
-//                $initial_option = "Neutral";
-//                
-//                $options['key'] = [1,2,3,4,5,6,7];
-//                $options['val'] = ['Very Untrue of Me', 'Untrue of Me', 'Somewhat Untrue of Me', 'Neither True or Untrue', 'Somewhat True of Me', 'True of Me', 'Very True of Me'];
-//                $initial_option = "Neither True or Untrue";
-                
                 //explode tbtest_items.CorrectAns
                 $CorrectAns = explodeData('CorrectAns', $question_info['CorrectAns']);
                 //count correct answers
@@ -356,10 +436,100 @@ class TestController extends Controller{
                 }
                 
                 return $this->singleAnswerQuestion_LKR($inc, $question_info['question'], $options, $initial_option);
+                break;
+                
+            case 'pti':
+                
+                //explode tbtest_items.CorrectAns
+                $CorrectAns = explodeData('CorrectAns', $question_info['CorrectAns']);
+                //count correct answers
+                $correct_answers = 0;
+                foreach($CorrectAns as $ans){
+                    if($ans > 0){
+                        ++$correct_answers;
+                    }
+                }                
+                
+                if($correct_answers > 1){
+                    return $this->multiAnswerQuestion($inc, $question_info['question'], $question_info['options']);
+                } else {
+                    return $this->singleAnswerQuestion($inc, $question_info['question'], $question_info['options']);
+                }
+                break; 
+                
+            case 'rn1':
+                //Ranking
+                
+                $ranking['ranking_question_type'] = '2';
+                $ranking['question'] = [1 => '1-Least like you',
+                                        2 => '2-Next Least like you',
+                                        3 => '3-Next Most like you',
+                                        4 => '4-Most like you'];
+                return $this->multiAnswerQuestion_RN1($inc, $question_info['question'], $question_info['options'], $ranking);
+                break;
+            
+            case 'rn2':
+                
+                return $this->singleAnswerQuestion_RN2($inc, $question_info['question']);
+                break;
             default:
                 return '';
         }
          
+    }
+    
+    protected function singleAnswerQuestion_RN2($inc, $question){
+        
+        $value = "<font color=\"#000000\">&lt;input type=\"text\" onkeyup=\"javascript:char_question_onKeyUp(this);\" onblur=\"javascript:char_question_onBlur(this);\" maxlength=\"1\" style=\"width:75px;\" id=\"char_question_".$inc."\" name=\"char_question_".$inc."\"&gt;&amp;nbsp;".$question."&lt;hr&gt;</font>";
+        
+        return (object)[
+            "type" => "paragraph",
+            "subtype" => "p",
+            "label" => $value,
+            "access" => false,
+        ];
+    }
+    
+    
+    protected function multiAnswerQuestion_RN1($inc, $question, $options, $ranking){
+        
+        $ranking_question_html = '';
+        foreach($ranking['question'] as $key => $rank_question){
+            $ranking_question_html .= "<p>{$rank_question}<input type='hidden' id='q{$inc}_{$key}' name='q{$inc}_{$key}'></p>";
+        }        
+        
+        $choice_html = '';
+        $choices_arr = explodeData('options', $options);
+        foreach ($choices_arr as $key => $choice){ 
+            $choice_html .= "<div class='col-xs ranking-choice c{$inc}_{$key}'>{$choice}</div>";
+        }
+        
+        
+        $value = "
+<div class='container-fluid'>
+    <div class='row ranking-question'>
+        <div class='col-sm ranking-question-box-left' id='q{$inc}'>
+            {$ranking_question_html}
+        </div>
+        <div class='col-sm ranking-question-box-right'>
+        <div class='row ranking-choice-box' id='q{$inc}'>
+            {$choice_html}
+        </div>
+        <br>
+        {$question}
+    </div>
+</div>";
+        
+        return (object)[
+            "type" => "rankingQuestion",
+            "required" => false,
+            "label" => '#3 Ranking Answer (DISC)',
+            "name" => "rankingQuestion-".$inc."",
+            "access" => false,
+            "value" => $value,
+            "question_type" => "rn1",
+            "rn_question" => $ranking['ranking_question_type'],
+        ];
     }
     
     protected function singleAnswerQuestion_LKR($inc, $question, $options, $initial_option = "Neutral"){
@@ -588,6 +758,17 @@ class TestController extends Controller{
             "values" => $values
         ];
         
+    }
+    
+     protected function instructionPage($inc, $html){
+         
+        return (object)[
+            "type" => "paragraph",
+            "subtype" => "p",
+            "label" => $html,
+            "access" => false,
+        ];
+     
     }
 
 

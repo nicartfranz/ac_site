@@ -64,6 +64,11 @@ class MineController extends Controller{
     }
     
      public function page2(){
+         
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
         
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -100,6 +105,11 @@ class MineController extends Controller{
     }
     
      public function page3(){
+         
+        //--SUBMIT PREV FORM---//
+        $this->submitForm(false);
+        $this->saveSnapshot();
+        //--------------------//
         
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');

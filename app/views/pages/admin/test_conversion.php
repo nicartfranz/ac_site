@@ -8,9 +8,26 @@
     
     <?php endif; ?>
     
-    <form id="test_form" method="POST" action="<?= APP_BASE_URL.'test/convert/?id='.$data['test']['id'] ?>">
+    <form  id="test_form" method="POST" action="<?= APP_BASE_URL.'test/convert/?id='.$data['test']['id'] ?>">
         <button type="submit" name="convert" class="btn btn-success" onclick="return confirm('Please confirm test conversion.')">Convert Test</button>
         <input type="hidden" name="assessment_id" value="<?= $data['test']['id'] ?>">
+        <br>
+        <br>
+        <label class="col-md-4 control-label" for="radios">Group by:</label>
+        <div class="col-md-4">
+            <div class="radio">
+                <label for="radios-0">
+                  <input type="radio" name="group_test_by" id="radios-0" value="1" checked="checked">
+                  Dimension Number
+                </label>
+            </div>
+            <div class="radio">
+              <label for="radios-1">
+                <input type="radio" name="group_test_by" id="radios-1" value="2">
+                Topic Code
+              </label>
+        </div>
+        </div>
     </form>
     
     <br>
@@ -23,6 +40,7 @@
                 <th>Order<br><small>(tbtest_items.fldQOrder)</small></th>
                 <th>Number<br><small>(tbtest_items.fldQNo)</small></th>
                 <th>Dimension*<br><small>(tbtest_items.level)</small></th>
+                <th>Topic Code<br><small>(tbtest_items.TopicCode)</small></th>
                 <th>Question<br><small>(tbtest_items.question)</small></th>
                 <th>Options<br><small>(tbtest_items.options)</small></th>
                 <th>Type<br><small>(tbtest_items.QuesType)</small></th>
@@ -37,6 +55,7 @@
                 <td><?= $question['fldQOrder'] ?></td>
                 <td><?= $question['fldQNo'] ?></td>
                 <td><?= $question['level'] ?></td>
+                <td><?= $question['TopicCode'] ?></td>
                 <td><?= $question['question'] ?></td>
                 <td><?= $question['options'] ?></td>
                 <td><?= $question['QuesType'] ?></td>
