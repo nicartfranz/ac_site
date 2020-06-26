@@ -335,9 +335,21 @@ function char_question_onBlur(dis){
     var entered_char = $(dis).val().toLowerCase();
     //default
     //A|1 = almost never          B|2 = occasionally          C|3 = very frequently          D|4 = almost always
-    if(entered_char == ''){
+      if(entered_char == 'a' || entered_char == '1'){
+        $(dis).val('A'.toUpperCase());
+        $(dis).css({'border':'1px solid #000'});
+    } else if(entered_char == 'b' || entered_char == '2'){
+        $(dis).val('B'.toUpperCase());
+        $(dis).css({'border':'1px solid #000'});
+    } else if(entered_char == 'c' || entered_char == '3'){
+        $(dis).val('C'.toUpperCase());
+        $(dis).css({'border':'1px solid #000'});
+    } else if(entered_char == 'd' || entered_char == '4'){
+        $(dis).val('D'.toUpperCase());
+        $(dis).css({'border':'1px solid #000'});
+    } else if(entered_char == ''){
         $(dis).css('border', '4px solid red');
-        $(dis).focus();
+//        $(dis).focus();
     }
 }
 function char_question_onKeyUp(dis){
@@ -358,7 +370,7 @@ function char_question_onKeyUp(dis){
         $(dis).val('D'.toUpperCase());
         $(dis).css({'border':'1px solid #000'});
     } else {
-        $(dis).css('border', '4px solid red');
+        $(dis).css('border', '4px solid green');
         $(dis).val('');
     }
 }
