@@ -88,3 +88,30 @@ table.likert > tbody > tr > td > center > input {
 .bg-best{
   background: blue;
 }
+
+/*tf2*/
+.input_radio_hidden {
+    position: absolute;
+    left: -9999px;
+}
+
+.input_radio_selected {
+    background-color: #000;
+    border-radius: 50%;
+}
+
+#radio-image-selector label {
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+#radio-image-selector label:hover {
+    background-color: #000;
+    border-radius: 50%;
+}
+
+#radio-image-selector label img {
+    padding: 3px;
+    
+}

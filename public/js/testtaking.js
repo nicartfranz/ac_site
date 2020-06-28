@@ -323,13 +323,20 @@ $(document).ready(function(){
     });
     //-=-=-=-=-=-=-=-=-=-=-= slider type question CPB -=-=-=-=-=-=-=-=-=-=-=
     
-    
+    //-=-=-=-=-=-=-=-=-=-=-= radio image tf2 -=-=-=-=-=-=-=-=-=-=-=
+    $('div#radio-image-selector input:radio').addClass('input_radio_hidden');
+    $(document).on("click", "#radio-image-selector label", function(){
+        var id = $(this).attr('for');
+        $('input#'+id).attr('checked', 'true');
+        $(this).addClass('input_radio_selected').siblings().removeClass('input_radio_selected');
+    });
+    //-=-=-=-=-=-=-=-=-=-=-= radio image tf2 -=-=-=-=-=-=-=-=-=-=-=
 
     
 });
 
 
-//-=-=-=-=-=-=-=-=-=-=-= single char question -=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-= single char question rn2-=-=-=-=-=-=-=-=-=-=-=
 function char_question_onBlur(dis){
     var id = $(dis).attr('id');
     var entered_char = $(dis).val().toLowerCase();
@@ -370,8 +377,45 @@ function char_question_onKeyUp(dis){
         $(dis).val('D'.toUpperCase());
         $(dis).css({'border':'1px solid #000'});
     } else {
-        $(dis).css('border', '4px solid green');
         $(dis).val('');
     }
 }
-//-=-=-=-=-=-=-=-=-=-=-= single char question -=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-= single char question rn2-=-=-=-=-=-=-=-=-=-=-=
+
+
+//-=-=-=-=-=-=-=-=-=-=-= single char question rn3-=-=-=-=-=-=-=-=-=-=-=
+function char_question_rn3_onBlur(dis){
+    var id = $(dis).attr('id');
+    var entered_char = $(dis).val().toLowerCase();
+    //1-Strongly Disagree
+    //2-Disagree
+    //3-Slightly Disagree
+    //4-Neutral
+    //5-Slightly Agree
+    //6-Agree
+    //7-Strongly Agree
+    if(entered_char >= 1 && entered_char <= 7){
+        $(dis).css({'border':'1px solid #000'});
+    } else if(entered_char == ''){
+        $(dis).css('border', '4px solid red');
+    } else {
+        $(dis).val('');
+    }
+}
+function char_question_rn3_onKeyUp(dis){
+    var id = $(dis).attr('id');
+    var entered_char = $(dis).val().toLowerCase();
+    //1-Strongly Disagree
+    //2-Disagree
+    //3-Slightly Disagree
+    //4-Neutral
+    //5-Slightly Agree
+    //6-Agree
+    //7-Strongly Agree
+    if(entered_char >= 1 && entered_char <= 7){
+        $(dis).css({'border':'1px solid #000'});
+    } else {
+        $(dis).val('');
+    }
+}
+//-=-=-=-=-=-=-=-=-=-=-= single char question rn3-=-=-=-=-=-=-=-=-=-=-=

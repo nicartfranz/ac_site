@@ -1,8 +1,8 @@
 <?php 
 
-class Cpt1Controller extends Controller{
+class CpbController extends Controller{
 
-    public $ass_code = 'cpt1';
+    public $ass_code = 'cpb';
     public $site_level_form_builder_js = [
         'public/js/formbuilder/form-builder.min.js', 
         'public/js/formbuilder/form-render.min.js', 

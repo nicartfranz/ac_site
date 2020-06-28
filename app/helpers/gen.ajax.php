@@ -14,6 +14,7 @@ function ajax_save_test(){
     $assessment_name = $_POST['assessment_obj']['assessment_name'];
     $assessment_code = $_POST['assessment_obj']['assessment_code'];
     $formbuilder_json = $_POST['formbuilder_json'];
+    $formbuilder_arr = json_decode($_POST['formbuilder_json']);
     
 //    $sql = $db->executeQuery('SELECT * FROM tbassessment WHERE AssCode = ? LIMIT 1', array('bmaa'));
 //    $assessment = $sql->fetch();
@@ -40,48 +41,22 @@ function ajax_save_test(){
                                         ->setParameters([$assessment_code, $assessment_name, $assessment_code, 'profiles', '', '', '', '', '' , '', '', 
                                             date('Y-m-d H:i:s'), date('Y-m-d H:i:s')]);
             $queryBuilder->execute();
-            //echo "Executed: $queryBuilder->getSQL(). '<br>';
-
+            
             $queryBuilder->insert('tbtest_items_summary')
                         ->values(['ass_code' => '?', 'question' => '?'])
                         ->setParameters([$assessment_code, $formbuilder_json]);
             $queryBuilder->execute();
-            //echo "Executed: $queryBuilder->getSQL(). '<br>';
             
-            //Create controller file dynamically
-            $controller_file = APPROOT."\\controllers\\".ucfirst($assessment_code)."Controller.php";
-            $file_pointer = $controller_file; 
-            if(!file_exists($controller_file)){
-                $fh = fopen($controller_file, 'w') or die("Can't create file");
-                $open = file_get_contents($file_pointer); 
-                $open .= "<?php 
-
-                    class ".ucfirst($assessment_code)."Controller extends Controller{
-
-                        public \$ass_code = '".$assessment_code."';
-                        public \$site_level_form_builder_js = [
-                            'public/js/formbuilder/form-builder.min.js', 
-                            'public/js/formbuilder/form-render.min.js', 
-                            'public/js/formbuilder/control_plugins/starRating.js', 
-                            'public/js/formbuilder/control_plugins/customHTMLTemplate.js', 
-                            'public/js/formbuilder/control_plugins/startPageMarker.js', 
-                            'public/js/formbuilder/control_plugins/endPageMarker.js',
-                            'public/js/formbuilder/control_plugins/likertQuestion.js',
-                            'public/js/formbuilder/control_plugins/LeastBestQuestion.js',
-                            'public/js/formbuilder/control_plugins/rankingQuestion.js',
-                            'public/js/formbuilder/control_plugins/sliderQuestion.js',
-                            'public/js/fb_fields_acsite.js',
-                            'public/js/testtaking.js',
-                        ];
-
-                        public function __construct() {
-                            parent::__construct();
-                            allowPageAccessByUser(['test_taker']);
-                        }
-
-                    }"; 
-                file_put_contents($file_pointer, $open); 
+            require_once '../app/models/TestModel.php';
+            $test = new TestModel();
+            $total_pages = 0;
+            foreach($formbuilder_arr as $data){
+                if($data->type == 'startPageMarker'){
+                    $total_pages++;
+                }
             }
+            $page_methods = $test->pageMethods($total_pages);
+            $test->createTestController($assessment_code, $page_methods);
             
             $db->commit();
         } catch (\Exception $e) {

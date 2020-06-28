@@ -338,7 +338,7 @@ class TestController extends Controller{
     
     protected function generate_question($inc, $question_info){
         
-        $valid_question_types = ['mc1', 'mc2', 'mc3', 'mc4', 'cd', 'wh', 'tf1', 'tf2', 'yn1', 'yn2', 'ein', 'lkr', 'pti', 'rn1', 'rn2'];
+        $valid_question_types = ['mc1', 'mc2', 'mc3', 'mc4', 'cd', 'wh', 'tf1', 'tf2', 'yn1', 'yn2', 'ein', 'lkr', 'pti', 'rn1', 'rn2', 'rn3'];
         $error = '';
         
         if(!in_array($question_info['QuesType'], $valid_question_types)){
@@ -472,11 +472,31 @@ class TestController extends Controller{
                 
                 return $this->singleAnswerQuestion_RN2($inc, $question_info['question']);
                 break;
+            
+            case 'rn3':
+                
+                return $this->singleAnswerQuestion_RN3($inc, $question_info['question']);
+                break;
+            
             default:
                 return '';
         }
          
     }
+    
+    
+    protected function singleAnswerQuestion_RN3($inc, $question){
+        
+        $value = "<font color=\"#000000\">&lt;input type=\"text\" onkeyup=\"javascript:char_question_rn3_onKeyUp(this);\" onblur=\"javascript:char_question_rn3_onBlur(this);\" maxlength=\"1\" style=\"width:75px;\" id=\"char_question_".$inc."\" name=\"char_question_".$inc."\"&gt;&amp;nbsp;".$question."&lt;hr&gt;</font>";
+        
+        return (object)[
+            "type" => "paragraph",
+            "subtype" => "p",
+            "label" => $value,
+            "access" => false,
+        ];
+    }
+    
     
     protected function singleAnswerQuestion_RN2($inc, $question){
         
@@ -579,91 +599,134 @@ class TestController extends Controller{
     }
     
     protected function singleAnswerQuestion_YN2($inc, $question, $options = ['1' => 'Yes', '2' => 'No', '3' => 'Undecided']){
-        
-        $values = [];
-        foreach($options as $opt_key => $opt_value){
-            $values[] = (object)[
-                "label" => $opt_value,
-                "value" => $opt_key,
-            ];
-        }
-        
+
+        //WITH IMAGE
+        $value = "&lt;p&gt;".$question."&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\"&gt;<br>&lt;center&gt;&lt;input type=\"radio\" name=\"yn2_q_".$inc."\" id=\"yn2_q_".$inc."_y\" value=\"1\" /&gt;&lt;label for=\"yn2_q_".$inc."_y\"&gt;&lt;img for=\"yn2_q_".$inc."_y\" src=\"../img/assessments/types/yn2/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;&lt;span style=\"width: 10%;display: inline-block;\"&gt;&lt;/span&gt;&lt;input type=\"radio\" name=\"yn2_q_".$inc."\" id=\"yn2_q_".$inc."_n\" value=\"2\" /&gt;&lt;label for=\"yn2_q_".$inc."_n\"&gt;&lt;img for=\"yn2_q_".$inc."_n\" src='../img/assessments/types/yn2/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;&lt;span style=\"width: 10%;display: inline-block;\"&gt;&lt;/span&gt;&lt;input type=\"radio\" name=\"yn2_q_".$inc."\" id=\"yn2_q_".$inc."_u\" value=\"0.5\" /&gt;&lt;label for=\"yn2_q_".$inc."_u\"&gt;&lt;img for=\"yn2_q_".$inc."_u\" src='../img/assessments/types/yn2/Undecided.png' width=\"70\" height=\"70\" alt=\"Undecided\" /&gt;&lt;/label&gt;&lt;/center&gt;<br>&lt;/div&gt;";
+
         return (object)[
-            "type" => "radio-group",
-            "required" => false,
-            "label" => htmlentities(strip_tags($question)),
-            "inline" => false,
-            "name" => "radio-group-".$inc."",
+            "type" => "paragraph",
+            "subtype" => "p",
+            "label" => $value,
             "access" => false,
-            "other" => false,
-            "values" => $values
         ];
+        
+//        //BASIC
+//        $values = [];
+//        foreach($options as $opt_key => $opt_value){
+//            $values[] = (object)[
+//                "label" => $opt_value,
+//                "value" => $opt_key,
+//            ];
+//        }
+//        return (object)[
+//            "type" => "radio-group",
+//            "required" => false,
+//            "label" => htmlentities(strip_tags($question)),
+//            "inline" => false,
+//            "name" => "radio-group-".$inc."",
+//            "access" => false,
+//            "other" => false,
+//            "values" => $values
+//        ];
+        
     }
     
     protected function singleAnswerQuestion_YN1($inc, $question, $options = ['1' => 'Yes', '2' => 'No']){
         
-        $values = [];
-        foreach($options as $opt_key => $opt_value){
-            $values[] = (object)[
-                "label" => $opt_value,
-                "value" => $opt_key,
-            ];
-        }
-        
+        //WITH IMAGE
+        $value = "&lt;p&gt;".$question."&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\"&gt;<br>&lt;center&gt;&lt;input type=\"radio\" name=\"yn1_q_".$inc."\" id=\"yn1_q_".$inc."_y\" value=\"1\" /&gt;&lt;label for=\"yn1_q_".$inc."_y\"&gt;&lt;img for=\"yn1_q_".$inc."_y\" src=\"../img/assessments/types/yn1/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;&lt;span style=\"width: 10%;display: inline-block;\"&gt;&lt;/span&gt;&lt;input type=\"radio\" name=\"yn1_q_".$inc."\" id=\"yn1_q_".$inc."_n\" value=\"2\" /&gt;&lt;label for=\"yn1_q_".$inc."_n\"&gt;&lt;img for=\"yn1_q_".$inc."_n\" src='../img/assessments/types/yn1/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;&lt;/center&gt;<br>&lt;/div&gt;";
+
         return (object)[
-            "type" => "radio-group",
-            "required" => false,
-            "label" => htmlentities(strip_tags($question)),
-            "inline" => false,
-            "name" => "radio-group-".$inc."",
+            "type" => "paragraph",
+            "subtype" => "p",
+            "label" => $value,
             "access" => false,
-            "other" => false,
-            "values" => $values
         ];
+        
+//        //BASIC
+//        $values = [];
+//        foreach($options as $opt_key => $opt_value){
+//            $values[] = (object)[
+//                "label" => $opt_value,
+//                "value" => $opt_key,
+//            ];
+//        }
+//        return (object)[
+//            "type" => "radio-group",
+//            "required" => false,
+//            "label" => htmlentities(strip_tags($question)),
+//            "inline" => false,
+//            "name" => "radio-group-".$inc."",
+//            "access" => false,
+//            "other" => false,
+//            "values" => $values
+//        ];
+        
     }
     
     protected function singleAnswerQuestion_TF2($inc, $question, $options = ['1' => 'True', '2' => 'False', '3' => 'Undecided']){
         
-        $values = [];
-        foreach($options as $opt_key => $opt_value){
-            $values[] = (object)[
-                "label" => $opt_value,
-                "value" => $opt_key,
-            ];
-        }
-        
+        //WITH IMAGE
+        $value = "&lt;p&gt;".$question."&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\"&gt;<br>&lt;center&gt;&lt;input type=\"radio\" name=\"tf2_q_".$inc."\" id=\"tf2_q_".$inc."_t\" value=\"1\" /&gt;&lt;label for=\"tf2_q_".$inc."_t\"&gt;&lt;img for=\"tf2_q_".$inc."_t\" src=\"../img/assessments/types/tf2/True.png\" width=\"70\" height=\"70\" alt=\"True\" /&gt;&lt;/label&gt;&lt;span style=\"width: 10%;display: inline-block;\"&gt;&lt;/span&gt;&lt;input type=\"radio\" name=\"tf2_q_".$inc."\" id=\"tf2_q_".$inc."_f\" value=\"2\" /&gt;&lt;label for=\"tf2_q_".$inc."_f\"&gt;&lt;img for=\"tf2_q_".$inc."_f\" src='../img/assessments/types/tf2/False.png' width=\"70\" height=\"70\" alt=\"False\" /&gt;&lt;/label&gt;&lt;span style=\"width: 10%;display: inline-block;\"&gt;&lt;/span&gt;&lt;input type=\"radio\" name=\"tf2_q_".$inc."\" id=\"tf2_q_".$inc."_u\" value=\"0.5\" /&gt;&lt;label for=\"tf2_q_".$inc."_u\"&gt;&lt;img for=\"tf2_q_".$inc."_u\" src='../img/assessments/types/tf2/Undecided.png' width=\"70\" height=\"70\" alt=\"Undecided\" /&gt;&lt;/label&gt;&lt;center&gt;<br>&lt;/div&gt;";
         return (object)[
-            "type" => "radio-group",
-            "required" => false,
-            "label" => htmlentities(strip_tags($question)),
-            "inline" => false,
-            "name" => "radio-group-".$inc."",
+            "type" => "paragraph",
+            "subtype" => "p",
+            "label" => $value,
             "access" => false,
-            "other" => false,
-            "values" => $values
         ];
+        
+//        //BASIC
+//        $values = [];
+//        foreach($options as $opt_key => $opt_value){
+//            $values[] = (object)[
+//                "label" => $opt_value,
+//                "value" => $opt_key,
+//            ];
+//        }
+//        
+//        return (object)[
+//            "type" => "radio-group",
+//            "required" => false,
+//            "label" => htmlentities(strip_tags($question)),
+//            "inline" => false,
+//            "name" => "radio-group-".$inc."",
+//            "access" => false,
+//            "other" => false,
+//            "values" => $values
+//        ];
+        
     }
     
     protected function singleAnswerQuestion_TF1($inc, $question, $options = ['1' => 'True', '2' => 'False']){
         
-        $values = [];
-        foreach($options as $opt_key => $opt_value){
-            $values[] = (object)[
-                "label" => $opt_value,
-                "value" => $opt_key,
-            ];
-        }
-        
+        //WITH IMAGE
+        $value = "&lt;p&gt;".$question."&lt;/p&gt;&lt;div id=\"radio-image-selector\"&gt;<br>&lt;center&gt;<br>&lt;input type=\"radio\" name=\"tf1_q_".$inc."\" id=\"tf1_q_".$inc."_t\" value=\"1\" /&gt;&lt;label for=\"tf1_q_".$inc."_t\"&gt;&lt;img for=\"tf1_q_".$inc."_t\" src=\"../img/assessments/types/tf1/True.png\" width=\"70\" height=\"70\" alt=\"True\" /&gt;&lt;/label&gt;&lt;span style=\"width: 10%;display: inline-block;\"&gt;&lt;/span&gt;&lt;input type=\"radio\" name=\"tf1_q_".$inc."\" id=\"tf1_q_".$inc."_f\" value=\"2\" /&gt;&lt;label for=\"tf1_q_".$inc."_f\"&gt;&lt;img for=\"tf1_q_".$inc."_f\" src='../img/assessments/types/tf1/False.png' width=\"70\" height=\"70\" alt=\"False\" /&gt;&lt;/label&gt;<br>&lt;/center&gt;<br>&lt;/div&gt;";
         return (object)[
-            "type" => "radio-group",
-            "required" => false,
-            "label" => htmlentities(strip_tags($question)),
-            "inline" => false,
-            "name" => "radio-group-".$inc."",
+            "type" => "paragraph",
+            "subtype" => "p",
+            "label" => $value,
             "access" => false,
-            "other" => false,
-            "values" => $values
         ];
+        
+//        //BASIC       
+//        $values = [];
+//        foreach($options as $opt_key => $opt_value){
+//            $values[] = (object)[
+//                "label" => $opt_value,
+//                "value" => $opt_key,
+//            ];
+//        }
+//        return (object)[
+//            "type" => "radio-group",
+//            "required" => false,
+//            "label" => htmlentities(strip_tags($question)),
+//            "inline" => false,
+//            "name" => "radio-group-".$inc."",
+//            "access" => false,
+//            "other" => false,
+//            "values" => $values
+//        ];
+        
     }
     
     protected function singleAnswerQuestion_WH($inc, $question, $options = ['1' => 'What kind of', '2' => 'How']){

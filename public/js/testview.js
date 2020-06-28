@@ -8,4 +8,15 @@ $(document).ready(function(){
         dataType: 'json',
     });
     
+    
+    //-=-=-=-=-=-=-=-=-=-=-= radio image tf2 -=-=-=-=-=-=-=-=-=-=-=
+    $('div#radio-image-selector input:radio').addClass('input_radio_hidden');
+    
+    $(document).on("click", "#radio-image-selector label", function(){
+        var id = $(this).attr('for');
+        $('input#'+id).attr('checked', 'true');
+        $(this).addClass('input_radio_selected').siblings().removeClass('input_radio_selected');
+    });
+    //-=-=-=-=-=-=-=-=-=-=-= radio image tf2 -=-=-=-=-=-=-=-=-=-=-=
+
 });

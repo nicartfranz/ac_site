@@ -50,7 +50,7 @@ const fb_customFields = [
     {
         type: "likertQuestion",
         required: false,
-        label: "<b>#1 Likert Scale</b> (PEOPA)",
+        label: "Likert Scale",
         className: "form-control",
         access: false,
         value: "",
@@ -62,7 +62,7 @@ const fb_customFields = [
     {
         type: "LeastBestQuestion",
         required: false,
-        label: "<b>#2 Least - Best Answer</b> (PCA)",
+        label: "Least - Best Answer",
         className: "form-control",
         access: false,
         value: "",
@@ -74,7 +74,7 @@ const fb_customFields = [
     {
         type: "rankingQuestion",
         required: false,
-        label: "<b>#3 Ranking Answer</b> (DISC)",
+        label: "Ranking Answer",
         className: "form-control",
         access: false,
         value: "",
@@ -86,7 +86,7 @@ const fb_customFields = [
     {
         type: "sliderQuestion",
         required: false,
-        label: "<b>#4 Slider Type Answer</b> (CPB)",
+        label: "Slider Type Answer",
         className: "form-control",
         access: false,
         value: "",
@@ -329,12 +329,55 @@ const fb_inputSets = [
             access: false
           },
         ]
+    },
+    {
+        label: 'True, False Question Template',
+        name: 'true_false_question_template',
+        fields:[
+        {
+            type: "paragraph",
+            subtype: "p",
+            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"tf1_q_1\" id=\"tf1_q_1_t\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf1_q_1_t\"&gt;&lt;img for=\"tf1_q_1_t\" src=\"../img/assessments/types/tf1/True.png\" width=\"70\" height=\"70\" alt=\"True\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"tf1_q_1\" id=\"tf1_q_1_f\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf1_q_1_f\"&gt;&lt;img for=\"tf1_q_1_f\" src='../img/assessments/types/tf1/False.png' width=\"70\" height=\"70\" alt=\"False\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
+            access: false
+          },
+        ]
+    },
+    {
+        label: 'True, False, Undecided Question Template',
+        name: 'true_false_undecided_question_template',
+        fields:[
+        {
+            type: "paragraph",
+            subtype: "p",
+            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"tf2_q_1\" id=\"tf2_q_1_t\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf2_q_1_t\"&gt;&lt;img for=\"tf2_q_1_t\" src=\"../img/assessments/types/tf2/True.png\" width=\"70\" height=\"70\" alt=\"True\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"tf2_q_1\" id=\"tf2_q_1_f\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf2_q_1_f\"&gt;&lt;img for=\"tf2_q_1_f\" src='../img/assessments/types/tf2/False.png' width=\"70\" height=\"70\" alt=\"False\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"tf2_q_1\" id=\"tf2_q_1_u\" value=\"0.5\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf2_q_1_u\"&gt;&lt;img for=\"tf2_q_1_u\" src='../img/assessments/types/tf2/Undecided.png' width=\"70\" height=\"70\" alt=\"Undecided\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
+            access: false
+          },
+        ]
+    },
+    {
+        label: 'Yes, No Question Template',
+        name: 'yes_no_question_template',
+        fields:[
+        {
+            type: "paragraph",
+            subtype: "p",
+            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"yn1_q_1\" id=\"yn1_q_1_y\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn1_q_1_y\"&gt;&lt;img for=\"yn1_q_1_y\" src=\"../img/assessments/types/yn1/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"yn1_q_1\" id=\"yn1_q_1_n\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn1_q_1_n\"&gt;&lt;img for=\"yn1_q_1_n\" src='../img/assessments/types/yn1/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
+            access: false
+          },
+        ]
+    },
+    {
+        label: 'Yes, No, Undecided Question Template',
+        name: 'yes_no_undecided_question_template',
+        fields:[
+        {
+            type: "paragraph",
+            subtype: "p",
+            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"yn2_q_1\" id=\"yn2_q_1_y\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn2_q_1_y\"&gt;&lt;img for=\"yn2_q_1_y\" src=\"../img/assessments/types/yn2/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"yn2_q_1\" id=\"yn2_q_1_n\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn2_q_1_n\"&gt;&lt;img for=\"yn2_q_1_n\" src='../img/assessments/types/yn2/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"yn2_q_1\" id=\"yn2_q_1_u\" value=\"0.5\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn2_q_1_u\"&gt;&lt;img for=\"yn2_q_1_u\" src='../img/assessments/types/yn2/Undecided.png' width=\"70\" height=\"70\" alt=\"Undecided\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
+            access: false
+          },
+        ]
     }
-    
-
-
-    
-    
 ];
 
 const fb_typeUserAttrs = {
@@ -735,34 +778,7 @@ question_type: {
                 '2':'"1-Least like you", "2-Next Least like you", "3-Next Most like you", "4-Most like you"',
             },
         }
-    },
-    enumeration_answer_template:{
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    }
-    
+    },  
 };
 
 
@@ -784,6 +800,10 @@ const fb_controlOrder = [
     'single-answer-template',
     'multiple-answer-template',
     'single_char_question_template',
+    'true_false_question_template',
+    'true_false_undecided_question_template',
+    'yes_no_question_template',
+    'yes_no_undecided_question_template',
     'customHTMLTemplate',
     'likertQuestion',
     'LeastBestQuestion',
