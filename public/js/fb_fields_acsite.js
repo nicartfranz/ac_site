@@ -377,7 +377,7 @@ const fb_inputSets = [
             access: false
           },
         ]
-    }
+    },
 ];
 
 const fb_typeUserAttrs = {
@@ -768,7 +768,6 @@ question_type: {
             options: {
                 'rn1':'rn1',
                 'rn2':'rn2',
-                'rn3':'rn3',
             },
         },
         rn_question: {

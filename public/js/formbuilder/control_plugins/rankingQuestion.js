@@ -42,25 +42,8 @@ window.fbControls.push(function (controlClass) {
       value: function onRender() {
           
         //console.log(JSON.stringify(this.config)); 
-        var question_id = this.config.name.split('-')[1];
         var rn_question = this.config.rn_question;
-        
-        if(rn_question == '1'){
-
-            var ranking_question_html = "\
-<p>Which is most like you?<input type='hidden' id='q"+question_id+"_1' name='q"+question_id+"_1'></p>\n\
-<p>Which is least like you?<input type='hidden' id='q"+question_id+"_2' name='q"+question_id+"_2'></p>\n\
-<p>Of the remaining two, which is more like you?<input type='hidden' id='"+question_id+"_3' name='q"+question_id+"_3'></p>";
-             
-        } else if (rn_question == '2'){
-            var ranking_question_html = "\
-<p>1-Least like you<input type='hidden' id='q"+question_id+"_1' name='q"+question_id+"_1'></p>\n\
-<p>2-Next Least like you<input type='hidden' id='q"+question_id+"_2' name='q"+question_id+"_2'></p>\n\
-<p>3-Next Most like you<input type='hidden' id='"+question_id+"_3' name='q"+question_id+"_3'></p>\n\
-<p>4-Most like you<input type='hidden' id='"+question_id+"_4' name='q"+question_id+"_4'></p>";
-
-        }
-        
+        var required = this.config.required;
           
         var html_value = this.config.value || "\n\
 <div class='container-fluid'>\n\
@@ -84,11 +67,41 @@ window.fbControls.push(function (controlClass) {
         <p><b>Cooperative</b> - I am obliging, helpful, and supportive.</p>\n\
     </div>\n\
 </div>";
+          
+        var q_id = $('div.ranking-question-box-left', html_value).attr('id');
+        var id = q_id.substring(1, q_id.length);
+        //console.log(q_id + ' ' + id);
+          
+        var invisible_input_css = 'cursor:default;width:0px;height:0px;background:transparent;border:transparent;';
+//         if(rn_question == '1'){
+//
+//            var ranking_question_html = "\
+//<p>Which is most like you?<input type='text' style='"+invisible_input_css+"' id='q"+id+"_1' name='q"+id+"_1' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".1\");'></p>\n\
+//<p>Which is least like you?<input type='text' style='"+invisible_input_css+"' id='q"+id+"_2' name='q"+id+"_2' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".2\");'></p>\n\
+//<p>Of the remaining two, which is more like you?<input type='text' style='"+invisible_input_css+"' id='q"+id+"_3' name='q"+id+"_3' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".3\");'></p>";
+//             
+//        } else if (rn_question == '2'){
+//            
+//            var ranking_question_html = "\
+//<p>1-Least like you<input type='text' style='"+invisible_input_css+"' id='q"+id+"_1' name='q"+id+"_1' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".1\");'></p>\n\
+//<p>2-Next Least like you<input type='text' style='"+invisible_input_css+"' id='q"+id+"_2' name='q"+id+"_2' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".2\");'></p>\n\
+//<p>3-Next Most like you<input type='text' style='"+invisible_input_css+"' id='"+id+"_3' name='q"+id+"_3' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".3\");'></p>\n\
+//<p>4-Most like you<input type='text' style='"+invisible_input_css+"' id='"+id+"_4' name='q"+id+"_4' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".4\");'></p>";
+//
+//        } else {
+            
+            var ranking_question_html = "\
+<p>Which is most like you?<input onfocus='blur();' type='text' style='"+invisible_input_css+"' id='q"+id+"_1' name='q"+id+"_1' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".1\");'></p>\n\
+<p>Which is least like you?<input onfocus='blur();' type='text' style='"+invisible_input_css+"' id='q"+id+"_2' name='q"+id+"_2' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".2\");'></p>\n\
+<p>Of the remaining two, which is more like you?<input onfocus='blur();' type='text' style='"+invisible_input_css+"' id='q"+id+"_3' name='q"+id+"_3' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".3\");'></p>";
+              
+//        }  
+          
         //remove the label
         $('.formbuilder-rankingQuestion-label').remove();
         $('div#' + this.config.name).html(html_value);
-        $('div.ranking-question-box-left#q'+question_id).empty();
-        $('div.ranking-question-box-left#q'+question_id).html(ranking_question_html);
+        $('div.ranking-question-box-left#q'+id).empty();
+        $('div.ranking-question-box-left#q'+id).html(ranking_question_html);
       }
     }]);
 

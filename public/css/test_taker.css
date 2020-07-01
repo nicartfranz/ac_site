@@ -203,11 +203,16 @@ table.likert > tbody > tr > td > center > input {
   margin-top: 20px;
 }
 
-.ranking-question-box-left, .ranking-question-box-right {
+.ranking-question-box-left{
+    background: #e8e8e8; 
+    border: solid 1px #6c757d;
+    padding: 10px;
+}
+.ranking-question-box-right {
   border: solid 1px #6c757d;
   padding: 10px;
-  border-radius: 3px;
 }
+
 .ranking-choice-box{
   padding:10px;
 }
@@ -215,7 +220,7 @@ table.likert > tbody > tr > td > center > input {
   border: solid 1px #6c757d;
   border-radius: 3px;
   padding: 3px 5px 3px 5px;
-  background: #fff;
+  background: #d4e9ff;
   margin:5px;
   width:auto;
   cursor:pointer;
@@ -244,31 +249,25 @@ div.sliderTypeQuestion_text{
   color:#fff;
 }
 
-/*tf2*/
+/*tf1, tf2, yn1, yn2*/
 .input_radio_hidden {
     position: absolute;
     left: -9999px;
 }
-
 .input_radio_selected {
     background-color: #000;
     border-radius: 50%;
 }
-
 #radio-image-selector label {
     display: inline-block;
     cursor: pointer;
 }
-
-
 #radio-image-selector label:hover {
     background-color: #000;
     border-radius: 50%;
 }
-
 #radio-image-selector label img {
-    padding: 3px;
-    
+    padding: 3px;   
 }
 
 
@@ -295,7 +294,7 @@ div.sliderTypeQuestion_text{
 /*When media wide is 500 less*/
 @media only screen and (max-width: 500px) {
     html, body {
-        font-size: 82%;
+        font-size: 85%;
         font-weight: 300;
     }
     table{

@@ -123,7 +123,7 @@ class Controller {
                         $startMarker = $question;
                     }
                     if($question->type == 'button'){
-                        $submitButton = $question;
+                        $submitButton[] = $question;
                     }
                     if($question->type == 'endPageMarker'){
                         $endMarker = $question;
@@ -148,7 +148,10 @@ class Controller {
                 }
             }
             if(isset($submitButton) && !empty($submitButton)){
-                $final_questions[] = (object)$submitButton;
+                //$final_questions[] = (object)$submitButton;
+                foreach ($submitButton as $b){
+                    $final_questions[] = (object)$b;
+                }
             }
             
             if(isset($temp_bottom_field) && !empty($temp_bottom_field)){
@@ -160,8 +163,10 @@ class Controller {
             if(isset($endMarker) && !empty($endMarker)){
                 $final_questions[] = (object)$endMarker;
             }
-            unset($temp_questions);//unset per page group
+
             unset($temp_top_field);//unset per page group
+            unset($temp_questions);//unset per page group
+            unset($submitButton);//unset per page group
             unset($temp_bottom_field);//unset per page group
                                     
         }
@@ -242,7 +247,7 @@ class Controller {
                         $startMarker = $question;
                     }
                     if($question->type == 'button'){
-                        $submitButton = $question;
+                        $submitButton[] = $question;
                     }
                     if($question->type == 'endPageMarker'){
                         $endMarker = $question;
@@ -267,7 +272,10 @@ class Controller {
                 }
             }
             if(isset($submitButton) && !empty($submitButton)){
-                $final_questions[] = (object)$submitButton;
+                //$final_questions[] = (object)$submitButton;
+                foreach ($submitButton as $b){
+                    $final_questions[] = (object)$b;
+                }
             }
             
             if(isset($temp_bottom_field) && !empty($temp_bottom_field)){
@@ -281,8 +289,9 @@ class Controller {
             }
             
             $test_info['page'.$i] = $final_questions;
-            unset($temp_questions);//unset per page group
             unset($temp_top_field);//unset per page group
+            unset($temp_questions);//unset per page group
+            unset($submitButton);//unset per page group
             unset($temp_bottom_field);//unset per page group
             
         }

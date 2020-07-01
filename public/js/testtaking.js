@@ -225,6 +225,7 @@ $(document).ready(function(){
         $("div.ranking-question-box-left#" + selected_choice_parent_id + ' > p > input').each(function(i, obj) {
             if($(obj).val() == ''){
                 $(obj).val(selected_choice_value.trim());
+                $(obj).attr('value', selected_choice_value.trim());
                 $(obj).after('<span id="remove-ranking-choice" class="'+selected_choice_class+'">'+selected_choice_value+'<span class="xmark">&nbsp;x&nbsp;</span></span>');
                 has_unanswered++;
                 return false;
@@ -419,3 +420,12 @@ function char_question_rn3_onKeyUp(dis){
     }
 }
 //-=-=-=-=-=-=-=-=-=-=-= single char question rn3-=-=-=-=-=-=-=-=-=-=-=
+
+
+//-=-=-=-=-=-=-=-=-=-=-= Ranking Required Field Checker -=-=-=-=-=-=-=-=
+function validateRankingQuestion(dis, err_msg){
+    var id = dis.id.split('_')[0];
+    $('div.ranking-question-box-left#'+id).css('border', '1px solid red');
+    console.log(err_msg + ' ' +id);
+}
+//-=-=-=-=-=-=-=-=-=-=-= Ranking Required Field Checker -=-=-=-=-=-=-=-=
