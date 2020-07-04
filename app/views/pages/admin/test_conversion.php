@@ -26,8 +26,30 @@
                 <input type="radio" name="group_test_by" id="radios-1" value="2">
                 Topic Code
               </label>
+            </div>
         </div>
+        
+        <?php if($data['test']['AssCode'] == 'ctr2'): ?>
+        
+        <br>
+        <label class="col-md-4 control-label" for="radios">Choose Layout:</label>
+        <div class="col-md-4">
+            <div class="radio">
+                <label for="radios-test_layout-0">
+                  <input type="radio" name="test_layout" id="radios-test_layout-0" value="basic" checked="checked">
+                  Basic
+                </label>
+            </div>
+            <div class="radio">
+              <label for="radios-test_layout-1">
+                <input type="radio" name="test_layout" id="radios-test_layout-1" value="custom">
+                Custom
+              </label>
+            </div>
         </div>
+        
+        <?php endif; ?>
+        
     </form>
     
     <br>

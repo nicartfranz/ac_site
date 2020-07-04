@@ -212,6 +212,7 @@ $(document).ready(function(){
         //selected_choice_class[2] = the choice id
         $('div.'+selected_choice_class[2]).css('display', 'block');
         $(this).prev().val('');
+        $(this).prev().attr('value', '');
         $(this).remove();
     });
   
@@ -220,12 +221,13 @@ $(document).ready(function(){
         var selected_choice_parent_id = $(this).parent().attr('id');
         var selected_choice_class = $(this).attr('class');
         var selected_choice_value = $(this).text();
+        var selected_choice_attr_value = $(this).attr('value');
         var has_unanswered = 0;
         //check hidden inupt fields if has answer
         $("div.ranking-question-box-left#" + selected_choice_parent_id + ' > p > input').each(function(i, obj) {
             if($(obj).val() == ''){
-                $(obj).val(selected_choice_value.trim());
-                $(obj).attr('value', selected_choice_value.trim());
+                $(obj).val(selected_choice_attr_value);
+                $(obj).attr('value', selected_choice_attr_value);
                 $(obj).after('<span id="remove-ranking-choice" class="'+selected_choice_class+'">'+selected_choice_value+'<span class="xmark">&nbsp;x&nbsp;</span></span>');
                 has_unanswered++;
                 return false;
@@ -332,7 +334,17 @@ $(document).ready(function(){
         $(this).addClass('input_radio_selected').siblings().removeClass('input_radio_selected');
     });
     //-=-=-=-=-=-=-=-=-=-=-= radio image tf2 -=-=-=-=-=-=-=-=-=-=-=
-
+    
+    //-=-=-=-=-=-=-=-=-=-=-= Custom mc1-mc4 -=-=-=-=-=-=-=-=-=-=-=
+    $("input.custom_mc_radio").on('click', function(){
+        var this_choice = $(this).attr('name');
+        var this_choice_value = $(this).val();
+        //remove prev selected 
+        $('label.custom_mc_container.'+this_choice).removeClass('custom_mc_radio_selected');
+        //add selected class
+        $(this).parent().addClass('custom_mc_radio_selected');
+    });
+    //-=-=-=-=-=-=-=-=-=-=-= Custom mc1-mc4 -=-=-=-=-=-=-=-=-=-=-=
     
 });
 
@@ -424,7 +436,7 @@ function char_question_rn3_onKeyUp(dis){
 
 //-=-=-=-=-=-=-=-=-=-=-= Ranking Required Field Checker -=-=-=-=-=-=-=-=
 function validateRankingQuestion(dis, err_msg){
-    var id = dis.id.split('_')[0];
+    var id = dis.id.split('[')[0];
     $('div.ranking-question-box-left#'+id).css('border', '1px solid red');
     console.log(err_msg + ' ' +id);
 }

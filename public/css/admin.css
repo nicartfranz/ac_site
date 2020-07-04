@@ -114,3 +114,41 @@ table.likert > tbody > tr > td > center > input {
 #radio-image-selector label img {
     padding: 3px;   
 }
+
+/*custom mc1-m4*/
+.custom_mc_row_question{
+  margin-top: 10px;
+  text-align:left;
+}
+
+.custom_mc_row {
+    background: #f8f9fa;
+    margin-top: 10px;
+    text-align: center;
+    border: 1px solid #c7c7c7;
+}
+
+label.custom_mc_container{
+  margin-bottom: 0px;
+}
+
+.custom_mc_container{
+  text-align:center;
+  width:100%;
+  padding:10px;
+  cursor:pointer;
+}
+.custom_mc_container:hover{
+  font-weight:bold;
+  border: 3px solid skyblue;
+}
+
+.custom_mc_radio{
+    visibility:hidden;
+    margin-left:-10px;
+} 
+
+.custom_mc_radio_selected{
+  background: skyblue;
+  font-weight:500;
+}

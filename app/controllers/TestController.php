@@ -364,13 +364,28 @@ class TestController extends Controller{
                     if($ans > 0){
                         ++$correct_answers;
                     }
-                }                
+                }   
                 
-                if($correct_answers > 1){
-                    return $this->multiAnswerQuestion($inc, $question_info['question'], $question_info['options']);
-                } else {
-                    return $this->singleAnswerQuestion($inc, $question_info['question'], $question_info['options']);
+                
+                if(isset($_POST['test_layout']) && $_POST['test_layout'] == 'basic'){
+                    
+                    if($correct_answers > 1){
+                        return $this->multiAnswerQuestion($inc, $question_info['question'], $question_info['options']);
+                    } else {
+                        return $this->singleAnswerQuestion($inc, $question_info['question'], $question_info['options']);
+                    }
+                    
+                } else if(isset($_POST['test_layout']) && $_POST['test_layout'] == 'custom'){ 
+                    
+                    if($correct_answers > 1){
+                        return $this->multiAnswerQuestion($inc, $question_info['question'], $question_info['options']);
+                    } else {
+                        return $this->singleAnswerQuestion($inc, $question_info['question'], $question_info['options']);
+                    }
+                    
                 }
+                
+                
                 break;
                 
             case 'cd':

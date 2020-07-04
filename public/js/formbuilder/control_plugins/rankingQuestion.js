@@ -49,9 +49,6 @@ window.fbControls.push(function (controlClass) {
 <div class='container-fluid'>\n\
     <div class='row ranking-question'>\n\
         <div class='col-sm ranking-question-box-left' id='q1'>\n\
-            <p>Which is most like you?<input type='hidden' id='q1_1' name='q1_1'></p>\n\
-            <p>Which is least like you?<input type='hidden' id='q1_2' name='q1_2'></p>\n\
-            <p>Of the remaining two, which is more like you?<input type='hidden' id='q1_3' name='q1_3'></p>\n\
         </div>\n\
         <div class='col-sm ranking-question-box-right'>\n\
         <div class='row ranking-choice-box' id='q1'>\n\
@@ -73,29 +70,29 @@ window.fbControls.push(function (controlClass) {
         //console.log(q_id + ' ' + id);
           
         var invisible_input_css = 'cursor:default;width:0px;height:0px;background:transparent;border:transparent;';
-//         if(rn_question == '1'){
-//
-//            var ranking_question_html = "\
-//<p>Which is most like you?<input type='text' style='"+invisible_input_css+"' id='q"+id+"_1' name='q"+id+"_1' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".1\");'></p>\n\
-//<p>Which is least like you?<input type='text' style='"+invisible_input_css+"' id='q"+id+"_2' name='q"+id+"_2' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".2\");'></p>\n\
-//<p>Of the remaining two, which is more like you?<input type='text' style='"+invisible_input_css+"' id='q"+id+"_3' name='q"+id+"_3' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".3\");'></p>";
-//             
-//        } else if (rn_question == '2'){
-//            
-//            var ranking_question_html = "\
-//<p>1-Least like you<input type='text' style='"+invisible_input_css+"' id='q"+id+"_1' name='q"+id+"_1' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".1\");'></p>\n\
-//<p>2-Next Least like you<input type='text' style='"+invisible_input_css+"' id='q"+id+"_2' name='q"+id+"_2' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".2\");'></p>\n\
-//<p>3-Next Most like you<input type='text' style='"+invisible_input_css+"' id='"+id+"_3' name='q"+id+"_3' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".3\");'></p>\n\
-//<p>4-Most like you<input type='text' style='"+invisible_input_css+"' id='"+id+"_4' name='q"+id+"_4' "+required+" autocomplete='off' oninvalid='alert(\"Missing response on item "+id+".4\");'></p>";
-//
-//        } else {
+         if(rn_question == '1'){
+
+            var ranking_question_html = "\
+<p>Which is most like you?<input onfocus='blur();' type='text' style='"+invisible_input_css+"' id='q"+id+"[]' name='q"+id+"[]' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".1\");'></p>\n\
+<p>Which is least like you?<input onfocus='blur();' type='text' style='"+invisible_input_css+"' id='q"+id+"[]' name='q"+id+"[]' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".2\");'></p>\n\
+<p>Of the remaining two, which is more like you?<input onfocus='blur();' type='text' style='"+invisible_input_css+"' id='q"+id+"[]' name='q"+id+"[]' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".3\");'></p>";
+  
+        } else if (rn_question == '2'){
             
             var ranking_question_html = "\
-<p>Which is most like you?<input onfocus='blur();' type='text' style='"+invisible_input_css+"' id='q"+id+"_1' name='q"+id+"_1' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".1\");'></p>\n\
-<p>Which is least like you?<input onfocus='blur();' type='text' style='"+invisible_input_css+"' id='q"+id+"_2' name='q"+id+"_2' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".2\");'></p>\n\
-<p>Of the remaining two, which is more like you?<input onfocus='blur();' type='text' style='"+invisible_input_css+"' id='q"+id+"_3' name='q"+id+"_3' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".3\");'></p>";
-              
-//        }  
+<p>1-Least like you<input type='text' style='"+invisible_input_css+"' id='q"+id+"[]' name='q"+id+"[]' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".1\");'></p>\n\
+<p>2-Next Least like you<input type='text' style='"+invisible_input_css+"' id='q"+id+"[]' name='q"+id+"[]' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".2\");'></p>\n\
+<p>3-Next Most like you<input type='text' style='"+invisible_input_css+"' id='"+id+"_3' name='q"+id+"[]' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".3\");'></p>\n\
+<p>4-Most like you<input type='text' style='"+invisible_input_css+"' id='"+id+"_4' name='q"+id+"[]' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".4\");'></p>";
+
+        } else {
+            
+            var ranking_question_html = "\
+<p>Which is most like you?<input onfocus='blur();' type='text' style='"+invisible_input_css+"' id='q"+id+"[]' name='q"+id+"[]' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".1\");'></p>\n\
+<p>Which is least like you?<input onfocus='blur();' type='text' style='"+invisible_input_css+"' id='q"+id+"[]' name='q"+id+"[]' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".2\");'></p>\n\
+<p>Of the remaining two, which is more like you?<input onfocus='blur();' type='text' style='"+invisible_input_css+"' id='q"+id+"[]' name='q"+id+"[]' "+required+" autocomplete='off' oninvalid='validateRankingQuestion(this, \"Missing response on item "+id+".3\");'></p>";
+
+        }  
           
         //remove the label
         $('.formbuilder-rankingQuestion-label').remove();

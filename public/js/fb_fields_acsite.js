@@ -210,9 +210,6 @@ const fb_templates = {
 <div class='container-fluid'>\n\
     <div class='row ranking-question'>\n\
         <div class='col-sm ranking-question-box-left' id='q1'>\n\
-            <p>Which is most like you?<input type='hidden' id='q1_1' name='q1_1'></p>\n\
-            <p>Which is least like you?<input type='hidden' id='q1_2' name='q1_2'></p>\n\
-            <p>Of the remaining two, which is more like you?<input type='hidden' id='q1_3' name='q1_3'></p>\n\
         </div>\n\
         <div class='col-sm ranking-question-box-right'>\n\
         <div class='row ranking-choice-box' id='q1'>\n\
