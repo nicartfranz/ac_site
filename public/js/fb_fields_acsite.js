@@ -94,6 +94,30 @@ const fb_customFields = [
             type: 'textarea',
             subtype: 'textarea',
         }
+    },
+    {
+        type: "customMC1Question",
+        required: false,
+        label: "Custom mc1 Answer",
+        className: "form-control",
+        access: false,
+        value: "",
+        attrs: {
+            type: 'textarea',
+            subtype: 'textarea',
+        }
+    },
+    {
+        type: "customMC2Question",
+        required: false,
+        label: "Custom mc2 Multi-Answer",
+        className: "form-control",
+        access: false,
+        value: "",
+        attrs: {
+            type: 'textarea',
+            subtype: 'textarea',
+        }
     }
 ];
 
@@ -246,8 +270,56 @@ const fb_templates = {
         return {
             field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
         }
+    },
+    customMC1Question:function(fieldData){
+        var setDefaultValue = "\n\
+    <div class='container'><div class='row custom_mc_row_question'><b>1.&nbsp;</b>QUESTION</div>\n\
+        <div class='row custom_mc_row'>\n\
+            <label class='custom_mc_container q1'>\n\
+            <input class='custom_mc_radio' type='radio' name='q1' value='1'>\n\
+            Choice 1\n\
+            </label>\n\
+        </div>\n\
+        <div class='row custom_mc_row'>\n\
+            <label class='custom_mc_container q1'>\n\
+            <input class='custom_mc_radio' type='radio' name='q1' value='2'>\n\
+            Choice 2\n\
+            </label>\n\
+        </div>\n\
+    </div>";
+        var custom_html_value = fieldData.value || setDefaultValue;
+        return {
+            field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
+        }
+    },
+    customMC2Question:function(fieldData){
+        var setDefaultValue = "\n\
+        <div class='container'>\n\
+            <div class='row custom_mc_row_question'><b>1. </b>QUESTION</div>\n\
+            <div class='row custom_mc_row'>\n\
+                    <label class='custom_mc_container q1'>\n\
+                            <input class='custom_mc_checkbox' type='checkbox' name='q1[]' value='1'>\n\
+                            Choice 1\n\
+                    </label>\n\
+            </div>\n\
+            <div class='row custom_mc_row'>\n\
+                    <label class='custom_mc_container q1'>\n\
+                            <input class='custom_mc_checkbox' type='checkbox' name='q1[]' value='2'>\n\
+                            Choice 2\n\
+                    </label>\n\
+            </div>\n\
+            <div class='row custom_mc_row'>\n\
+                    <label class='custom_mc_container q1'>\n\
+                            <input class='custom_mc_checkbox' type='checkbox' name='q1[]' value='3'>\n\
+                            Choice 3\n\
+                    </label>\n\
+            </div>\n\
+        </div>";
+        var custom_html_value = fieldData.value || setDefaultValue;
+        return {
+            field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
+        }
     }
-    
 };
 
 
@@ -406,318 +478,6 @@ const fb_typeUserAttrs = {
             },
         }
     },
-    'autocomplete': {
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    },
-    'checkbox-group': {
-question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    },
-    date: {
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    },
-    hidden: {
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    },
-    number: {
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    },
-    'radio-group': {
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    },
-    select: {
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    },
-    text: {
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    },
-    textarea: {
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    },
-    starRating: {
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    },
-    'single-answer-template': {
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    },
-    'multiple-answer-template': {
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
-    },
     customHTMLTemplate: {
         question_type: {
             label: 'Question Type',
@@ -775,6 +535,17 @@ question_type: {
             },
         }
     },  
+//    customMC1Question:{
+//        question_type: {
+//            label: 'Question Type',
+//            options: {
+//                'mc1':'mc1',
+//                'mc2':'mc2',
+//                'mc3':'mc3',
+//                'mc4':'mc4',
+//            },
+//        },
+//    },  
 };
 
 
@@ -800,11 +571,13 @@ const fb_controlOrder = [
     'true_false_undecided_question_template',
     'yes_no_question_template',
     'yes_no_undecided_question_template',
-    'customHTMLTemplate',
+    'customMC1Question',
+    'customMC2Question',
     'likertQuestion',
     'LeastBestQuestion',
     'rankingQuestion',
     'sliderQuestion',
+    'customHTMLTemplate',
     'button',
     'endPageMarker',
 ];

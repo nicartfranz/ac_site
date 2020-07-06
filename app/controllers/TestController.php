@@ -84,6 +84,8 @@ class TestController extends Controller{
                     'public/js/formbuilder/control_plugins/LeastBestQuestion.js',
                     'public/js/formbuilder/control_plugins/rankingQuestion.js',
                     'public/js/formbuilder/control_plugins/sliderQuestion.js',
+                    'public/js/formbuilder/control_plugins/customMC1Question.js',
+                    'public/js/formbuilder/control_plugins/customMC2Question.js',
                     'public/js/fb_fields_acsite.js',
                     'public/js/testview.js'
                 ], 
@@ -377,11 +379,19 @@ class TestController extends Controller{
                     
                 } else if(isset($_POST['test_layout']) && $_POST['test_layout'] == 'custom'){ 
                     
-                    if($correct_answers > 1){
-                        return $this->multiAnswerQuestion($inc, $question_info['question'], $question_info['options']);
+                    
+                    if($question_info['QuesType'] == 'mc1'){
+                        return $this->singleAnswerQuestion_CustomMC1($inc, $question_info['question'], $question_info['options']);
+                    } else if($question_info['QuesType'] == 'mc2'){
+                        return $this->multiAnswerQuestion_CustomMC2($inc, $question_info['question'], $question_info['options']);
                     } else {
-                        return $this->singleAnswerQuestion($inc, $question_info['question'], $question_info['options']);
+                        if($correct_answers > 1){
+                            return $this->multiAnswerQuestion_CustomMC2($inc, $question_info['question'], $question_info['options']);
+                        } else {
+                            return $this->singleAnswerQuestion_CustomMC1($inc, $question_info['question'], $question_info['options']);
+                        }
                     }
+                    
                     
                 }
                 
@@ -787,7 +797,50 @@ class TestController extends Controller{
             "values" => $values
         ];
     }
+    
+    protected function multiAnswerQuestion_CustomMC2($inc, $question, $options){
+        
+        $choices = '';
+        $i=1;
+        $value = '';
+        $options = explodeData('options', $options);
+        foreach($options as $opt_key => $opt_value){
+           $choices .= "\t<div class=\"row custom_mc_row\">\t\t<label class=\"custom_mc_container q{$inc}\">\t\t\t<input class=\"custom_mc_checkbox\" type=\"checkbox\" name=\"q{$inc}[]\" value=\"{$i}\">\t\t\t{$opt_value}\t\t</label>\t</div>";
+           $i++;
+        }
+        $value = "<div class=\"container\">\t<div class=\"row custom_mc_row_question\">\t\t<b>{$inc}.&nbsp;</b>\t\t{$question}\t</div>{$choices}</div>";
+        
+        return (object)[
+            "type" => "customMC2Question",
+            "label" => "Custom mc2 Answer",
+            "name" => "customMC2Question-".$inc."",
+            "access" => false,
+            "value" => $value
+        ];
+        
+    }
    
+    protected function singleAnswerQuestion_CustomMC1($inc, $question, $options){
+        
+        $choices = '';
+        $i=1;
+        $value = '';
+        $options = explodeData('options', $options);
+        foreach($options as $opt_key => $opt_value){
+           $choices .= "\t<div class=\"row custom_mc_row\">\t\t<label class=\"custom_mc_container q{$inc}\">\t\t\t<input class=\"custom_mc_radio\" type=\"radio\" name=\"q{$inc}\" value=\"{$i}\">\t\t\t{$opt_value}\t\t</label>\t</div>";
+           $i++;
+        }
+        $value = "<div class=\"container\">\t<div class=\"row custom_mc_row_question\">\t\t<b>{$inc}.&nbsp;</b>\t\t{$question}\t</div>{$choices}</div>";
+        
+        return (object)[
+            "type" => "customMC1Question",
+            "label" => "Custom mc1 Answer",
+            "name" => "customMC1Question-".$inc."",
+            "access" => false,
+            "value" => $value
+        ];
+        
+    }
     
     protected function singleAnswerQuestion($inc, $question, $options){
         

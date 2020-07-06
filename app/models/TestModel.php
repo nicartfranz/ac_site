@@ -164,6 +164,8 @@ class ".ucfirst($assessment_code)."Controller extends Controller{
         'public/js/formbuilder/control_plugins/LeastBestQuestion.js',
         'public/js/formbuilder/control_plugins/rankingQuestion.js',
         'public/js/formbuilder/control_plugins/sliderQuestion.js',
+        'public/js/formbuilder/control_plugins/customMC1Question.js',
+        'public/js/formbuilder/control_plugins/customMC2Question.js',
         'public/js/fb_fields_acsite.js',
         'public/js/testtaking.js',
     ];

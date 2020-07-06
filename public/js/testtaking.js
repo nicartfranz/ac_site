@@ -3,12 +3,11 @@ $(document).ready(function(){
     //-=-=-=-=-=-=-=-=-=-=-= Questions -=-=-=-=-=-=-=-=-=-=-=-=-=-=
     var formbuilder_main = $('#build-wrap');
     $(formbuilder_main).formRender({
-          formData: questionsJSON, // This is json data stored in database when you build the form
-          dataType: 'json'
+            formData: questionsJSON, // This is json data stored in database when you build the form
+            dataType: 'json'
         }
     );
-    //-=-=-=-=-=-=-=-=-=-=-= Questions -=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    
+    //-=-=-=-=-=-=-=-=-=-=-= Questions -=-=-=-=-=-=-=-=-=-=-=-=-=-= 
     
     //-=-=-=-=-=-=-=-=-=-=-= Timer -=-=-=-=-=-=-=-=-=-=-=-=-=-=
     //Timer 
@@ -335,7 +334,7 @@ $(document).ready(function(){
     });
     //-=-=-=-=-=-=-=-=-=-=-= radio image tf2 -=-=-=-=-=-=-=-=-=-=-=
     
-    //-=-=-=-=-=-=-=-=-=-=-= Custom mc1-mc4 -=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-= Custom mc1 -=-=-=-=-=-=-=-=-=-=-=
     $("input.custom_mc_radio").on('click', function(){
         var this_choice = $(this).attr('name');
         var this_choice_value = $(this).val();
@@ -344,7 +343,38 @@ $(document).ready(function(){
         //add selected class
         $(this).parent().addClass('custom_mc_radio_selected');
     });
-    //-=-=-=-=-=-=-=-=-=-=-= Custom mc1-mc4 -=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-= Custom mc1 -=-=-=-=-=-=-=-=-=-=-=
+    
+    //-=-=-=-=-=-=-=-=-=-=-= Custom mc2 -=-=-=-=-=-=-=-=-=-=-=
+    $("input.custom_mc_checkbox").on('click', function(){
+        var this_choice = $(this).attr('name');
+        var this_choice_value = $(this).val();
+        var count_checked = $('input[name="'+this_choice+'"]:checked').length;
+
+        var limit = 2;
+        if(count_checked > limit){
+            return false;
+        }
+        
+        if(count_checked == 0){
+            var id = this_choice.split('[')[0];
+            var is_answer_required = $('label.custom_mc_container.'+id).hasClass('answer_required');
+            if (is_answer_required) {
+                $('input[name="'+this_choice+'"]').attr('required', 'required');
+            } 
+          
+        } else {
+            $('input[name="'+this_choice+'"]').removeAttr('required');
+        }
+
+        if($(this).parent().hasClass('custom_mc_checkbox_selected')){
+             $(this).parent().removeClass('custom_mc_checkbox_selected');
+        } else {
+             $(this).parent().addClass('custom_mc_checkbox_selected');
+        }
+
+    }); 
+    //-=-=-=-=-=-=-=-=-=-=-= Custom mc2 -=-=-=-=-=-=-=-=-=-=-=
     
 });
 
@@ -441,3 +471,12 @@ function validateRankingQuestion(dis, err_msg){
     console.log(err_msg + ' ' +id);
 }
 //-=-=-=-=-=-=-=-=-=-=-= Ranking Required Field Checker -=-=-=-=-=-=-=-=
+
+//-=-=-=-=-=-=-=-=-=-=-= Custom MC Required Field Checker -=-=-=-=-=-=-=-=
+function validateCustomMCQuestion(dis, err_msg){
+    $(dis).parent().css('border', '1px solid red');
+    console.log(err_msg);
+}
+//-=-=-=-=-=-=-=-=-=-=-= Custom MC Required Field Checker -=-=-=-=-=-=-=-=
+
+

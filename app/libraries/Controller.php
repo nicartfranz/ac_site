@@ -305,7 +305,7 @@ class Controller {
     public function finish(){
         
         //--SUBMIT PREV FORM---//
-        $this->submitForm();
+        $this->submitForm(false);
         $this->saveSnapshot();
         //--------------------//
         
