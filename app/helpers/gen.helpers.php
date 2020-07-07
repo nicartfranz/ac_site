@@ -631,6 +631,7 @@ function checkCookies(){
 }
 
 //explode options|correctAns
+//explodeData('CorrectAns', '1:0;2:0;3:1;4:0;');
 function explodeData($type, $str){
     $valid_type = ['options', 'CorrectAns'];
     $arr = [];

@@ -70,10 +70,10 @@ Create new test
 		*Add Timer (In Minutes) = Add number to set a timer for the page. By default, timer is set to empty or none.
 			= Timer can be controlled in the {TestId}Controller using the global function below.
 
-				//initialize a new timer for this test page
-				(1)testTimer('init', $this->ass_code, $question_arr['page1'][0]->setTimer); 
+                        //initialize a new timer for this test page
+                        (1)testTimer('init', $this->ass_code, $question_arr['page1'][0]->setTimer); 
 
-				// continue the timer set from the previous test page
+                        // continue the timer set from the previous test page
 		        (2)testTimer('continue', $this->ass_code, 0); 
 		        
 		        //unset currently active timer

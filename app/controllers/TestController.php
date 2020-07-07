@@ -198,7 +198,7 @@ class TestController extends Controller{
         if(isset($_POST['group_test_by'])){
             
             if(xss_clean($_POST['group_test_by']) == '1'){ // GROUP BY DimensionNumber
-                $inc = 0;
+                $inc = 1;
                 foreach($data['tb_dimensions'] as $dimension){
                     
                     //page instruction
@@ -236,7 +236,7 @@ class TestController extends Controller{
                 }
                 
             } else if (xss_clean($_POST['group_test_by']) == '2'){ // GROUP BY TopicCode
-                $inc = 0;
+                $inc = 1;
                 
                 $question_by_topic_code = [];
                 foreach($data['questions'] as $question_info){

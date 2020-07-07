@@ -71,6 +71,31 @@ class TestModel extends Model{
         return $test_items;
     }
     
+    public function get_test_items2($assCode){
+        
+        $test_items = $this->db->fetchAll('SELECT 
+                                            tbassessment.id,
+                                            tbassessment.AssName,
+                                            tbdimension.dimensionName,
+                                            tbdimension.dimensionDescription,
+                                            tbdimension.dimensionNumber,
+                                            tbdimension.flag,
+                                            tbdimension.topic_id,
+                                            tbdimension.t_score,
+                                            tbtest_items.*
+                                            FROM tbdimension  
+                                            INNER JOIN tbtest_items ON tbdimension.dimensionNumber = tbtest_items.level AND tbtest_items.QuesCode LIKE CONCAT(tbdimension.AssCode, "-", "%")
+                                            INNER JOIN tbassessment ON tbdimension.AssCode = tbassessment.AssCode
+                                            WHERE 1=1 
+                                            AND tbtest_items.QuesCode LIKE ? 
+                                            ORDER BY 
+                                            tbtest_items.fldQOrder ASC, 
+                                            tbdimension.dimensionNumber ASC,
+                                            tbtest_items.level ASC', array($assCode.'-%'));
+        return $test_items;
+
+    }
+    
     public function get_instruction_per_dimension($assCode, $dimensionNumber){
          $test_dimensions = $this->db->fetchAssoc('SELECT tbdimension.*, tbassessment_category.* FROM tbdimension ' 
                                                 . 'LEFT JOIN tbassessment_category ON tbassessment_category.CategoryCode = CONCAT(tbdimension.AssCode,"-part:",tbdimension.dimensionNumber) '
