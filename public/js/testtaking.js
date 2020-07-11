@@ -1,3 +1,12 @@
+
+//DISABLE BACK in mobile and desktop
+history.pushState(null, document.title, location.href);
+window.addEventListener('popstate', function (event)
+{
+  history.pushState(null, document.title, location.href);
+});
+
+
 $(document).ready(function(){
     
     //-=-=-=-=-=-=-=-=-=-=-= Questions -=-=-=-=-=-=-=-=-=-=-=-=-=-=

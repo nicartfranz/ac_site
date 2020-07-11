@@ -125,9 +125,9 @@ class Ppp2Controller extends Controller{
         
         //--SUBMIT PREV FORM---//
         //$this->submitForm(false);
-        echo '<pre>';
-        print_r($this->savePPP2Responses());
-        echo '</pre>';
+//        echo '<pre>';
+//        print_r($this->savePPP2Responses());
+//        echo '</pre>';
         $this->saveSnapshot();
         //--------------------//
         

@@ -125,7 +125,7 @@ class Bma1Controller extends Controller{
         $question_arr = $this->loadQuestionCandidate($test_data['question']);
 
         //3.) Set test page timer
-        testTimer('unset', $this->ass_code, 0); //unset timer on this page
+        testTimer('init', $this->ass_code, $question_arr['page3'][0]->setTimer); //unset timer on this page
 
         //4.) Set the required test_info variables
         $test_info = [];
@@ -152,9 +152,9 @@ class Bma1Controller extends Controller{
     public function page4(){
         
         //--SUBMIT PREV FORM---//
-        echo '<pre>';
-        print_r($this->saveBMA1Answers(1));
-        echo '</pre>';
+//        echo '<pre>';
+//        print_r($this->saveBMA1Answers(1));
+//        echo '</pre>';
         $this->saveSnapshot();
         //--------------------//
 
@@ -205,7 +205,7 @@ class Bma1Controller extends Controller{
         $question_arr = $this->loadQuestionCandidate($test_data['question']);
 
         //3.) Set test page timer
-        testTimer('unset', $this->ass_code, 0); //unset timer on this page
+        testTimer('init', $this->ass_code, $question_arr['page5'][0]->setTimer); //unset timer on this page
 
         //4.) Set the required test_info variables
         $test_info = [];
@@ -232,9 +232,9 @@ class Bma1Controller extends Controller{
     public function page6(){
         
         //--SUBMIT PREV FORM---//
-        echo '<pre>';
-        print_r($this->saveBMA1Answers(2));
-        echo '</pre>';
+//        echo '<pre>';
+//        print_r($this->saveBMA1Answers(2));
+//        echo '</pre>';
         $this->saveSnapshot();
         //--------------------//
 
@@ -284,7 +284,7 @@ class Bma1Controller extends Controller{
         $question_arr = $this->loadQuestionCandidate($test_data['question']);
 
         //3.) Set test page timer
-        testTimer('unset', $this->ass_code, 0); //unset timer on this page
+        testTimer('init', $this->ass_code, $question_arr['page7'][0]->setTimer); //unset timer on this page
 
         //4.) Set the required test_info variables
         $test_info = [];
@@ -311,9 +311,9 @@ class Bma1Controller extends Controller{
      public function finish(){
         
         //--SUBMIT PREV FORM---//
-        echo '<pre>';
-        print_r($this->saveBMA1Answers(3));
-        echo '</pre>';
+//        echo '<pre>';
+//        print_r($this->saveBMA1Answers(3));
+//        echo '</pre>';
         $this->saveSnapshot();
         //--------------------//
         

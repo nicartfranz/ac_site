@@ -20,6 +20,13 @@ nav {
 }
 /*end test content*/
 
+.jumbotron {
+    padding: 2rem 1rem;
+    margin-bottom: 0;
+    background-color: #e9ecef;
+    border-radius: .3rem;
+}
+
 /*test timer*/
 #test_timer{
     background: #eee;
@@ -37,6 +44,7 @@ nav {
     cursor: grab;
     cursor: -moz-grab;
     cursor: -webkit-grab;
+    z-index:99;
 }
 /*end test timer*/
 
@@ -357,3 +365,9 @@ label.custom_mc_container{
     }
 }
 /*End media wide is 500 less*/
+
+/*Background classes*/
+.bg-2f72a9{
+    background-color: #2f72a9; 
+    color: #FFF;
+}
