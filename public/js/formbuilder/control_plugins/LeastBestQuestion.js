@@ -40,29 +40,37 @@ window.fbControls.push(function (controlClass) {
     }, {
       key: 'onRender',
       value: function onRender() {
+        var required = this.config.required;  
         var html_value = this.config.value || "\n\
 <p>Least - Best Question (PCA)</p>\n\
 <div class='least-best-div' id='q1'>\n\
   <div class='least-best-checkbox'>\n\
     CHOICE 1\n\
-    <input type='checkbox' name='q1[]' value='1'>\n\
+    <input type='checkbox' name='q1[]' value='1' "+required+">\n\
   </div>\n\
   <div class='least-best-checkbox'>\n\
     CHOICE 2\n\
-    <input type='checkbox' name='q1[]' value='2'>\n\
+    <input type='checkbox' name='q1[]' value='2' "+required+">\n\
   </div>\n\
   <div class='least-best-checkbox'>\n\
     CHOICE 3\n\
-    <input type='checkbox' name='q1[]' value='3'>\n\
+    <input type='checkbox' name='q1[]' value='3' "+required+">\n\
   </div>\n\
   <div class='least-best-checkbox'>\n\
     CHOICE 4\n\
-    <input type='checkbox' name='q1[]' value='4'>\n\
+    <input type='checkbox' name='q1[]' value='4' "+required+">\n\
   </div>\n\
 </div>";
+        var q_id = $('input[type="checkbox"]', html_value).attr('name');   
         //remove the label
         $('.formbuilder-LeastBestQuestion-label').remove();
-        $('div#' + this.config.name).html(html_value);  
+        $('div#' + this.config.name).html(html_value); 
+        if(required == 'required'){
+            $('input[name="'+q_id+'"]').attr({
+                'required' : 'required',
+                'oninvalid' : '$(this).parent().css("border", "1px solid red");',
+            });
+        } 
       }
     }]);
 

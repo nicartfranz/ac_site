@@ -24,7 +24,6 @@ Create new test
 		(2)'text' => Text inputbox
 		(2)'textarea' => Textarea 
 		(2)'starRating' => Star Rating tag using a juery plugin
-		(2)'sliderTemplate' => Slider template - REMOVED
 		(2)'single-answer-template' => Radio group template accepting 1 answer 
 		(2)'multiple-answer-template' => Checkbox group template accepting multi answer
 		(2)'customHTMLTemplate' => Accepts any custom HTML you want to create.

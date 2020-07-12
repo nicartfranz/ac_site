@@ -141,10 +141,16 @@ $(document).ready(function(){
     $("div.least-best-checkbox").on("click", function() {
         var selectedBoxParent = $(this).parent("div");
         var selectedBox = $(this).children("input:first");
+        var selectedBoxInputName = $(this).children("input:first").attr("name");
 
         //Checking the input[checkbox]
         if (selectedBox.prop("checked")) {
             selectedBox.prop("checked", false);
+
+            if($('input[name="'+selectedBoxInputName+'"]').attr('data-required-removed')){
+                $('input[name="'+selectedBoxInputName+'"]').attr('required', 'required').removeAttr('data-required-removed');
+            }
+            
             $(this).attr("class", "least-best-checkbox"); //get back to original state
             return false;
         } else {
@@ -154,6 +160,16 @@ $(document).ready(function(){
         //Limiting the allowed checks
         var limit = 2;
         var countChecks = $("#" + selectedBoxParent.attr("id") + ' input[type="checkbox"]').filter(":checked").length;
+        
+        //remove required if it has 2 selected answers
+        if($('input[name="'+selectedBoxInputName+'"]').attr('required')){
+            if (countChecks == limit) {
+                $('input[name="'+selectedBoxInputName+'"]').attr('data-required-removed', 'true');
+                $('input[name="'+selectedBoxInputName+'"]').removeAttr('required');
+                $('input[name="'+selectedBoxInputName+'"]').removeAttr('required');
+            }
+        }
+        
         if (countChecks > limit) {
             selectedBox.prop("checked", false);
             return false;

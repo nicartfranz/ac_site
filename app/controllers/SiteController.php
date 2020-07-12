@@ -89,8 +89,8 @@ class SiteController extends Controller{
     public function login(){
         
         if(isset($_POST['submit'])){
-            $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
-            $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+            $username = xss_clean($_POST['username']);
+            $password = xss_clean($_POST['password']);
             if($username == 'admin' && $password == 'password'){
                 $_SESSION['username'] = 'admin';
                 $_SESSION['is_authenticated'] = true;

@@ -15,6 +15,10 @@ const fbOptions = {
     controlOrder: fb_controlOrder,
     typeUserAttrs: fb_typeUserAttrs,
     fieldRemoveWarn: true, // defaults to false
+    scrollToFieldOnAdd: false,
+    subtypes: {
+        text: ['datetime-local']
+    },
     onSave: function() {
         var fbJsonData = $('.build-wrap').formBuilder('getData', 'json', true);
         

@@ -98,7 +98,7 @@ const fb_customFields = [
     {
         type: "customMC1Question",
         required: false,
-        label: "Custom mc1 Answer",
+        label: "Custom MC Single Answer",
         className: "form-control",
         access: false,
         value: "",
@@ -110,7 +110,7 @@ const fb_customFields = [
     {
         type: "customMC2Question",
         required: false,
-        label: "Custom mc2 Multi-Answer",
+        label: "Custom MC Multi-Answer",
         className: "form-control",
         access: false,
         value: "",
@@ -394,7 +394,7 @@ const fb_inputSets = [
         {
             type: "paragraph",
             subtype: "p",
-            label: "<font color=\"#000000\">&lt;input type=\"text\" onkeyup=\"javascript:char_question_onKeyUp(this);\" onblur=\"javascript:char_question_onBlur(this);\" maxlength=\"1\" style=\"width:75px;\" id=\"char_question_1\" name=\"char_question_1\"&gt;&amp;nbsp;Question&lt;hr&gt;</font>",
+            label: "<font color=\"#000000\">&lt;input required=\"required\" type=\"text\" onkeyup=\"javascript:char_question_onKeyUp(this);\" onblur=\"javascript:char_question_onBlur(this);\" maxlength=\"1\" style=\"width:75px;\" id=\"char_question_1\" name=\"char_question_1\"&gt;&amp;nbsp;Question&lt;hr&gt;</font>",
             access: false
           },
         ]
@@ -406,7 +406,7 @@ const fb_inputSets = [
         {
             type: "paragraph",
             subtype: "p",
-            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"tf1_q_1\" id=\"tf1_q_1_t\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf1_q_1_t\"&gt;&lt;img for=\"tf1_q_1_t\" src=\"../img/assessments/types/tf1/True.png\" width=\"70\" height=\"70\" alt=\"True\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"tf1_q_1\" id=\"tf1_q_1_f\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf1_q_1_f\"&gt;&lt;img for=\"tf1_q_1_f\" src='../img/assessments/types/tf1/False.png' width=\"70\" height=\"70\" alt=\"False\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
+            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf1_q_1\" id=\"tf1_q_1_t\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf1_q_1_t\"&gt;&lt;img for=\"tf1_q_1_t\" src=\"../img/assessments/types/tf1/True.png\" width=\"70\" height=\"70\" alt=\"True\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf1_q_1\" id=\"tf1_q_1_f\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf1_q_1_f\"&gt;&lt;img for=\"tf1_q_1_f\" src='../img/assessments/types/tf1/False.png' width=\"70\" height=\"70\" alt=\"False\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
             access: false
           },
         ]
@@ -418,7 +418,7 @@ const fb_inputSets = [
         {
             type: "paragraph",
             subtype: "p",
-            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"tf2_q_1\" id=\"tf2_q_1_t\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf2_q_1_t\"&gt;&lt;img for=\"tf2_q_1_t\" src=\"../img/assessments/types/tf2/True.png\" width=\"70\" height=\"70\" alt=\"True\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"tf2_q_1\" id=\"tf2_q_1_f\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf2_q_1_f\"&gt;&lt;img for=\"tf2_q_1_f\" src='../img/assessments/types/tf2/False.png' width=\"70\" height=\"70\" alt=\"False\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"tf2_q_1\" id=\"tf2_q_1_u\" value=\"0.5\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf2_q_1_u\"&gt;&lt;img for=\"tf2_q_1_u\" src='../img/assessments/types/tf2/Undecided.png' width=\"70\" height=\"70\" alt=\"Undecided\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
+            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf2_q_1\" id=\"tf2_q_1_t\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf2_q_1_t\"&gt;&lt;img for=\"tf2_q_1_t\" src=\"../img/assessments/types/tf2/True.png\" width=\"70\" height=\"70\" alt=\"True\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf2_q_1\" id=\"tf2_q_1_f\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf2_q_1_f\"&gt;&lt;img for=\"tf2_q_1_f\" src='../img/assessments/types/tf2/False.png' width=\"70\" height=\"70\" alt=\"False\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf2_q_1\" id=\"tf2_q_1_u\" value=\"0.5\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf2_q_1_u\"&gt;&lt;img for=\"tf2_q_1_u\" src='../img/assessments/types/tf2/Undecided.png' width=\"70\" height=\"70\" alt=\"Undecided\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
             access: false
           },
         ]
@@ -430,7 +430,7 @@ const fb_inputSets = [
         {
             type: "paragraph",
             subtype: "p",
-            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"yn1_q_1\" id=\"yn1_q_1_y\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn1_q_1_y\"&gt;&lt;img for=\"yn1_q_1_y\" src=\"../img/assessments/types/yn1/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"yn1_q_1\" id=\"yn1_q_1_n\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn1_q_1_n\"&gt;&lt;img for=\"yn1_q_1_n\" src='../img/assessments/types/yn1/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
+            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn1_q_1\" id=\"yn1_q_1_y\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn1_q_1_y\"&gt;&lt;img for=\"yn1_q_1_y\" src=\"../img/assessments/types/yn1/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn1_q_1\" id=\"yn1_q_1_n\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn1_q_1_n\"&gt;&lt;img for=\"yn1_q_1_n\" src='../img/assessments/types/yn1/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
             access: false,
           },
         ]
@@ -442,7 +442,7 @@ const fb_inputSets = [
         {
             type: "paragraph",
             subtype: "p",
-            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"yn2_q_1\" id=\"yn2_q_1_y\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn2_q_1_y\"&gt;&lt;img for=\"yn2_q_1_y\" src=\"../img/assessments/types/yn2/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"yn2_q_1\" id=\"yn2_q_1_n\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn2_q_1_n\"&gt;&lt;img for=\"yn2_q_1_n\" src='../img/assessments/types/yn2/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"yn2_q_1\" id=\"yn2_q_1_u\" value=\"0.5\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn2_q_1_u\"&gt;&lt;img for=\"yn2_q_1_u\" src='../img/assessments/types/yn2/Undecided.png' width=\"70\" height=\"70\" alt=\"Undecided\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
+            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn2_q_1\" id=\"yn2_q_1_y\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn2_q_1_y\"&gt;&lt;img for=\"yn2_q_1_y\" src=\"../img/assessments/types/yn2/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn2_q_1\" id=\"yn2_q_1_n\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn2_q_1_n\"&gt;&lt;img for=\"yn2_q_1_n\" src='../img/assessments/types/yn2/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn2_q_1\" id=\"yn2_q_1_u\" value=\"0.5\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn2_q_1_u\"&gt;&lt;img for=\"yn2_q_1_u\" src='../img/assessments/types/yn2/Undecided.png' width=\"70\" height=\"70\" alt=\"Undecided\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
             access: false
           },
         ]
