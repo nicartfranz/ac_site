@@ -2,6 +2,7 @@
 
 class Ppp2Controller extends Controller{
 
+    public $gettime = '';
     public $ass_code = 'ppp2';
     public $site_level_form_builder_js = [
         'public/js/formbuilder/form-builder.min.js', 

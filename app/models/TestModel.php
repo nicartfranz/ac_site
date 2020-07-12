@@ -19,7 +19,7 @@ class TestModel extends Model{
             $tests = $this->db->fetchAll('SELECT * FROM tbassessment WHERE 1=1 '
                 . $where['conditions'], $where['values']);
         } else {
-            $tests = $this->db->fetchAll('SELECT * FROM tbassessment WHERE 1=1');
+            $tests = $this->db->fetchAll('SELECT * FROM tbassessment WHERE 1=1 AND AssName <> "" ORDER BY AssName');
         }
         
         

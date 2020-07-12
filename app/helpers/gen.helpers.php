@@ -687,3 +687,8 @@ function xss_clean($data)
         // we are done...
         return $data;
 }
+
+
+function get_int_time(){
+    return time();
+}

@@ -237,10 +237,10 @@ const fb_templates = {
         </div>\n\
         <div class='col-sm ranking-question-box-right'>\n\
         <div class='row ranking-choice-box' id='q1'>\n\
-            <div class='col-xs ranking-choice c1_1'>Playful</div>\n\
-            <div class='col-xs ranking-choice c1_2'>Strong-willed</div>\n\
-            <div class='col-xs ranking-choice c1_3'>Intellectual</div>\n\
-            <div class='col-xs ranking-choice c1_4'>Cooperative</div>\n\
+            <div class='col-xs ranking-choice c1_1' value='4'>Playful</div>\n\
+            <div class='col-xs ranking-choice c1_2' value='1'>Strong-willed</div>\n\
+            <div class='col-xs ranking-choice c1_3' value='3'>Intellectual</div>\n\
+            <div class='col-xs ranking-choice c1_4' value='2'>Cooperative</div>\n\
         </div>\n\
         <br>\n\
         <p><b>Playful</b> - I am full of fun and good humor.</p>\n\
@@ -431,7 +431,7 @@ const fb_inputSets = [
             type: "paragraph",
             subtype: "p",
             label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"yn1_q_1\" id=\"yn1_q_1_y\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn1_q_1_y\"&gt;&lt;img for=\"yn1_q_1_y\" src=\"../img/assessments/types/yn1/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input type=\"radio\" name=\"yn1_q_1\" id=\"yn1_q_1_n\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn1_q_1_n\"&gt;&lt;img for=\"yn1_q_1_n\" src='../img/assessments/types/yn1/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
-            access: false
+            access: false,
           },
         ]
     },
@@ -535,17 +535,6 @@ const fb_typeUserAttrs = {
             },
         }
     },  
-//    customMC1Question:{
-//        question_type: {
-//            label: 'Question Type',
-//            options: {
-//                'mc1':'mc1',
-//                'mc2':'mc2',
-//                'mc3':'mc3',
-//                'mc4':'mc4',
-//            },
-//        },
-//    },  
 };
 
 

@@ -103,12 +103,20 @@ class TestController extends Controller{
 //            print_r($items_for_conversion);
 //            echo '</pre>';
             
-            $content = $this->getView('pages/admin/test_conversion', ['test' => $test_info]);
+            
+            if(!empty($items_for_conversion)){
+                $content = $this->getView('pages/admin/test_conversion', ['test' => $test_info]);
+            }  else {
+                $content = '<div class="alert alert-info">
+                                Invalid test format, sorry this test cannot be converted. 
+                            </div>';
+            }
             
             $html['page_name'] = 'View Test: '.$test_info['AssName'];
             $html['content'] = $content;
 
             $this->renderView('layouts/admin', $html);
+            
         }
    
     }
@@ -368,7 +376,6 @@ class TestController extends Controller{
                     }
                 }   
                 
-                
                 if(isset($_POST['test_layout']) && $_POST['test_layout'] == 'basic'){
                     
                     if($correct_answers > 1){
@@ -385,14 +392,13 @@ class TestController extends Controller{
                     } else if($question_info['QuesType'] == 'mc2'){
                         return $this->multiAnswerQuestion_CustomMC2($inc, $question_info['question'], $question_info['options']);
                     } else {
+                        //mc3 //mc4
                         if($correct_answers > 1){
-                            return $this->multiAnswerQuestion_CustomMC2($inc, $question_info['question'], $question_info['options']);
+                            return $this->multiAnswerQuestion_Custom($inc, $question_info['question'], $question_info['options']);
                         } else {
-                            return $this->singleAnswerQuestion_CustomMC1($inc, $question_info['question'], $question_info['options']);
+                            return $this->singleAnswerQuestion_Custom($inc, $question_info['question'], $question_info['options']);
                         }
                     }
-                    
-                    
                 }
                 
                 
@@ -798,7 +804,52 @@ class TestController extends Controller{
         ];
     }
     
-    protected function multiAnswerQuestion_CustomMC2($inc, $question, $options){
+    
+     protected function multiAnswerQuestion_CustomMC2($inc, $question, $options){
+        
+        $choices = '';
+        $i=1;
+        $value = '';
+        $options = explodeData('options', $options);
+        foreach($options as $opt_key => $opt_value){
+           $choices .= "\t<div class=\"row custom_mc_row\">\t\t<label class=\"custom_mc_container q{$inc}\">\t\t\t<input class=\"custom_mc_checkbox\" type=\"checkbox\" name=\"q{$inc}[]\" value=\"{$i}\">\t\t\t{$opt_value}\t\t</label>\t</div>";
+           $i++;
+        }
+        $value = "<div class=\"container\">\t<div class=\"row custom_mc_row_question\">\t\t<b>{$inc}.&nbsp;</b>\t\t{$question}\t</div>{$choices}</div>";
+        
+        return (object)[
+            "type" => "customMC2Question",
+            "label" => "Custom mc2 Answer",
+            "name" => "customMC2Question-".$inc."",
+            "access" => false,
+            "value" => $value
+        ];
+        
+    }
+   
+    protected function singleAnswerQuestion_Custom($inc, $question, $options){
+        
+        $choices = '';
+        $i=1;
+        $value = '';
+        $options = explodeData('options', $options);
+        foreach($options as $opt_key => $opt_value){
+           $choices .= "\t<div class=\"row custom_mc_row\">\t\t<label class=\"custom_mc_container q{$inc}\">\t\t\t<input class=\"custom_mc_radio\" type=\"radio\" name=\"q{$inc}\" value=\"{$i}\">\t\t\t{$opt_value}\t\t</label>\t</div>";
+           $i++;
+        }
+        $value = "<div class=\"container\">\t<div class=\"row custom_mc_row_question\">\t\t<b>{$inc}.&nbsp;</b>\t\t{$question}\t</div>{$choices}</div>";
+        
+        return (object)[
+            "type" => "customMC1Question",
+            "label" => "Custom mc1 Answer",
+            "name" => "customMC1Question-".$inc."",
+            "access" => false,
+            "value" => $value
+        ];
+        
+    }
+    
+    protected function multiAnswerQuestion_Custom($inc, $question, $options){
         
         $choices = '';
         $i=1;

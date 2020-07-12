@@ -52,10 +52,10 @@ window.fbControls.push(function (controlClass) {
         </div>\n\
         <div class='col-sm ranking-question-box-right'>\n\
         <div class='row ranking-choice-box' id='q1'>\n\
-            <div class='col-xs ranking-choice c1_1'>Playful</div>\n\
-            <div class='col-xs ranking-choice c1_2'>Strong-willed</div>\n\
-            <div class='col-xs ranking-choice c1_3'>Intellectual</div>\n\
-            <div class='col-xs ranking-choice c1_4'>Cooperative</div>\n\
+            <div class='col-xs ranking-choice c1_1' value='4'>Playful</div>\n\
+            <div class='col-xs ranking-choice c1_2' value='1'>Strong-willed</div>\n\
+            <div class='col-xs ranking-choice c1_3' value='3'>Intellectual</div>\n\
+            <div class='col-xs ranking-choice c1_4' value='2'>Cooperative</div>\n\
         </div>\n\
         <br>\n\
         <p><b>Playful</b> - I am full of fun and good humor.</p>\n\

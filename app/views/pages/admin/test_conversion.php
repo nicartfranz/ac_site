@@ -29,8 +29,6 @@
             </div>
         </div>
         
-        <?php if($data['test']['AssCode'] == 'ctr2'): ?>
-        
         <br>
         <label class="col-md-4 control-label" for="radios">Choose Layout:</label>
         <div class="col-md-4">
@@ -47,8 +45,6 @@
               </label>
             </div>
         </div>
-        
-        <?php endif; ?>
         
     </form>
     
