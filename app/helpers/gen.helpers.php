@@ -44,6 +44,9 @@ function siteBasicFooter($siteLevelJS = array()){
                 <!-- Webcam plugin -->
                 <script src='".APP_BASE_URL."public/js/DetectRTC/DetectRTC.js'></script>
                 <script src='".APP_BASE_URL."public/js/webcam/webcam.min.js'></script>
+                    
+                <script src='https://cdn.jsdelivr.net/npm/jquery-backdetect@1.0.3/jquery.backDetect.min.js'></script>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/history.js/1.8/bundled/html4+html5/jquery.history.min.js'></script>
 
                 <!-- Custom scripts for all pages-->
                 <script src='".APP_BASE_URL."public/js/rateYo/jquery.rateyo.min.js'></script>  

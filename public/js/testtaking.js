@@ -1,14 +1,36 @@
+//-=-=-=-=-=-=-=-=-=-=-= DISABLE BACK in mobile and desktop -=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//OTHER BROWSER
+//history.pushState(null, document.title, location.href);
+//window.addEventListener('popstate', function (event)
+//{
+//  history.pushState(null, document.title, location.href);
+//});
+var myNewState = {
+	data: {},
+	title: 'Assessment Center',
+	url: 'prevent_reload_and_back'
+};
+history.replaceState(myNewState.data, myNewState.title, myNewState.url);
+//-=-=-=-=-=-=-=-=-=-=-= DISABLE BACK in mobile and desktop -=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-//DISABLE BACK in mobile and desktop
-history.pushState(null, document.title, location.href);
-window.addEventListener('popstate', function (event)
-{
-  history.pushState(null, document.title, location.href);
-});
 
 
 
 $(document).ready(function(){
+    
+    //-=-=-=-=-=-=-=-=-=-=-= Detect window blur -=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    $(window).blur(function(){
+        window.location.replace(APP_BASE_URL+"candidate/window_exit");
+    });
+    //-=-=-=-=-=-=-=-=-=-=-= Detect window blur -=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+    //-=-=-=-=-=-=-=-=-=-=-= DISABLE BACK in mobile and desktop -=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    $('html').backDetect(function(){
+        // Callback function
+        alert("Back function has been disabled in this site.");
+    });
+    //-=-=-=-=-=-=-=-=-=-=-= DISABLE BACK in mobile and desktop -=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
     
     //-=-=-=-=-=-=-=-=-=-=-= Questions -=-=-=-=-=-=-=-=-=-=-=-=-=-=
     var formbuilder_main = $('#build-wrap');

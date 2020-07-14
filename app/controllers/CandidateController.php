@@ -60,4 +60,16 @@ class CandidateController extends Controller{
         
     }
     
+    public function window_exit(){
+        $content = $this->getView('pages/candidate/window_exit');
+        
+        $html = [
+            'includeSiteLevelJS' => [
+                'public/js/candidate.js'
+            ],
+            'content' => $content, 
+        ];
+        $this->renderView('layouts/candidate', $html);
+    }
+    
 }

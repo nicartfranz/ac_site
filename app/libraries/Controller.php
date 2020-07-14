@@ -302,6 +302,30 @@ class Controller {
         
     }
     
+    public function page1(){
+        $content = $this->getView('pages/candidate/test_not_found');
+        
+        $html = [
+            'includeSiteLevelJS' => [
+                'public/js/testtaking.js'
+            ],
+            'content' => $content, 
+        ];
+        $this->renderView('layouts/candidate', $html);
+    }
+    
+    public function prevent_reload_and_back(){
+        $content = $this->getView('pages/candidate/prevent_reload_and_back');
+        
+        $html = [
+            'includeSiteLevelJS' => [
+                'public/js/testtaking.js'
+            ],
+            'content' => $content, 
+        ];
+        $this->renderView('layouts/candidate', $html);
+    }
+    
     public function finish(){
         
         //--SUBMIT PREV FORM---//

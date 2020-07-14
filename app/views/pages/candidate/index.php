@@ -13,7 +13,7 @@
                 <?php endforeach; ?>
             </select>
         </div>
-        <a class="btn btn-primary btn-lg" onclick="var scheduled_tests = '<?= APP_BASE_URL ?>'+$('#scheduled_tests').val(); javascript:location.href=scheduled_tests" href="javascript:void(0);" role="button">Proceed</a>
+        <a class="btn btn-primary btn-lg" onclick="var scheduled_tests = '<?= APP_BASE_URL ?>'+$('#scheduled_tests').val(); javascript:location.href=scheduled_tests+'/page1'" href="javascript:void(0);" role="button">Proceed</a>
     </div>
     
 </div>
