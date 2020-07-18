@@ -13,11 +13,15 @@
  */
 class TestModel extends Model{
     
-    public function getAllTests($where = array()){
-        
-        if(count($where) != 0){
-            $tests = $this->db->fetchAll('SELECT * FROM tbassessment WHERE 1=1 '
-                . $where['conditions'], $where['values']);
+    public function getAllTests($where_conditions = array(), $where_values = array(), $limit = ''){
+        if(count($where_conditions) != 0){
+            $where_conditions = implode(' ', $where_conditions);
+            
+            $tests = $this->db->fetchAll('SELECT * FROM tbassessment WHERE 1=1 AND AssName <> "" '
+                . $where_conditions
+                . $limit
+                    ,$where_values);
+  
         } else {
             $tests = $this->db->fetchAll('SELECT * FROM tbassessment WHERE 1=1 AND AssName <> "" ORDER BY AssName');
         }

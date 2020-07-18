@@ -3,6 +3,7 @@
     "description": "AC SITE",
     "require": {
     	"doctrine/dbal": "^2.10",
-        "sinergi/browser-detector": "^6.1"
+        "sinergi/browser-detector": "^6.1",
+        "phpmailer/phpmailer": "^6.1"
     }
 }

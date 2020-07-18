@@ -24,6 +24,8 @@ class CandidateSiteSettingsController extends Controller{
                 $params['cookies'] = $_POST['radios_cookies'];
                 $params['camera'] = $_POST['radios_camera'];
                 $params['microphone'] = $_POST['radios_microphone'];
+                $params['page_reload_back'] = $_POST['radios_page_reload_back'];
+                $params['page_focus'] = $_POST['radios_page_focus'];
                 $candidate_site_req->save_update_requirements($params);
                 $params['success_update_insert'] = true;
                 
@@ -37,6 +39,8 @@ class CandidateSiteSettingsController extends Controller{
                 $params['cookies'] = $_POST['radios_cookies'];
                 $params['camera'] = $_POST['radios_camera'];
                 $params['microphone'] = $_POST['radios_microphone'];
+                $params['page_reload_back'] = $_POST['radios_page_reload_back'];
+                $params['page_focus'] = $_POST['radios_page_focus'];
                 $candidate_site_req->save_update_requirements($params);
                 $params['success_update_insert'] = true;
                 

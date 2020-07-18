@@ -11,6 +11,10 @@ class ComposerStaticInit823f32ce99f75f4764daf40c0509da4f
         array (
             'Sinergi\\BrowserDetector\\' => 24,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'D' => 
         array (
             'Doctrine\\DBAL\\' => 14,
@@ -23,6 +27,10 @@ class ComposerStaticInit823f32ce99f75f4764daf40c0509da4f
         'Sinergi\\BrowserDetector\\' => 
         array (
             0 => __DIR__ . '/..' . '/sinergi/browser-detector/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Doctrine\\DBAL\\' => 
         array (

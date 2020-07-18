@@ -64,6 +64,11 @@ if(isset($data['includeSiteLevelCSS'])){
         </div>
       </div>
     </div>
+    
+<script>
+//APP BASE URL
+var APP_BASE_URL = '<?= APP_BASE_URL ?>';
+</script>
 <?php 
     $siteLevelJS=[]; 
     if(isset($data['includeSiteLevelJS'])){ 

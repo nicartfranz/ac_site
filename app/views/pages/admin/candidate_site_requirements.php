@@ -110,6 +110,43 @@
               </label>
             </div>
         </div>
+        
+        <div>
+            <hr>
+            <label><b>Test Security</b></label>
+        </div>
+        
+        <!-- Multiple Radios (inline) -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="radios_page_reload_back"><b>Page reload/back:</b></label>
+            <div class="col-md-4"> 
+              <label class="radio-inline" for="radios_page_reload_back-0">
+                <input type="radio" name="radios_page_reload_back" id="radios_page_reload_back-0" value="1" <?= isRadioboxChecked(1, $data['page_reload_back']) ?> >
+                Enable
+              </label> 
+              &nbsp;&nbsp;&nbsp;
+              <label class="radio-inline" for="radios_page_reload_back-1">
+                <input type="radio" name="radios_page_reload_back" id="radios_page_reload_back-1" value="0" <?= isRadioboxChecked(0, $data['page_reload_back']) ?> >
+                Disable
+              </label>
+            </div>
+        </div>
+        
+        <!-- Multiple Radios (inline) -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="radios_page_focus"><b>Page focus:</b></label>
+            <div class="col-md-4"> 
+              <label class="radio-inline" for="radios_page_focus-0">
+                <input type="radio" name="radios_page_focus" id="radios_page_focus-0" value="1" <?= isRadioboxChecked(1, $data['page_focus']) ?> >
+                Allow multi-task
+              </label> 
+              &nbsp;&nbsp;&nbsp;
+              <label class="radio-inline" for="radios_page_focus-1">
+                <input type="radio" name="radios_page_focus" id="radios_page_focus-1" value="0" <?= isRadioboxChecked(0, $data['page_focus']) ?> >
+                Focus on test page only
+              </label>
+            </div>
+        </div>
 
         <!-- Button -->
         <div class="form-group">

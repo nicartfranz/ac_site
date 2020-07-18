@@ -28,6 +28,12 @@ $connectionParams = array(
 $db = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
 $queryBuilder = $db->createQueryBuilder();
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+// Instantiation and passing `true` enables exceptions
+$mail = new PHPMailer(true);
+
 use Sinergi\BrowserDetector\Browser;
 use Sinergi\BrowserDetector\Device;
 use Sinergi\BrowserDetector\Os;

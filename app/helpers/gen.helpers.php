@@ -256,8 +256,6 @@ function adminSidebar(){
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Controls:</h6>
                         <a class="collapse-item" href="'.APP_BASE_URL.'candidatesitesettings/requirements">Set Site Requirements</a>
-                        <a class="collapse-item" href="#">Privacy Consent</a>
-                        <a class="collapse-item" href="#">Candidate Demographics</a>
                       </div>
                     </div>
                   </li>

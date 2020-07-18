@@ -41,7 +41,7 @@ class MineController extends Controller{
         $question_arr = $this->loadQuestionCandidate($test_data['question']);
 
         //3.) Set test page timer
-        testTimer('unset', $this->ass_code, 0); //unset timer on this page
+        testTimer('init', $this->ass_code, $question_arr['page1'][0]->setTimer);
 
         //4.) Set the required test_info variables
         $test_info = [];

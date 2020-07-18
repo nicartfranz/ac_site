@@ -14,16 +14,18 @@ class CandidateSiteRequirementsModel extends Model{
                     . 'cookies = ?, '
                     . 'camera = ?, '
                     . 'microphone = ?, '
+                    . 'page_reload_back = ?, '
+                    . 'page_focus = ?, '
                     . 'last_update = ? '
                     . 'WHERE '
                     . 'id = ? ', 
-                    array($params['web_browsers'], $params['devices'], $params['os'], $params['cookies'], $params['camera'], $params['microphone'], date('Y-m-d H:i:s'), $params['id']));
+                    array($params['web_browsers'], $params['devices'], $params['os'], $params['cookies'], $params['camera'], $params['microphone'], $params['page_reload_back'], $params['page_focus'], date('Y-m-d H:i:s'), $params['id']));
             
         } else {
             //insert 
             $this->queryBuilder->insert('tbcandidate_site_requirements')
-                                ->values(['web_browsers' => '?', 'devices' => '?' , 'os' => '?', 'cookies' => '?', 'camera' => '?', 'microphone' => '?', 'last_update' => '?'])
-                                ->setParameters([$params['web_browsers'], $params['devices'], $params['os'], $params['cookies'], $params['camera'], $params['microphone'], date('Y-m-d H:i:s')]);
+                                ->values(['web_browsers' => '?', 'devices' => '?' , 'os' => '?', 'cookies' => '?', 'camera' => '?', 'microphone' => '?', 'page_reload_back' => '?', 'page_focus' => '?', 'last_update' => '?'])
+                                ->setParameters([$params['web_browsers'], $params['devices'], $params['os'], $params['cookies'], $params['camera'], $params['microphone'], $params['page_reload_back'], $params['page_focus'], date('Y-m-d H:i:s')]);
             $this->queryBuilder->execute();
 
         }

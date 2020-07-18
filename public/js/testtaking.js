@@ -1,34 +1,32 @@
+////-=-=-=-=-=-=-=-=-=-=-= DISABLE BACK in mobile and desktop -=-=-=-=-=-=-=-=-=-=-=-=-=-=
+if(page_reload_back == 0){
+    var myNewState = {
+            data: {},
+            title: 'Assessment Center',
+            url: 'prevent_reload_and_back'
+    };
+    history.replaceState(myNewState.data, myNewState.title, myNewState.url);
+}
 //-=-=-=-=-=-=-=-=-=-=-= DISABLE BACK in mobile and desktop -=-=-=-=-=-=-=-=-=-=-=-=-=-=
-//OTHER BROWSER
-//history.pushState(null, document.title, location.href);
-//window.addEventListener('popstate', function (event)
-//{
-//  history.pushState(null, document.title, location.href);
-//});
-var myNewState = {
-	data: {},
-	title: 'Assessment Center',
-	url: 'prevent_reload_and_back'
-};
-history.replaceState(myNewState.data, myNewState.title, myNewState.url);
-//-=-=-=-=-=-=-=-=-=-=-= DISABLE BACK in mobile and desktop -=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
-
 
 
 $(document).ready(function(){
     
     //-=-=-=-=-=-=-=-=-=-=-= Detect window blur -=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    $(window).blur(function(){
-        window.location.replace(APP_BASE_URL+"candidate/window_exit");
-    });
+    if(page_focus == 0){
+        $(window).blur(function(){
+            window.location.replace(APP_BASE_URL+"candidate/window_exit");
+        });
+    }
     //-=-=-=-=-=-=-=-=-=-=-= Detect window blur -=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
     //-=-=-=-=-=-=-=-=-=-=-= DISABLE BACK in mobile and desktop -=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    $('html').backDetect(function(){
-        // Callback function
-        alert("Back function has been disabled in this site.");
-    });
+    if(page_reload_back == 0){
+        $('html').backDetect(function(){
+            // Callback function
+            alert("Back function has been disabled in this site.");
+        });
+    }
     //-=-=-=-=-=-=-=-=-=-=-= DISABLE BACK in mobile and desktop -=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
     

@@ -26,3 +26,10 @@
 
     //Site Name
     define('SITENAME', 'Assessment Center');
+    
+    //PHPMAILER config
+    define('MAIL_HOST', 'smtp1.example.com');       // Set the SMTP server to send through
+    define('MAIL_SMTPAUTH', true);                  // Enable SMTP authentication
+    define('MAIL_USERNAME', 'user@example.com');    // SMTP username
+    define('MAIL_PASSWORD', 'secret');              // SMTP password
+    define('MAIL_PORT', 587);                       // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above

@@ -34,18 +34,58 @@ class TestController extends Controller{
         //init model
         $test = $this->initModel('TestModel');
         
+        $records_per_page = 12;
+        $pages = new Paginator($records_per_page, 'page');
+        
         //search
-        if(isset($_POST['search'])){
+        if(isset($_GET['search'])){
             $where = array();
-            $where['conditions'] = "AND tbassessment.AssName LIKE ?";
-            $where['values'][] = "%".xss_clean($_POST['assessment_name'])."%";
-            $tests = $test->getAllTests($where);
+            
+            //first where conditon
+            $where_conditions[] = " AND tbassessment.AssName LIKE ? ";
+            $where_values[] = "%".xss_clean($_GET['assessment_name'])."%";
+            
+            //second where conditon.
+            $where_conditions[] = "AND tbassessment.AssCode LIKE ?";
+            $where_values[] = "%".xss_clean($_GET['assessment_code'])."%";
+            
+            $tests_total = $test->getAllTests($where_conditions, $where_values);
+            $tests = $test->getAllTests($where_conditions, $where_values, $pages->get_limit());
+            
+            //pass number of records to
+            $pages->set_total(count($tests_total)); 
+
         } else {
-            $tests = $test->getAllTests();
+            
+            $where = array();
+            
+            //first where conditon
+            $where_conditions[] = " AND tbassessment.AssName LIKE ? ";
+            $where_values[] = "%%";
+            
+            //second where conditon.
+            $where_conditions[] = "AND tbassessment.AssCode LIKE ?";
+            $where_values[] = "%%";
+            
+            $tests_total = $test->getAllTests($where_conditions, $where_values);
+            $tests = $test->getAllTests($where_conditions, $where_values, $pages->get_limit());
+            
+            //pass number of records to
+            $pages->set_total(count($tests_total)); 
         }
+       
+        //pagination links
+        $get_params = '';
+        unset($_GET['url']); //IMPORTANT
+        unset($_GET['page']); //IMPORTANT
+        foreach($_GET as $get_key => $get_value){
+            $get_params .= '&'.$get_key.'='.$get_value; 
+        }
+        $ext = $get_params;
+        $page_links = $pages->page_links(APP_BASE_URL.'test/search/?', $ext);
         
          //load a view and put it in a variable for later use
-        $content = $this->getView('pages/admin/test_search', ['tests' => $tests]);
+        $content = $this->getView('pages/admin/test_search', ['tests' => $tests, 'page_links' => $page_links]);
         
         //create an array that will store data to be passed to the render view method
         $html = [

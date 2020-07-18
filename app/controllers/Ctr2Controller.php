@@ -145,11 +145,11 @@ class Ctr2Controller extends Controller{
     public function page4(){
         
         //--SUBMIT PREV FORM---//
-//        echo $this->saveResponsesCTR2(1);
-//        echo '<pre>';
-//        print_r($this->saveResultCTR2(1));
-//        echo '</pre>';
-//        $this->saveSnapshot();
+        echo $this->saveResponsesCTR2(1);
+        echo '<pre>';
+        print_r($this->saveResultCTR2(1));
+        echo '</pre>';
+        $this->saveSnapshot();
         //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
@@ -225,11 +225,11 @@ class Ctr2Controller extends Controller{
     public function page6(){
         
         //--SUBMIT PREV FORM---//
-//        echo $this->saveResponsesCTR2(2);
-//        echo '<pre>';
-//        print_r($this->saveResultCTR2(2));
-//        echo '</pre>';
-//        $this->saveSnapshot();
+        echo $this->saveResponsesCTR2(2);
+        echo '<pre>';
+        print_r($this->saveResultCTR2(2));
+        echo '</pre>';
+        $this->saveSnapshot();
         //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
@@ -267,11 +267,11 @@ class Ctr2Controller extends Controller{
     public function page7(){
         
         //--SUBMIT PREV FORM---//
-//        echo $this->saveResponsesCTR2(2);
-//        echo '<pre>';
-//        print_r($this->saveResultCTR2(2));
-//        echo '</pre>';
-//        $this->saveSnapshot();
+        echo $this->saveResponsesCTR2(2);
+        echo '<pre>';
+        print_r($this->saveResultCTR2(2));
+        echo '</pre>';
+        $this->saveSnapshot();
         //--------------------//
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
@@ -311,10 +311,10 @@ class Ctr2Controller extends Controller{
      public function finish(){
         
         //--SUBMIT PREV FORM---//
-//        echo $this->saveResponsesCTR2(3);
-//        echo '<pre>';
-//        print_r($this->saveResultCTR2(3));
-//        echo '</pre>';
+        echo $this->saveResponsesCTR2(3);
+        echo '<pre>';
+        print_r($this->saveResultCTR2(3));
+        echo '</pre>';
         $this->saveSnapshot();
         //--------------------//
         

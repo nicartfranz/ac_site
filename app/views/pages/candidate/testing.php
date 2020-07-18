@@ -8,6 +8,7 @@ $test_time_remaining_hr = (isset($_SESSION[$data['AssCode']]['test_time_remainin
 $test_time_remaining_min = (isset($_SESSION[$data['AssCode']]['test_time_remaining_min'])) ? $_SESSION[$data['AssCode']]['test_time_remaining_min'] : -1;
 $test_time_remaining_sec = (isset($_SESSION[$data['AssCode']]['test_time_remaining_sec'])) ? $_SESSION[$data['AssCode']]['test_time_remaining_sec'] : -1;
 $test_timer_end_time = (isset($_SESSION[$data['AssCode']]['test_timer_end_time'])) ? $_SESSION[$data['AssCode']]['test_timer_end_time'] : -1;
+
 ?>
 <div class="container-sm test-content">
     
@@ -52,6 +53,10 @@ var test_timer_end_time = '<?= date('m/d/Y H:i:s', strtotime($test_timer_end_tim
 var onTimesup = '<?= $data['onTimesUp'] ?>';
 //Snapshot
 var enableSnapshot = '<?= (in_array($machine_os, ['Windows', 'OS X'])) ? $data['enableSnapshot'] : false; ?>';
+
+//test security
+var page_reload_back = <?= $data['requirements']['page_reload_back'] ?>;
+var page_focus = <?= $data['requirements']['page_focus'] ?>;
 
 //Question JSON data
 var questionsJSON = <?= $data['question'] ?> 
