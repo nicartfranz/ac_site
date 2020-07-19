@@ -290,6 +290,11 @@ const fb_templates = {
         var custom_html_value = fieldData.value || setDefaultValue;
         return {
             field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
+//            field: formatFactory(custom_html_value),
+//            onRender: function(){
+//                var count_frmb = $('ul.frmb li:not(.startPageMarker-field, .button-field, .endPageMarker-field)').length;
+//                alert('Total frmb = '  + count_frmb);
+//            }
         }
     },
     customMC2Question:function(fieldData){

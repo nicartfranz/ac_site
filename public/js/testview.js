@@ -1,6 +1,7 @@
 
 
 $(document).ready(function(){
+    
     var formbuilder_main = $('#build-wrap');
     
     $(formbuilder_main).formRender({
@@ -8,6 +9,32 @@ $(document).ready(function(){
         dataType: 'json',
     });
     
+    var check_name_attr = {};
+    var found = false;
+    var test_duplicate_name_attr_str = '';
+    $('[name]').each(function() {
+        if (this.name && check_name_attr[this.name]) {
+            found = true;
+            console.warn('AC SITE Warning: Duplicate name attribute '+this.name);
+//            test_duplicate_name_attr_str += '<p>#'+this.name+'</p>';
+//            $('input[name="'+this.name+'"]').replaceWith( "<p style='color:orange;'>"+this.name+"</p>" );
+        }
+        check_name_attr[this.name] = 1;
+    });
+//    if (found){
+//        $('#testViewModal').on('show.bs.modal', function (event) {
+//            var modal = $(this)
+//            modal.find('.modal-title').text('Warning: Duplicate name attribute detected.');
+//            modal.find('.modal-body').html(test_duplicate_name_attr_str);
+//        });
+//        $('#testViewModal').modal('show');
+//    }
+    
+    if(debug_mode == '1'){
+        $('[name]').each(function() {
+            $('input[name="'+this.name+'"]').replaceWith( "<div style='border: 1px solid orange;color: black;background: bisque;'>POST/GET Variable: <b>"+this.name+"</b></div>" );
+        });
+    }
     
     //-=-=-=-=-=-=-=-=-=-=-= radio image tf2 -=-=-=-=-=-=-=-=-=-=-=
     $('div#radio-image-selector input:radio').addClass('input_radio_hidden');
