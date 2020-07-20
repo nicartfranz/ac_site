@@ -508,6 +508,14 @@ const fb_typeUserAttrs = {
                 'yn2':'yn2',
             },
         },
+        fldQOrder: {
+            label: 'Question Order',
+            options: {
+                '':'None',
+                'display_top': 'Display Top',
+                'display_bottom':'Display Bottom',
+            },
+        }
     },
     sliderQuestion:{
         question_type: {

@@ -16,19 +16,9 @@ $(document).ready(function(){
         if (this.name && check_name_attr[this.name]) {
             found = true;
             console.warn('AC SITE Warning: Duplicate name attribute '+this.name);
-//            test_duplicate_name_attr_str += '<p>#'+this.name+'</p>';
-//            $('input[name="'+this.name+'"]').replaceWith( "<p style='color:orange;'>"+this.name+"</p>" );
         }
         check_name_attr[this.name] = 1;
     });
-//    if (found){
-//        $('#testViewModal').on('show.bs.modal', function (event) {
-//            var modal = $(this)
-//            modal.find('.modal-title').text('Warning: Duplicate name attribute detected.');
-//            modal.find('.modal-body').html(test_duplicate_name_attr_str);
-//        });
-//        $('#testViewModal').modal('show');
-//    }
     
     if(debug_mode == '1'){
         $('[name]').each(function() {

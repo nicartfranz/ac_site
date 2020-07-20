@@ -152,16 +152,17 @@ class Controller {
                     $final_questions[] = (object)$q;
                 }
             }
-            if(isset($submitButton) && !empty($submitButton)){
-                //$final_questions[] = (object)$submitButton;
-                foreach ($submitButton as $b){
-                    $final_questions[] = (object)$b;
-                }
-            }
             
             if(isset($temp_bottom_field) && !empty($temp_bottom_field)){
                 foreach ($temp_bottom_field as $q){
                     $final_questions[] = (object)$q;
+                }
+            }
+            
+            if(isset($submitButton) && !empty($submitButton)){
+                //$final_questions[] = (object)$submitButton;
+                foreach ($submitButton as $b){
+                    $final_questions[] = (object)$b;
                 }
             }
             
@@ -276,16 +277,17 @@ class Controller {
                     $final_questions[] = (object)$q;
                 }
             }
-            if(isset($submitButton) && !empty($submitButton)){
-                //$final_questions[] = (object)$submitButton;
-                foreach ($submitButton as $b){
-                    $final_questions[] = (object)$b;
-                }
-            }
             
             if(isset($temp_bottom_field) && !empty($temp_bottom_field)){
                 foreach ($temp_bottom_field as $q){
                     $final_questions[] = (object)$q;
+                }
+            }
+            
+            if(isset($submitButton) && !empty($submitButton)){
+                //$final_questions[] = (object)$submitButton;
+                foreach ($submitButton as $b){
+                    $final_questions[] = (object)$b;
                 }
             }
             

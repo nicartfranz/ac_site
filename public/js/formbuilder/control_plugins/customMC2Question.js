@@ -41,9 +41,7 @@ window.fbControls.push(function (controlClass) {
       key: 'onRender',
       value: function onRender() {
           
-          
         var required = this.config.required;
-        
         var html_value = this.config.value || "\n\
         <div class='container'>\n\
             <div class='row custom_mc_row_question'><b>1. </b>QUESTION</div>\n\
