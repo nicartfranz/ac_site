@@ -51,6 +51,16 @@ class TestModel extends Model{
         
     }
     
+    public function getTestByUsername($username){
+        
+        $tests = $this->db->fetchAll('SELECT tbstatus.user_id, tbstatus.AssCode, tbassessment.AssName, tbstatus.status FROM tbstatus '
+                . ' LEFT JOIN tbassessment ON tbassessment.AssCode = tbstatus.AssCode '
+                . ' WHERE 1=1 '
+                . ' AND tbstatus.user_id = ?', array($username));
+        return $tests;
+        
+    }
+    
     public function get_tb_assessment($id){
         $test = $this->db->fetchAssoc('SELECT * FROM tbassessment '
                 . 'WHERE 1=1 '

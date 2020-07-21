@@ -50,8 +50,17 @@ $count_system_req_errs = count($data['error_site_requirement']);
                             <label for="password" class="text-dark">Password:</label><br>
                             <input type="password" name="password" id="password" class="form-control">
                         </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="login_type" id="login_type1" value="candidate">
+                            <label class="form-check-label" for="login_type1">Candidate</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="login_type" id="login_type2" value="admin">
+                            <label class="form-check-label" for="login_type2">Administrator</label>
+                        </div>  
+                        <hr>
                         <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
+                            <input type="submit" name="submit" class="btn btn-success btn-md" value="Login">
                         </div>
                     </form>
                 </div>

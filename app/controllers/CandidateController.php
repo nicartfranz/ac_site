@@ -9,17 +9,17 @@ class CandidateController extends Controller{
     public function index(){
         
         $test = $this->initModel('TestModel');
-        $tests = $test->getAllTests();
+        $tests = $test->getTestByUsername($_SESSION['username']);
         
         //load a view and put it in a variable for later use
-        $content = $this->getView('pages/candidate/index', $tests);
+        $content = $this->getView('pages/candidate/index', array('scheduled_tests' => $tests));
         
         //create an array that will store data to be passed to the render view method
         $html = [
             'content' => $content, //this is the pages/admin/dashboard html
         ];
         $this->renderView('layouts/candidate', $html);
-        
+       
     }
     
     public function privacy_consent(){

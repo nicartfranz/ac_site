@@ -8,7 +8,7 @@
         <div class="form-group">
             <label for="scheduled_tests">Scheduled Test(s):</label>
             <select class="form-control" id="scheduled_tests">
-                <?php foreach ($data as $test): ?>
+                <?php foreach ($data['scheduled_tests'] as $test): ?>
                 <option value="<?= $test['AssCode'] ?>"><?= $test['AssName'] ?></option>
                 <?php endforeach; ?>
             </select>

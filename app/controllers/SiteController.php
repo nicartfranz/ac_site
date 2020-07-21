@@ -89,36 +89,61 @@ class SiteController extends Controller{
     public function login(){
         
         if(isset($_POST['submit'])){
-            $username = xss_clean($_POST['username']);
-            $password = xss_clean($_POST['password']);
-            if($username == 'admin' && $password == 'password'){
-                $_SESSION['username'] = 'admin';
-                $_SESSION['is_authenticated'] = true;
-                $_SESSION['usertype'] = 'super_admin';
-                header("Location:".APP_BASE_URL."admin/index");
-            } else if ($username == 'candidate' && $password == 'password'){
-                $_SESSION['username'] = 'candidate';
-                $_SESSION['is_authenticated'] = true;
-                $_SESSION['usertype'] = 'test_taker';
-                header("Location:".APP_BASE_URL."candidate/privacy_consent");
-            } else{
+            
+            $site = $this->initModel('SiteModel');
+            
+            if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['login_type'])){
+                
+                $username = xss_clean($_POST['username']);
+                $password = xss_clean($_POST['password']);
+                $login_type = xss_clean($_POST['login_type']);
 
-                $error = [
+                if($login_type == 'candidate'){
+                    
+                    $candidate_info = $site->candidate_login($username, $password);
+                    
+                    $_SESSION['username'] = $username;
+                    $_SESSION['is_authenticated'] = true;
+                    $_SESSION['usertype'] = 'test_taker';
+                    $_SESSION['candidate_info'] = $candidate_info;
+                    header("Location:".APP_BASE_URL."candidate/privacy_consent");
+                    
+                } else if ($login_type == 'admin'){
+                    
+                    if($username == 'admin' && $password == 'password'){
+                        $_SESSION['username'] = 'admin';
+                        $_SESSION['is_authenticated'] = true;
+                        $_SESSION['usertype'] = 'super_admin';
+                        header("Location:".APP_BASE_URL."admin/index");
+                    }
+                    
+                } else { 
+                    $this->invalid_login();
+                }
+                
+            } else {
+                $this->invalid_login();
+            }
+            
+        } else {
+            $this->index();
+        }
+                
+    }
+    
+    public function invalid_login(){
+        
+        $error = [
                     'invalid_login' => 'Invalid login credentials',
                     'error_site_requirement' => [],
                     'requirements' => [],
                 ];
-                $content = $this->getView('pages/login', $error);
-                $data = [
-                    'content' => $content, 
-                ];
-                $this->renderView('pages/index', $data);
-            }
-        } else {
-            $this->index();
-        }
-       
-                
+        $content = $this->getView('pages/login', $error);
+        $data = [
+            'content' => $content, 
+        ];
+        $this->renderView('pages/index', $data);
+        
     }
     
     
