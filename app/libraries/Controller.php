@@ -404,9 +404,14 @@ class Controller {
             $encoded_data = $_POST['mysnapshot'];
             $binary_data = base64_decode( $encoded_data );
 
+            //create a folder
+            if (!is_dir("img/snapshots/".$_SESSION['username']."/")){
+                mkdir("img/snapshots/".$_SESSION['username'], 0777, true);
+            }
+            
             // save to server (beware of permissions)
             $unique_pic_name = strtotime(date('Y-m-d H:i:s'));
-            $result = file_put_contents("img/snapshots/{$unique_pic_name}.jpg", $binary_data );
+            $result = file_put_contents("img/snapshots/".$_SESSION['username']."/".$unique_pic_name.".jpg", $binary_data );
             if (!$result) die("Could not save image!  Check file permissions.");
         }
         

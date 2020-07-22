@@ -1,12 +1,11 @@
 <div class="container-sm test-content">
    
     <div class="jumbotron">
-        <h4 class="display-8">Hello, test taker!</h4>
-        <p class="lead">This is a welcome message, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <h4 class="display-8">Hello, <?= $_SESSION['candidate_info']['fname'] ?>!</h4>
+        <p class="lead">You are invited to take an assessment relative to your application to Profiles Asia Pacific.</p>
         <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <div class="form-group">
-            <label for="scheduled_tests">Scheduled Test(s):</label>
+            <label for="scheduled_tests">Please select the assessment you want to take:</label>
             <select class="form-control" id="scheduled_tests">
                 <?php foreach ($data['scheduled_tests'] as $test): ?>
                 <option value="<?= $test['AssCode'] ?>"><?= $test['AssName'] ?></option>
