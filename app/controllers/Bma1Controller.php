@@ -23,15 +23,21 @@ class Bma1Controller extends Controller{
     public function __construct() {
         parent::__construct();
         allowPageAccessByUser(['test_taker']);
+        
+        $this->bma1_model = $this->initModel('Bma1Model');
+        $last_visited_page = $this->bma1_model->getLastVisitedPage();
+        if(getCurrentTestPage() < $last_visited_page){
+            header('Location:'.APP_BASE_URL.$this->ass_code.'/page'.$last_visited_page);
+        }
+        
     }
     
     
     public function index(){
         
-        //--SUBMIT PREV FORM---//
-        //$this->submitForm(false);
-        //$this->saveSnapshot();
-        //--------------------//
+        //On page 1 load, update tbstatus
+        $tbstatus = array('status' => 'started', 'page' => '1', 'date_started' => date('Y-m-d H:i:s'));
+        $this->bma1_model->update_tbstatus($tbstatus);
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -65,7 +71,6 @@ class Bma1Controller extends Controller{
     }
             
             
-                
     public function page1(){
         $this->index();
     }
@@ -75,8 +80,12 @@ class Bma1Controller extends Controller{
         
         //--SUBMIT PREV FORM---//
         //$this->submitForm(false);
-        //$this->saveSnapshot();
+        $this->saveSnapshot($this->ass_code, 'page1');
         //--------------------//
+
+        //On page 2 load, update tbstatus
+        $tbstatus = array('page' => '2');
+        $this->bma1_model->update_tbstatus($tbstatus);
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -117,6 +126,10 @@ class Bma1Controller extends Controller{
         //$this->saveSnapshot();
         //--------------------//
 
+        //On page 3 load, update tbstatus
+        $tbstatus = array('page' => '3');
+        $this->bma1_model->update_tbstatus($tbstatus);
+        
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
         $test_data = $test->getTestByAssCode($this->ass_code);
@@ -155,8 +168,28 @@ class Bma1Controller extends Controller{
 //        echo '<pre>';
 //        print_r($this->saveBMA1Answers(1));
 //        echo '</pre>';
-        $this->saveSnapshot();
+        $responses = $this->saveBMA1Answers(1);
+        //SAVE: [tbanswer__answer]
+        $tbanswer = array();
+        $tbanswer['answer'] = $responses['tbanswer__answer'];
+        $tbanswer['page'] = 4;
+        $this->bma1_model->save_update_tbanswer($tbanswer);
+        //SAVE: [tbresult__scores]
+        $tbresult = array();
+        $tbresult['DimID'] = 1; 
+        $tbresult['Score'] = $responses['tbresult__scores'];
+        $tbresult['fldAdjScore'] = 0;
+        $tbresult['fldWrongAns'] = 0;
+        $tbresult['fldUnAns'] = 0;
+        $this->bma1_model->save_update_tbresult($tbresult);
+        //$this->saveSnapshot();
         //--------------------//
+        
+        //On page 4 load, update tbstatus
+        $tbstatus = array('page' => '4');
+        $this->bma1_model->update_tbstatus($tbstatus);
+        
+        
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -197,6 +230,10 @@ class Bma1Controller extends Controller{
         //$this->saveSnapshot();
         //--------------------//
 
+        //On page 5 load, update tbstatus
+        $tbstatus = array('page' => '5');
+        $this->bma1_model->update_tbstatus($tbstatus);
+
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
         $test_data = $test->getTestByAssCode($this->ass_code);
@@ -235,8 +272,28 @@ class Bma1Controller extends Controller{
 //        echo '<pre>';
 //        print_r($this->saveBMA1Answers(2));
 //        echo '</pre>';
-        $this->saveSnapshot();
+        $responses = $this->saveBMA1Answers(2);
+        //SAVE: [tbanswer__answer]
+        $tbanswer = array();
+        $tbanswer['answer'] = $responses['tbanswer__answer'];
+        $tbanswer['page'] = 6;
+        $this->bma1_model->save_update_tbanswer($tbanswer);
+        //SAVE: [tbresult__scores]
+        $tbresult = array();
+        $tbresult['DimID'] = 2; 
+        $tbresult['Score'] = $responses['tbresult__scores'];
+        $tbresult['fldAdjScore'] = 0;
+        $tbresult['fldWrongAns'] = 0;
+        $tbresult['fldUnAns'] = 0;
+        $this->bma1_model->save_update_tbresult($tbresult);
+        //$this->saveSnapshot();
         //--------------------//
+        
+        //On page 6 load, update tbstatus
+        $tbstatus = array('page' => '6');
+        $this->bma1_model->update_tbstatus($tbstatus);
+        
+        
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -269,12 +326,17 @@ class Bma1Controller extends Controller{
         $this->renderView('layouts/candidate', $html);
     }
     
+    
     public function page7(){
         
         //--SUBMIT PREV FORM---//
         //$this->submitForm(false);
         //$this->saveSnapshot();
         //--------------------//
+        
+        //On page 7 load, update tbstatus
+        $tbstatus = array('page' => '7');
+        $this->bma1_model->update_tbstatus($tbstatus);
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -308,14 +370,33 @@ class Bma1Controller extends Controller{
     }
     
     
-     public function finish(){
+    public function finish(){
         
         //--SUBMIT PREV FORM---//
 //        echo '<pre>';
 //        print_r($this->saveBMA1Answers(3));
 //        echo '</pre>';
-        $this->saveSnapshot();
+        $responses = $this->saveBMA1Answers(3);
+        //SAVE: [tbanswer__answer]
+        $tbanswer = array();
+        $tbanswer['answer'] = $responses['tbanswer__answer'];
+        $tbanswer['page'] = 8;
+        $this->bma1_model->save_update_tbanswer($tbanswer);
+        //SAVE: [tbresult__scores]
+        $tbresult = array();
+        $tbresult['DimID'] = 3; 
+        $tbresult['Score'] = $responses['tbresult__scores'];
+        $tbresult['fldAdjScore'] = 0;
+        $tbresult['fldWrongAns'] = 0;
+        $tbresult['fldUnAns'] = 0;
+        $this->bma1_model->save_update_tbresult($tbresult);
+        //SAVE: Snapshot
+        $this->saveSnapshot($this->ass_code, 'page7');
         //--------------------//
+        
+        //On page 8 load, update tbstatus
+        $tbstatus = array('status' => 'scored', 'page' => '8', 'date_completed' => date('Y-m-d H:i:s'));
+        $this->bma1_model->update_tbstatus($tbstatus);
         
         //remove currently active timer
         testTimer('unset', $this->ass_code, 0);
@@ -334,9 +415,9 @@ class Bma1Controller extends Controller{
     }
     
     
-     private function saveBMA1Answers($dim_id){
+    private function saveBMA1Answers($dim_id){
 
-         if(isset($_POST['save']) && $_POST['save'] == '1'){
+        if(isset($_POST['save']) && $_POST['save'] == '1'){
             
             $all_dim_correct_answers = array(
                 'q1' => 'B',
@@ -427,6 +508,7 @@ class Bma1Controller extends Controller{
             #2 CREATE RECORD IN tbanswer
             #3 CREATE RECORD IN tbresult
             #4 send report using the template
+            #5 meter deduction
 
             return array('tbanswer__answer' => $answer_str, 'tbresult__scores' => $dimension_score);
 

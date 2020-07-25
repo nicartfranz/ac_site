@@ -8,11 +8,22 @@
             <label for="scheduled_tests">Please select the assessment you want to take:</label>
             <select class="form-control" id="scheduled_tests">
                 <?php foreach ($data['scheduled_tests'] as $test): ?>
-                <option value="<?= $test['AssCode'] ?>"><?= $test['AssName'] ?></option>
+                
+                <?php 
+                    if(in_array($test['status'], array('completed', 'scored'))){
+                        $page = 'scored';
+                        $option_style = 'style="background:#b1b1b1;font-weight:bold;color:#FFF;"';
+                    } else {
+                        $page = 'page1';
+                        $option_style = '';
+                    }
+                ?>
+                
+                <option <?= $option_style ?> value="<?= $test['AssCode'].'/'.$page ?>"><?= $test['AssName'] ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
-        <a class="btn btn-primary btn-lg" onclick="var scheduled_tests = '<?= APP_BASE_URL ?>'+$('#scheduled_tests').val(); javascript:location.href=scheduled_tests+'/page1'" href="javascript:void(0);" role="button">Proceed</a>
+        <a class="btn btn-primary btn-lg" onclick="var scheduled_tests = '<?= APP_BASE_URL ?>'+$('#scheduled_tests').val(); javascript:location.href=scheduled_tests" href="javascript:void(0);" role="button">Proceed</a>
     </div>
     
 </div>

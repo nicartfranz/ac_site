@@ -22,6 +22,13 @@ class Ppp2Controller extends Controller{
     public function __construct() {
         parent::__construct();
         allowPageAccessByUser(['test_taker']);
+        
+        $this->ppp2_model = $this->initModel('Ppp2Model');
+        $last_visited_page = $this->ppp2_model->getLastVisitedPage();
+        if(getCurrentTestPage() < $last_visited_page){
+            header('Location:'.APP_BASE_URL.$this->ass_code.'/page'.$last_visited_page);
+        }
+        
     }
     
     
@@ -33,16 +40,9 @@ class Ppp2Controller extends Controller{
 //        //--------------------//
         
         
-        if(isset($_POST['submit_index']) && !empty($_POST['submit_index'])){
-            $submit_index = xss_clean($_POST['submit_index']);
-            if($submit_index == 'go_back_home'){
-                echo 'Home';
-                header("Location:".APP_BASE_URL."candidate/");
-            } else if ($submit_index == 'page2'){
-                echo 'Proceed';
-                header("Location:".APP_BASE_URL."ppp2/page2");
-            }
-        } 
+        //On page 1 load, update tbstatus
+        $tbstatus = array('status' => 'started', 'page' => '1', 'date_started' => date('Y-m-d H:i:s'));
+        $this->ppp2_model->update_tbstatus($tbstatus);
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -65,7 +65,7 @@ class Ppp2Controller extends Controller{
         //4.4) Snapshot
         $test_info['enableSnapshot'] = $question_arr['page1'][0]->enableSnapshot;
         
-        $test_info['submit_page'] = ''; //'page2';
+        $test_info['submit_page'] = 'page2';
       
         //5.) Load the testing page and pass the test_info array
         $content = $this->getView('pages/candidate/testing', $test_info);
@@ -77,8 +77,7 @@ class Ppp2Controller extends Controller{
         $this->renderView('layouts/candidate', $html);
     }
             
-            
-                
+                          
     public function page1(){
         $this->index();
     }
@@ -87,9 +86,12 @@ class Ppp2Controller extends Controller{
     public function page2(){
         
         //--SUBMIT PREV FORM---//
-        $this->submitForm(true);
-        $this->saveSnapshot();
+        $this->saveSnapshot($this->ass_code, 'page1');
         //--------------------//
+        
+        //On page 2 load, update tbstatus
+        $tbstatus = array('page' => '2');
+        $this->ppp2_model->update_tbstatus($tbstatus);
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -122,15 +124,58 @@ class Ppp2Controller extends Controller{
         $this->renderView('layouts/candidate', $html);
     }
     
-     public function finish(){
+    
+    public function finish(){
         
         //--SUBMIT PREV FORM---//
-        //$this->submitForm(false);
-//        echo '<pre>';
-//        print_r($this->savePPP2Responses());
-//        echo '</pre>';
-        $this->saveSnapshot();
+
+        $responses = $this->savePPP2Responses();
+
+        //SAVE: [tbanswer__answer]
+        $tbanswer = array();
+        $tbanswer['answer'] = $responses['tbanswer__answer'];
+        $tbanswer['page'] = 2;
+        $this->ppp2_model->save_update_tbanswer($tbanswer);
+        
+        //SAVE: [tbresult__scores]
+        $tbresult = array();
+        $tbresult['DimID'] = 1; 
+        $tbresult['Score'] = $responses['tbresult__scores']['dim_1'];
+        $tbresult['fldAdjScore'] = 0;
+        $tbresult['fldWrongAns'] = 0;
+        $tbresult['fldUnAns'] = 0;
+        $this->ppp2_model->save_update_tbresult($tbresult);
+        
+        $tbresult = array();
+        $tbresult['DimID'] = 2; 
+        $tbresult['Score'] = $responses['tbresult__scores']['dim_2'];
+        $tbresult['fldAdjScore'] = 0;
+        $tbresult['fldWrongAns'] = 0;
+        $tbresult['fldUnAns'] = 0;
+        $this->ppp2_model->save_update_tbresult($tbresult);
+        
+        $tbresult = array();
+        $tbresult['DimID'] = 3; 
+        $tbresult['Score'] = $responses['tbresult__scores']['dim_3'];
+        $tbresult['fldAdjScore'] = 0;
+        $tbresult['fldWrongAns'] = 0;
+        $tbresult['fldUnAns'] = 0;
+        $this->ppp2_model->save_update_tbresult($tbresult);
+        
+        $tbresult = array();
+        $tbresult['DimID'] = 4; 
+        $tbresult['Score'] = $responses['tbresult__scores']['dim_4'];
+        $tbresult['fldAdjScore'] = 0;
+        $tbresult['fldWrongAns'] = 0;
+        $tbresult['fldUnAns'] = 0;
+        $this->ppp2_model->save_update_tbresult($tbresult);
+        
+        $this->saveSnapshot($this->ass_code, 'page2');
         //--------------------//
+        
+        //On page 3 load, update tbstatus
+        $tbstatus = array('status' => 'scored', 'page' => '3', 'date_completed' => date('Y-m-d H:i:s'));
+        $this->ppp2_model->update_tbstatus($tbstatus);
         
         //remove currently active timer
         testTimer('unset', $this->ass_code, 0);
@@ -148,6 +193,7 @@ class Ppp2Controller extends Controller{
         
     }
 
+    
     private function savePPP2Responses(){
         
         if(isset($_POST['save']) && $_POST['save'] == '1'){
@@ -220,6 +266,7 @@ class Ppp2Controller extends Controller{
             #2 CREATE RECORD IN tbanswer
             #3 CREATE RECORD IN tbresult
             #4 send report using the template
+            #5 meter deduction
 
             return array('tbanswer__answer' => $answer_str, 'tbresult__scores' => $dimension_scores);
 

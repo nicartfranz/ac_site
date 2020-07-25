@@ -23,10 +23,21 @@ class Ctr2Controller extends Controller{
     public function __construct() {
         parent::__construct();
         allowPageAccessByUser(['test_taker']);
+        
+        $this->ctr2_model = $this->initModel('Ctr2Model');
+        $last_visited_page = $this->ctr2_model->getLastVisitedPage();
+        if(getCurrentTestPage() < $last_visited_page){
+            header('Location:'.APP_BASE_URL.$this->ass_code.'/page'.$last_visited_page);
+        }
+        
     }
     
     
     public function index(){
+        
+        //On page 1 load, update tbstatus
+        $tbstatus = array('status' => 'started', 'page' => '1', 'date_started' => date('Y-m-d H:i:s'));
+        $this->ctr2_model->update_tbstatus($tbstatus);
 
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
@@ -69,9 +80,13 @@ class Ctr2Controller extends Controller{
     public function page2(){
         
         //--SUBMIT PREV FORM---//
-        $this->saveSnapshot();
+        $this->saveSnapshot($this->ass_code, 'page1');
         //--------------------//
 
+        //On page 2 load, update tbstatus
+        $tbstatus = array('page' => '2');
+        $this->ctr2_model->update_tbstatus($tbstatus);
+        
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
         $test_data = $test->getTestByAssCode($this->ass_code);
@@ -110,6 +125,10 @@ class Ctr2Controller extends Controller{
         //$this->saveSnapshot();
         //--------------------//
 
+        //On page 3 load, update tbstatus
+        $tbstatus = array('page' => '3');
+        $this->ctr2_model->update_tbstatus($tbstatus);
+        
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
         $test_data = $test->getTestByAssCode($this->ass_code);
@@ -145,13 +164,27 @@ class Ctr2Controller extends Controller{
     public function page4(){
         
         //--SUBMIT PREV FORM---//
-        echo $this->saveResponsesCTR2(1);
-        echo '<pre>';
-        print_r($this->saveResultCTR2(1));
-        echo '</pre>';
-        $this->saveSnapshot();
+        //SAVE: [tbanswer__answer]
+        $tbanswer = array();
+        $tbanswer['answer'] = $this->saveResponsesCTR2(1);
+        $tbanswer['page'] = 4;
+        $this->ctr2_model->save_update_tbanswer($tbanswer);
+        //SAVE: [tbresult__scores]
+        $responses_result = $this->saveResultCTR2(1);
+        $tbresult = array();
+        $tbresult['DimID'] = 1; 
+        $tbresult['Score'] = $responses_result['result_Score'];
+        $tbresult['fldAdjScore'] = $responses_result['result_fldAdjScore'];
+        $tbresult['fldWrongAns'] = $responses_result['result_fldWrongAns'];
+        $tbresult['fldUnAns'] = $responses_result['result_fldUnAns'];
+        $this->ctr2_model->save_update_tbresult($tbresult);
+        //$this->saveSnapshot();
         //--------------------//
 
+        //On page 4 load, update tbstatus
+        $tbstatus = array('page' => '4');
+        $this->ctr2_model->update_tbstatus($tbstatus);
+        
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
         $test_data = $test->getTestByAssCode($this->ass_code);
@@ -190,6 +223,10 @@ class Ctr2Controller extends Controller{
         //$this->saveSnapshot();
         //--------------------//
 
+        //On page 5 load, update tbstatus
+        $tbstatus = array('page' => '5');
+        $this->ctr2_model->update_tbstatus($tbstatus);
+        
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
         $test_data = $test->getTestByAssCode($this->ass_code);
@@ -225,13 +262,27 @@ class Ctr2Controller extends Controller{
     public function page6(){
         
         //--SUBMIT PREV FORM---//
-        echo $this->saveResponsesCTR2(2);
-        echo '<pre>';
-        print_r($this->saveResultCTR2(2));
-        echo '</pre>';
-        $this->saveSnapshot();
+        //SAVE: [tbanswer__answer]
+        $tbanswer = array();
+        $tbanswer['answer'] = $this->saveResponsesCTR2(2);
+        $tbanswer['page'] = 6;
+        $this->ctr2_model->save_update_tbanswer($tbanswer);
+        //SAVE: [tbresult__scores]
+        $responses_result = $this->saveResultCTR2(2);
+        $tbresult = array();
+        $tbresult['DimID'] = 2; 
+        $tbresult['Score'] = $responses_result['result_Score'];
+        $tbresult['fldAdjScore'] = $responses_result['result_fldAdjScore'];
+        $tbresult['fldWrongAns'] = $responses_result['result_fldWrongAns'];
+        $tbresult['fldUnAns'] = $responses_result['result_fldUnAns'];
+        $this->ctr2_model->save_update_tbresult($tbresult);
+        //$this->saveSnapshot();
         //--------------------//
 
+        //On page 6 load, update tbstatus
+        $tbstatus = array('page' => '6');
+        $this->ctr2_model->update_tbstatus($tbstatus);
+        
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
         $test_data = $test->getTestByAssCode($this->ass_code);
@@ -267,13 +318,13 @@ class Ctr2Controller extends Controller{
     public function page7(){
         
         //--SUBMIT PREV FORM---//
-        echo $this->saveResponsesCTR2(2);
-        echo '<pre>';
-        print_r($this->saveResultCTR2(2));
-        echo '</pre>';
-        $this->saveSnapshot();
+        //$this->saveSnapshot();
         //--------------------//
 
+        //On page 7 load, update tbstatus
+        $tbstatus = array('page' => '7');
+        $this->ctr2_model->update_tbstatus($tbstatus);
+        
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
         $test_data = $test->getTestByAssCode($this->ass_code);
@@ -306,17 +357,29 @@ class Ctr2Controller extends Controller{
     }
     
     
-    
-    
-     public function finish(){
+    public function finish(){
         
         //--SUBMIT PREV FORM---//
-        echo $this->saveResponsesCTR2(3);
-        echo '<pre>';
-        print_r($this->saveResultCTR2(3));
-        echo '</pre>';
-        $this->saveSnapshot();
+        //SAVE: [tbanswer__answer]
+        $tbanswer = array();
+        $tbanswer['answer'] = $this->saveResponsesCTR2(3);
+        $tbanswer['page'] = 8;
+        $this->ctr2_model->save_update_tbanswer($tbanswer);
+        //SAVE: [tbresult__scores]
+        $responses_result = $this->saveResultCTR2(3);
+        $tbresult = array();
+        $tbresult['DimID'] = 3; 
+        $tbresult['Score'] = $responses_result['result_Score'];
+        $tbresult['fldAdjScore'] = $responses_result['result_fldAdjScore'];
+        $tbresult['fldWrongAns'] = $responses_result['result_fldWrongAns'];
+        $tbresult['fldUnAns'] = $responses_result['result_fldUnAns'];
+        $this->ctr2_model->save_update_tbresult($tbresult);
+        $this->saveSnapshot($this->ass_code, 'page7');
         //--------------------//
+        
+        //On page 8 load, update tbstatus
+        $tbstatus = array('status' => 'scored', 'page' => '8', 'date_completed' => date('Y-m-d H:i:s'));
+        $this->ctr2_model->update_tbstatus($tbstatus);
         
         //remove currently active timer
         testTimer('unset', $this->ass_code, 0);

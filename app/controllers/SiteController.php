@@ -102,11 +102,17 @@ class SiteController extends Controller{
                     
                     $candidate_info = $site->candidate_login($username, $password);
                     
-                    $_SESSION['username'] = $username;
-                    $_SESSION['is_authenticated'] = true;
-                    $_SESSION['usertype'] = 'test_taker';
-                    $_SESSION['candidate_info'] = $candidate_info;
-                    header("Location:".APP_BASE_URL."candidate/privacy_consent");
+                    if($candidate_info){
+                        $_SESSION['username'] = $username;
+                        $_SESSION['is_authenticated'] = true;
+                        $_SESSION['usertype'] = 'test_taker';
+                        $_SESSION['candidate_info'] = $candidate_info;
+                        header("Location:".APP_BASE_URL."candidate/privacy_consent");
+                    } else {
+                        $this->invalid_login();
+                    }
+                    
+   
                     
                 } else if ($login_type == 'admin'){
                     
@@ -115,6 +121,8 @@ class SiteController extends Controller{
                         $_SESSION['is_authenticated'] = true;
                         $_SESSION['usertype'] = 'super_admin';
                         header("Location:".APP_BASE_URL."admin/index");
+                    } else {
+                        $this->invalid_login();
                     }
                     
                 } else { 

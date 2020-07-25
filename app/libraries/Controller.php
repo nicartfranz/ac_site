@@ -15,11 +15,13 @@ class Controller {
         $this->isAuthenticated(); //This will redirect the user to login page if he/she is not login yet 
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // START CONTROLLER BASE
+    ////////////////////////////////////////////////////////////////////////////
     public function index(){
         $className = get_called_class();// get the class name, who extended this class
         die("index(); method not defined in <b>{$className} Controller</b>.");
     }
-
 
     //load model
     public function initModel($model){
@@ -34,6 +36,15 @@ class Controller {
         
         //instantiate model
         return new $model();
+    }
+    
+    //load class in library
+    public function initClass($class){
+        //require model file
+        require_once '../app/libraries/' . $class . '.php';
+        
+        //instantiate model
+        return new $class();
     }
     
     //load the view
@@ -66,6 +77,10 @@ class Controller {
         
         return $content;
     }
+    ////////////////////////////////////////////////////////////////////////////
+    // END CONTROLLER BASE
+    ////////////////////////////////////////////////////////////////////////////
+    
     
     //load Questions
     public function loadQuestionsAdmin($raw_questions){
@@ -180,7 +195,6 @@ class Controller {
         return json_encode($final_questions);
         
     }
-    
     
     //load question candidate
     public function loadQuestionCandidate($raw_questions){
@@ -309,6 +323,21 @@ class Controller {
         
     }
     
+    //Force redirect user to login page if he/she is not yet authenticated/logged in. 
+    public function isAuthenticated(){
+        $controller = getController();
+        
+        if(in_array($controller, ['', 'site'])){
+            return;
+        } else {
+            if(!isset($_SESSION['is_authenticated']) && $_SESSION['is_authenticated'] != '1'){
+                header("Location:".APP_BASE_URL."site/index");
+            } 
+        }
+        
+    }
+    
+    //Used in candidate testing: Page 1 of the test
     public function page1(){
         $content = $this->getView('pages/candidate/test_not_found');
         
@@ -321,18 +350,7 @@ class Controller {
         $this->renderView('layouts/candidate', $html);
     }
     
-    public function prevent_reload_and_back(){
-        $content = $this->getView('pages/candidate/prevent_reload_and_back');
-        
-        $html = [
-            'includeSiteLevelJS' => [
-                'public/js/testtaking.js'
-            ],
-            'content' => $content, 
-        ];
-        $this->renderView('layouts/candidate', $html);
-    }
-    
+    //Used in candidate testing: Finish page
     public function finish(){
         
         //--SUBMIT PREV FORM---//
@@ -356,6 +374,20 @@ class Controller {
         
     }
     
+    //Used in candidate testing: Scored page
+    public function scored(){
+        
+        $content = $this->getView('pages/candidate/scored');
+        
+        $html = [
+            'includeSiteLevelJS' => [
+                'public/js/testtaking.js'
+            ],
+            'content' => $content, 
+        ];
+        $this->renderView('layouts/candidate', $html);
+        
+    }
     
     //this controller method is for ajax requests only
     public function submitAjax(){
@@ -369,22 +401,7 @@ class Controller {
         
     }
     
-    //Force redirect user to login page if he/she is not yet authenticated/logged in. 
-    public function isAuthenticated(){
-        $controller = getController();
-        
-        if(in_array($controller, ['', 'site'])){
-            return;
-        } else {
-            if(!isset($_SESSION['is_authenticated']) && $_SESSION['is_authenticated'] != '1'){
-                header("Location:".APP_BASE_URL."site/index");
-            } 
-        }
-        
-    }
-    
-    
-    //submit form 
+    //Used in candidate testing: submit form 
     public function submitForm($confirm_submit = true){
         
         if($confirm_submit){
@@ -397,60 +414,40 @@ class Controller {
 
     }
     
-    //saves the snapshot to a directory
-    public function saveSnapshot($directory = ''){
+    //Used in candidate testing: saves the snapshot to a directory
+    public function saveSnapshot($ass_code = '', $page = ''){
         
         if(isset($_POST['mysnapshot']) && !empty($_POST['mysnapshot'])){
             $encoded_data = $_POST['mysnapshot'];
             $binary_data = base64_decode( $encoded_data );
 
             //create a folder
+            
             if (!is_dir("img/snapshots/".$_SESSION['username']."/")){
                 mkdir("img/snapshots/".$_SESSION['username'], 0777, true);
             }
             
             // save to server (beware of permissions)
             $unique_pic_name = strtotime(date('Y-m-d H:i:s'));
+            if($ass_code!=''){ $unique_pic_name .= '_'.$ass_code; }
+            if($page!=''){ $unique_pic_name .= '_'.$page; }
             $result = file_put_contents("img/snapshots/".$_SESSION['username']."/".$unique_pic_name.".jpg", $binary_data );
             if (!$result) die("Could not save image!  Check file permissions.");
         }
         
     }
     
-    public function sendReport($recipient, $attachment, $content){
-
-        try {
-            //Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-            $mail->isSMTP();                                            // Send using SMTP
-            $mail->Host       = MAIL_HOST;                              // Set the SMTP server to send through
-            $mail->SMTPAuth   = MAIL_SMTPAUTH;                          // Enable SMTP authentication
-            $mail->Username   = MAIL_USERNAME;                          // SMTP username
-            $mail->Password   = MAIL_PASSWORD;                          // SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $mail->Port       = MAIL_PORT;                              // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-
-            //Recipients
-            $mail->setFrom('from@example.com', 'Mailer');
-            $mail->addAddress('joe@example.net', 'Joe User');           // Add a recipient
-            $mail->addReplyTo('info@example.com', 'Information');
-            $mail->addCC('cc@example.com');
-            $mail->addBCC('bcc@example.com');
-
-            // Attachments
-            $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-
-            // Content
-            $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Here is the subject';
-            $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-            $mail->send();
-            echo 'Message has been sent';
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        }
+    //Used in candidate testing: redirects the user to prevent reload and back page
+    public function prevent_reload_and_back(){
+        $content = $this->getView('pages/candidate/prevent_reload_and_back');
+        
+        $html = [
+            'includeSiteLevelJS' => [
+                'public/js/testtaking.js'
+            ],
+            'content' => $content, 
+        ];
+        $this->renderView('layouts/candidate', $html);
     }
     
 }

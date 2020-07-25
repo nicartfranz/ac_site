@@ -49,9 +49,11 @@ $count_system_req_errs = count($data['error_site_requirement']);
                         <div class="form-group">
                             <label for="password" class="text-dark">Password:</label><br>
                             <input type="password" name="password" id="password" class="form-control">
+                            <input type="checkbox" onclick="unmask_password()" id="see_password">
+                            <label class="form-check-label" for="see_password">Show Password</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="login_type" id="login_type1" value="candidate">
+                            <input class="form-check-input" type="radio" name="login_type" id="login_type1" value="candidate" checked>
                             <label class="form-check-label" for="login_type1">Candidate</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -69,7 +71,10 @@ $count_system_req_errs = count($data['error_site_requirement']);
     <?php endif; ?>    
 </div>
 <script>
-   var APP_BASE_URL = '<?= APP_BASE_URL ?>';
-   var is_camera_required = '<?= (isset($data['requirements']['camera'])) ? $data['requirements']['camera'] : ''; ?>';
-   var is_microphone_required = '<?= (isset($data['requirements']['microphone'])) ? $data['requirements']['microphone'] : ''; ?>';
+    function unmask_password(){
+        var x = document.getElementById("password"); if (x.type === "password") { x.type = "text"; } else { x.type = "password"; }
+    }
+    var APP_BASE_URL = '<?= APP_BASE_URL ?>';
+    var is_camera_required = '<?= (isset($data['requirements']['camera'])) ? $data['requirements']['camera'] : ''; ?>';
+    var is_microphone_required = '<?= (isset($data['requirements']['microphone'])) ? $data['requirements']['microphone'] : ''; ?>';
 </script>

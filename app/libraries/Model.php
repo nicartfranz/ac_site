@@ -16,5 +16,14 @@ class Model {
         $this->db = $db;
         $this->queryBuilder = $queryBuilder;
     }
+    
+    //load class in library
+    public function initClass($class){
+        //require model file
+        require_once '../app/libraries/' . $class . '.php';
+        
+        //instantiate model
+        return new $class();
+    }
 
  }
