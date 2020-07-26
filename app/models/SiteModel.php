@@ -16,4 +16,25 @@ class SiteModel extends Model{
         
     }
     
+    public function update_tbtaker($params){
+        
+        if(is_null($params)){ return false; }
+        
+        foreach($params as $key => $value){
+            $update_cols[] = $key.' = ?';
+            $update_vals[] = $value;
+        }
+        
+        $update_vals[] = $_SESSION['candidate_info']['username'];
+        
+        $update = $this->db->executeUpdate('UPDATE tbtaker '
+                    . 'SET '
+                    . implode(', ', $update_cols) .' '
+                    . 'WHERE 1=1 '
+                    . 'AND username = ? ', 
+                    $update_vals);
+        return true;
+        
+    }
+    
 }

@@ -106,7 +106,22 @@ class SiteController extends Controller{
                         $_SESSION['username'] = $username;
                         $_SESSION['is_authenticated'] = true;
                         $_SESSION['usertype'] = 'test_taker';
+                        $_SESSION['device'] = ucfirst(getDevice());
                         $_SESSION['candidate_info'] = $candidate_info;
+                        
+                        //record login info
+                        if(isset($_SESSION['is_authenticated']) && $_SESSION['usertype'] == 'test_taker'){
+                            
+                            if($_SESSION['candidate_info']['relog_record'] != ''){
+                                $relog_record = json_decode($_SESSION['candidate_info']['relog_record']);
+                                $relog_record[] = array('date' => date('Y-m-d H:i:s'), 'bandwidth' => 'not implemented', 'device' => $_SESSION['device']);
+                                $update_tbaker['relog_record'] = json_encode($relog_record);
+                            } else {
+                                $update_tbaker['relog_record'] = json_encode([array('date' => date('Y-m-d H:i:s'), 'bandwidth' => 'not implemented', 'device' => $_SESSION['device'])]);
+                            }
+                            $site->update_tbtaker($update_tbaker);
+                        }
+                        
                         header("Location:".APP_BASE_URL."candidate/privacy_consent");
                     } else {
                         $this->invalid_login();
@@ -156,6 +171,39 @@ class SiteController extends Controller{
     
     
     public function logout(){
+        
+        $site = $this->initModel('SiteModel');
+        
+        
+        if(isset($_SESSION['is_authenticated']) && $_SESSION['usertype'] == 'test_taker'){
+            
+            //record logout info
+            if($_SESSION['candidate_info']['logout_history'] != ''){
+                $logout_history = json_decode($_SESSION['candidate_info']['logout_history']);
+                $logout_history[] = array('date' => date('Y-m-d H:i:s'), 'logout_type' => 'not implemented', 'device' => $_SESSION['device']);
+                $update_tbaker['logout_history'] = json_encode($logout_history);
+            } else {
+                $update_tbaker['logout_history'] = json_encode([array('date' => date('Y-m-d H:i:s'), 'logout_type' => 'not implemented', 'device' => $_SESSION['device'])]);
+            }
+            
+            $site->update_tbtaker($update_tbaker);
+        
+            //record web history
+            require_once '../app/libraries/webHistory.php';
+            $web_history = new webHistory();
+            //INSERT NEW ROW - id  user_id  web_history_controller  web_history_method  web_history_get  web_history_post  usertype  date_entered  
+            $params = array();
+            $params['username'] = $_SESSION['candidate_info']['username'];
+            $params['web_history_controller'] = 'Site';
+            $params['web_history_method'] = 'logout';
+            $params['web_history_get'] = '[]';
+            $params['web_history_post'] = '[]';
+            $params['usertype'] = $_SESSION['usertype'];
+            $params['device'] = ucfirst(getDevice());
+            $params['date_entered'] = date('Y-m-d H:i:s');
+            $web_history->log_web_history($params);
+        }
+        
         
         // Stores in Array
         $_SESSION = array();

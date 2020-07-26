@@ -65,6 +65,10 @@ class Controller {
         $requirements = $candidate_site_req->get_requirements();
         $data['requirements'] = $requirements;
         
+//        echo '<pre>';
+//        print_r($requirements);
+//        echo '</pre>';
+        
         $content = '';
         if(file_exists('../app/views/' . $view . '.php')){
             ob_start();
