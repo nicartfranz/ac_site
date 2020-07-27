@@ -1,6 +1,6 @@
 <?php
 
-class TestController extends Controller{
+class TestController extends Test{
     
     public $has_error = false;
 

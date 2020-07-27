@@ -1,7 +1,7 @@
 <div class="container-sm test-content">
    
     <div class="jumbotron">
-        <h4 class="display-8">Hello, <?= $_SESSION['candidate_info']['fname'] ?>!</h4>
+        <h4 class="display-8">Hello, <?= ($_SESSION['usertype'] == 'super_admin') ? 'Super Admin' : $_SESSION['candidate_info']['fname'] ?>!</h4>
         <p class="lead">You are invited to take an assessment relative to your application to Profiles Asia Pacific.</p>
         <hr class="my-4">
         <div class="form-group">

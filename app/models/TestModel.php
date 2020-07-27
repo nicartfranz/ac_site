@@ -189,7 +189,7 @@ class TestModel extends Model{
                         
             $open .= "<?php 
 
-class ".ucfirst($assessment_code)."Controller extends Controller{
+class ".ucfirst($assessment_code)."Controller extends Test{
 
     public \$ass_code = '".$assessment_code."';
     public \$site_level_form_builder_js = [
@@ -298,6 +298,13 @@ $page_methods .= "
             }
         }
         
+        $page_methods .= "
+                
+    public function finish(){
+        parent::finish();
+    }
+
+        ";
         
         
         return $page_methods;

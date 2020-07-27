@@ -9,7 +9,8 @@ class CandidateController extends Controller{
     public function index(){
         
         $test = $this->initModel('TestModel');
-        $tests = $test->getTestByUsername($_SESSION['username']);
+        
+        $tests = ($_SESSION['usertype'] == 'super_admin') ? $test->getAllTests() : $test->getTestByUsername($_SESSION['username']);
         
         //load a view and put it in a variable for later use
         $content = $this->getView('pages/candidate/index', array('scheduled_tests' => $tests));

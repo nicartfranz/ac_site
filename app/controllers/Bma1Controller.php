@@ -1,6 +1,6 @@
 <?php 
 
-class Bma1Controller extends Controller{
+class Bma1Controller extends Test{
 
     public $ass_code = 'bma1';
     public $site_level_form_builder_js = [
@@ -395,7 +395,7 @@ class Bma1Controller extends Controller{
         //--------------------//
         
         //On page 8 load, update tbstatus
-        $tbstatus = array('status' => 'scored', 'page' => '8', 'date_completed' => date('Y-m-d H:i:s'));
+        $tbstatus = array('status' => 'scored', 'page' => '8', 'date_completed' => date('Y-m-d H:i:s'), '`usage`' => date('Ym'));
         $this->bma1_model->update_tbstatus($tbstatus);
         
         //remove currently active timer
