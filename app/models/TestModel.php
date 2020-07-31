@@ -19,6 +19,7 @@ class TestModel extends Model{
             
             $tests = $this->db->fetchAll('SELECT * FROM tbassessment WHERE 1=1 AND AssName <> "" '
                 . $where_conditions
+                . ' ORDER BY AssName '
                 . $limit
                     ,$where_values);
   
@@ -205,6 +206,11 @@ class ".ucfirst($assessment_code)."Controller extends Test{
         'public/js/formbuilder/control_plugins/sliderQuestion.js',
         'public/js/formbuilder/control_plugins/customMC1Question.js',
         'public/js/formbuilder/control_plugins/customMC2Question.js',
+        'public/js/formbuilder/control_plugins/single_char_question_template.js',
+        'public/js/formbuilder/control_plugins/true_false_question_template.js',
+        'public/js/formbuilder/control_plugins/yes_no_question_template.js',
+        'public/js/formbuilder/control_plugins/true_false_undecided_question_template.js',
+        'public/js/formbuilder/control_plugins/yes_no_undecided_question_template.js',
         'public/js/fb_fields_acsite.js',
         'public/js/testtaking.js',
     ];

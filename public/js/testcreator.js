@@ -39,9 +39,9 @@ const fbOptions = {
                     data: {"ajax_name" : ajax_name,  "formbuilder_json" : fbJsonData, "assessment_obj": assessment_obj},
                     datatype: "json",
                     success: function (response) {
-                       if(response == '1'){
+                       if(response > 0){
                            alert('Test saved');
-                           window.location.href = APP_BASE_URL + "test/search";
+                           window.location.href = APP_BASE_URL + "test/search/?assessment_name="+assessment_name+"&assessment_code="+assessment_code+"&search=1";
                        } else {
                            alert(JSON.stringify(response));
                        }

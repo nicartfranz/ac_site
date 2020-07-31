@@ -95,6 +95,27 @@ const fb_customFields = [
             subtype: 'textarea',
         }
     },
+  
+    {
+        type: "single_char_question_template",
+        label: "Single Char Question Template",
+    },
+    {
+        type: "true_false_question_template",
+        label: "True False Question Template"
+    },
+    {
+        type:"true_false_undecided_question_template",
+        label:"True/False/Undecided Question Template",
+    },
+    {
+        type:"yes_no_question_template",
+        label:"Yes No Question Template",
+    },
+    {
+        type:"yes_no_undecided_question_template",
+        label:"Yes/No/Undecided Question Template",
+    },
     {
         type: "customMC1Question",
         required: false,
@@ -118,7 +139,7 @@ const fb_customFields = [
             type: 'textarea',
             subtype: 'textarea',
         }
-    }
+    }, 
 ];
 
 
@@ -324,7 +345,246 @@ const fb_templates = {
         return {
             field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
         }
+    },
+    single_char_question_template:function(fieldData){
+        
+        if(!fieldData.hasOwnProperty('value')){
+            var QUESTION_TEXT = 'Text Question'
+            var unique_var = '###'+Date.now()+'###';
+            var QUESTION_VAR = unique_var;
+
+            var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
+            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            var QUESTION_VAR = prompt("Enter the item variable:", QUESTION_VAR);
+            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+
+            //final question var 
+            var QUESTION_VAR = 'char_question_'+QUESTION_VAR;
+
+            var setDefaultValue = "\
+                    <input type='text' onkeyup='javascript:char_question_onKeyUp(this);' onblur='javascript:char_question_onBlur(this);' maxlength='1' style='width:75px;' id='"+QUESTION_VAR+"' name='"+QUESTION_VAR+"'>\n\
+                    &nbsp;"+QUESTION_TEXT+"\n\
+                    <hr>";
+
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
+        }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(formatFactory(custom_html_value));
+            }
+        }
+        
+    },
+    true_false_question_template:function(fieldData){
+        
+        if(!fieldData.hasOwnProperty('value')){
+       
+            var QUESTION_TEXT = 'Text Question'
+            var unique_var = '###'+Date.now()+'###';
+            var QUESTION_VAR_NAME = unique_var;
+            var QUESTION_VAR_TRUE = unique_var;
+            var QUESTION_VAR_FALSE = unique_var;
+            
+            var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
+            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+
+            var QUESTION_VAR = prompt("Enter the item variable:", unique_var);
+            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_VAR_NAME = 'tf1_q_'+QUESTION_VAR;
+            var QUESTION_VAR_TRUE = 'tf1_q_'+QUESTION_VAR+'_t';
+            var QUESTION_VAR_FALSE = 'tf1_q_'+QUESTION_VAR+'_f';
+            var true_image = APP_BASE_URL+'public/img/assessments/types/tf1/True.png';
+            var false_image = APP_BASE_URL+'public/img/assessments/types/tf1/False.png';
+         
+            var setDefaultValue = "\
+                <p>"+QUESTION_TEXT+"</p>\
+                <div id='radio-image-selector' class='row'>\
+                    <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='"+QUESTION_VAR_NAME+"' id='"+QUESTION_VAR_TRUE+"' value='1' />\
+                    <label for='"+QUESTION_VAR_TRUE+"'><img for='"+QUESTION_VAR_TRUE+"' src='"+true_image+"' width='70' height='70' alt='True' /></label>\
+                    <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='"+QUESTION_VAR_NAME+"' id='"+QUESTION_VAR_FALSE+"' value='2' />\
+                    <label for='"+QUESTION_VAR_FALSE+"'><img for='"+QUESTION_VAR_FALSE+"' src='"+false_image+"' width='70' height='70' alt='False' /></label>\
+                </div>";
+            
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
+        }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(custom_html_value);
+            }
+        }
+
+    },
+    yes_no_question_template:function(fieldData){
+        
+        if(!fieldData.hasOwnProperty('value')){
+       
+            var QUESTION_TEXT = 'Text Question'
+            var unique_var = '###'+Date.now()+'###';
+            var QUESTION_VAR_NAME = unique_var;
+            var QUESTION_VAR_YES = unique_var;
+            var QUESTION_VAR_NO = unique_var;
+            
+            var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
+            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+
+            var QUESTION_VAR = prompt("Enter the item variable:", unique_var);
+            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_VAR_NAME = 'yn1_q_'+QUESTION_VAR;
+            var QUESTION_VAR_YES = 'yn1_q_'+QUESTION_VAR+'_y';
+            var QUESTION_VAR_NO = 'yn1_q_'+QUESTION_VAR+'_n';
+            var yes_image = APP_BASE_URL+'public/img/assessments/types/yn1/Yes.png';
+            var no_image = APP_BASE_URL+'public/img/assessments/types/yn1/No.png';
+         
+            var setDefaultValue = "\
+                <p>"+QUESTION_TEXT+"</p>\
+                <div id='radio-image-selector' class='row'>\
+                    <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='"+QUESTION_VAR_NAME+"' id='"+QUESTION_VAR_YES+"' value='1' />\
+                    <label for='"+QUESTION_VAR_YES+"'><img for='"+QUESTION_VAR_YES+"' src='"+yes_image+"' width='70' height='70' alt='Yes' /></label>\
+                    <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='"+QUESTION_VAR_NAME+"' id='"+QUESTION_VAR_NO+"' value='2' />\
+                    <label for='"+QUESTION_VAR_NO+"'><img for='"+QUESTION_VAR_NO+"' src='"+no_image+"' width='70' height='70' alt='No' /></label>\
+                </div>";
+            
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
+        }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(custom_html_value);
+            }
+        }
+
+    },
+    true_false_undecided_question_template:function(fieldData){
+        
+        if(!fieldData.hasOwnProperty('value')){
+       
+            var QUESTION_TEXT = 'Text Question'
+            var unique_var = '###'+Date.now()+'###';
+            var QUESTION_VAR_NAME = unique_var;
+            var QUESTION_VAR_TRUE = unique_var;
+            var QUESTION_VAR_FALSE = unique_var;
+            var QUESTION_VAR_UNDECIDED = unique_var;
+            
+            var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
+            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+
+            var QUESTION_VAR = prompt("Enter the item variable:", unique_var);
+            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_VAR_NAME = 'tf2_q_'+QUESTION_VAR;
+            var QUESTION_VAR_TRUE = 'tf2_q_'+QUESTION_VAR+'_t';
+            var QUESTION_VAR_FALSE = 'tf2_q_'+QUESTION_VAR+'_f';
+            var QUESTION_VAR_UNDECIDED = 'tf2_q_'+QUESTION_VAR+'_u';
+            var true_image = APP_BASE_URL+'public/img/assessments/types/tf2/True.png';
+            var false_image = APP_BASE_URL+'public/img/assessments/types/tf2/False.png';
+            var undecided_image = APP_BASE_URL+'public/img/assessments/types/tf2/Undecided.png';
+         
+            var setDefaultValue = "\
+                <p>"+QUESTION_TEXT+"</p>\
+                <div id='radio-image-selector' class='row'>\
+                    <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='"+QUESTION_VAR_NAME+"' id='"+QUESTION_VAR_TRUE+"' value='1' />\
+                    <label for='"+QUESTION_VAR_TRUE+"'><img for='"+QUESTION_VAR_TRUE+"' src='"+true_image+"' width='70' height='70' alt='True' /></label>\
+                    <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='"+QUESTION_VAR_NAME+"' id='"+QUESTION_VAR_FALSE+"' value='2' />\
+                    <label for='"+QUESTION_VAR_FALSE+"'><img for='"+QUESTION_VAR_FALSE+"' src='"+false_image+"' width='70' height='70' alt='False' /></label>\
+                    <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='"+QUESTION_VAR_NAME+"' id='"+QUESTION_VAR_UNDECIDED+"' value='0.5' />\
+                    <label for='"+QUESTION_VAR_UNDECIDED+"'><img for='"+QUESTION_VAR_UNDECIDED+"' src='"+undecided_image+"' width='70' height='70' alt='Undecided' /></label>\
+                </div>";
+            
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
+        }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(custom_html_value);
+            }
+        }
+        
+    },
+    yes_no_undecided_question_template:function(fieldData){
+        
+        if(!fieldData.hasOwnProperty('value')){
+       
+            var QUESTION_TEXT = 'Text Question'
+            var unique_var = '###'+Date.now()+'###';
+            var QUESTION_VAR_NAME = unique_var;
+            var QUESTION_VAR_YES = unique_var;
+            var QUESTION_VAR_NO = unique_var;
+            var QUESTION_VAR_UNDECIDED = unique_var;
+            
+            var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
+            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+
+            var QUESTION_VAR = prompt("Enter the item variable:", unique_var);
+            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_VAR_NAME = 'yn2_q_'+QUESTION_VAR;
+            var QUESTION_VAR_YES = 'yn2_q_'+QUESTION_VAR+'_t';
+            var QUESTION_VAR_NO = 'yn2_q_'+QUESTION_VAR+'_f';
+            var QUESTION_VAR_UNDECIDED = 'yn2_q_'+QUESTION_VAR+'_u';
+            var yes_image = APP_BASE_URL+'public/img/assessments/types/yn2/Yes.png';
+            var no_image = APP_BASE_URL+'public/img/assessments/types/yn2/No.png';
+            var undecided_image = APP_BASE_URL+'public/img/assessments/types/yn2/Undecided.png';
+         
+            var setDefaultValue = "\
+                <p>"+QUESTION_TEXT+"</p>\
+                <div id='radio-image-selector' class='row'>\
+                    <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='"+QUESTION_VAR_NAME+"' id='"+QUESTION_VAR_YES+"' value='1' />\
+                    <label for='"+QUESTION_VAR_YES+"'><img for='"+QUESTION_VAR_YES+"' src='"+yes_image+"' width='70' height='70' alt='True' /></label>\
+                    <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='"+QUESTION_VAR_NAME+"' id='"+QUESTION_VAR_NO+"' value='2' />\
+                    <label for='"+QUESTION_VAR_NO+"'><img for='"+QUESTION_VAR_NO+"' src='"+no_image+"' width='70' height='70' alt='False' /></label>\
+                    <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='"+QUESTION_VAR_NAME+"' id='"+QUESTION_VAR_UNDECIDED+"' value='0.5' />\
+                    <label for='"+QUESTION_VAR_UNDECIDED+"'><img for='"+QUESTION_VAR_UNDECIDED+"' src='"+undecided_image+"' width='70' height='70' alt='Undecided' /></label>\
+                </div>";
+            
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
+        }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(custom_html_value);
+            }
+        }        
     }
+
 };
 
 
@@ -346,7 +606,7 @@ const fb_inputSets = [
        fields: [
             {
                 type: 'radio-group',
-                label: '<span class="text-warning">[ Enter your question here ]</span>',
+                label: '[ Enter your question here ]',
                 values: [
                     {
                         label: 'Yes',
@@ -370,7 +630,7 @@ const fb_inputSets = [
         fields:[
             {
                 type: 'checkbox-group',
-                label: "<span class='text-warning'>[ Enter your question here ]</span>",
+                label: "[ Enter your question here ]",
                 values: [
                             {
                                 label: 'Option 1',
@@ -390,66 +650,6 @@ const fb_inputSets = [
                             }
                         ]
             }, 
-        ]
-    },
-    {
-        label: 'Single Character Question template',
-        name: 'single_char_question_template',
-        fields:[
-        {
-            type: "paragraph",
-            subtype: "p",
-            label: "<font color=\"#000000\">&lt;input required=\"required\" type=\"text\" onkeyup=\"javascript:char_question_onKeyUp(this);\" onblur=\"javascript:char_question_onBlur(this);\" maxlength=\"1\" style=\"width:75px;\" id=\"char_question_1\" name=\"char_question_1\"&gt;&amp;nbsp;Question&lt;hr&gt;</font>",
-            access: false
-          },
-        ]
-    },
-    {
-        label: 'True, False Question Template',
-        name: 'true_false_question_template',
-        fields:[
-        {
-            type: "paragraph",
-            subtype: "p",
-            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf1_q_1\" id=\"tf1_q_1_t\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf1_q_1_t\"&gt;&lt;img for=\"tf1_q_1_t\" src=\""+APP_BASE_URL+"\public/img/assessments/types/tf1/True.png\" width=\"70\" height=\"70\" alt=\"True\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf1_q_1\" id=\"tf1_q_1_f\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf1_q_1_f\"&gt;&lt;img for=\"tf1_q_1_f\" src='"+APP_BASE_URL+"\public/img/assessments/types/tf1/False.png' width=\"70\" height=\"70\" alt=\"False\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
-            access: false
-          },
-        ]
-    },
-    {
-        label: 'True, False, Undecided Question Template',
-        name: 'true_false_undecided_question_template',
-        fields:[
-        {
-            type: "paragraph",
-            subtype: "p",
-            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf2_q_1\" id=\"tf2_q_1_t\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf2_q_1_t\"&gt;&lt;img for=\"tf2_q_1_t\" src=\""+APP_BASE_URL+"\public/img/assessments/types/tf2/True.png\" width=\"70\" height=\"70\" alt=\"True\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf2_q_1\" id=\"tf2_q_1_f\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf2_q_1_f\"&gt;&lt;img for=\"tf2_q_1_f\" src='"+APP_BASE_URL+"\public/img/assessments/types/tf2/False.png' width=\"70\" height=\"70\" alt=\"False\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf2_q_1\" id=\"tf2_q_1_u\" value=\"0.5\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"tf2_q_1_u\"&gt;&lt;img for=\"tf2_q_1_u\" src='"+APP_BASE_URL+"\public/img/assessments/types/tf2/Undecided.png' width=\"70\" height=\"70\" alt=\"Undecided\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
-            access: false
-          },
-        ]
-    },
-    {
-        label: 'Yes, No Question Template',
-        name: 'yes_no_question_template',
-        fields:[
-        {
-            type: "paragraph",
-            subtype: "p",
-            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn1_q_1\" id=\"yn1_q_1_y\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn1_q_1_y\"&gt;&lt;img for=\"yn1_q_1_y\" src=\""+APP_BASE_URL+"\public/img/assessments/types/yn1/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn1_q_1\" id=\"yn1_q_1_n\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn1_q_1_n\"&gt;&lt;img for=\"yn1_q_1_n\" src='"+APP_BASE_URL+"\public/img/assessments/types/yn1/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
-            access: false,
-          },
-        ]
-    },
-    {
-        label: 'Yes, No, Undecided Question Template',
-        name: 'yes_no_undecided_question_template',
-        fields:[
-        {
-            type: "paragraph",
-            subtype: "p",
-            label: "&lt;p&gt;Question.&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\" class=\"row\"&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn2_q_1\" id=\"yn2_q_1_y\" value=\"1\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn2_q_1_y\"&gt;&lt;img for=\"yn2_q_1_y\" src=\""+APP_BASE_URL+"\public/img/assessments/types/yn2/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn2_q_1\" id=\"yn2_q_1_n\" value=\"2\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn2_q_1_n\"&gt;&lt;img for=\"yn2_q_1_n\" src='"+APP_BASE_URL+"\public/img/assessments/types/yn2/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;<br>&nbsp;&nbsp;&nbsp; &lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn2_q_1\" id=\"yn2_q_1_u\" value=\"0.5\" /&gt;<br>&nbsp;&nbsp;&nbsp; &lt;label for=\"yn2_q_1_u\"&gt;&lt;img for=\"yn2_q_1_u\" src='"+APP_BASE_URL+"\public/img/assessments/types/yn2/Undecided.png' width=\"70\" height=\"70\" alt=\"Undecided\" /&gt;&lt;/label&gt;<br>&lt;/div&gt;",
-            access: false
-          },
         ]
     },
 ];

@@ -126,6 +126,11 @@ class TestController extends Test{
                     'public/js/formbuilder/control_plugins/sliderQuestion.js',
                     'public/js/formbuilder/control_plugins/customMC1Question.js',
                     'public/js/formbuilder/control_plugins/customMC2Question.js',
+                    'public/js/formbuilder/control_plugins/single_char_question_template.js',
+                    'public/js/formbuilder/control_plugins/true_false_question_template.js',
+                    'public/js/formbuilder/control_plugins/yes_no_question_template.js',
+                    'public/js/formbuilder/control_plugins/true_false_undecided_question_template.js',
+                    'public/js/formbuilder/control_plugins/yes_no_undecided_question_template.js',
                     'public/js/fb_fields_acsite.js',
                     'public/js/testview.js'
                 ], 
@@ -671,133 +676,123 @@ class TestController extends Test{
     
     protected function singleAnswerQuestion_YN2($inc, $question, $options = ['1' => 'Yes', '2' => 'No', '3' => 'Undecided']){
 
-        //WITH IMAGE
-        $value = "&lt;p&gt;".$question."&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\"&gt;<br>&lt;center&gt;&lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn2_q_".$inc."\" id=\"yn2_q_".$inc."_y\" value=\"1\" /&gt;&lt;label for=\"yn2_q_".$inc."_y\"&gt;&lt;img for=\"yn2_q_".$inc."_y\" src=\"../img/assessments/types/yn2/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;&lt;span style=\"width: 10%;display: inline-block;\"&gt;&lt;/span&gt;&lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn2_q_".$inc."\" id=\"yn2_q_".$inc."_n\" value=\"2\" /&gt;&lt;label for=\"yn2_q_".$inc."_n\"&gt;&lt;img for=\"yn2_q_".$inc."_n\" src='../img/assessments/types/yn2/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;&lt;span style=\"width: 10%;display: inline-block;\"&gt;&lt;/span&gt;&lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn2_q_".$inc."\" id=\"yn2_q_".$inc."_u\" value=\"0.5\" /&gt;&lt;label for=\"yn2_q_".$inc."_u\"&gt;&lt;img for=\"yn2_q_".$inc."_u\" src='../img/assessments/types/yn2/Undecided.png' width=\"70\" height=\"70\" alt=\"Undecided\" /&gt;&lt;/label&gt;&lt;/center&gt;<br>&lt;/div&gt;";
+        $QUESTION_VAR_NAME = 'yn2_q_'.$inc;
+        $QUESTION_VAR_YES = 'yn2_q_'.$inc.'_t';
+        $QUESTION_VAR_NO = 'yn2_q_'.$inc.'_f';
+        $QUESTION_VAR_UNDECIDED = 'yn2_q_'.$inc.'_u';
+        $yes_image = APP_BASE_URL.'public/img/assessments/types/yn2/Yes.png';
+        $no_image = APP_BASE_URL.'public/img/assessments/types/yn2/No.png';
+        $undecided_image = APP_BASE_URL.'public/img/assessments/types/yn2/Undecided.png';
+
+        $value = "
+        <p>".$question."</p>
+        <div id='radio-image-selector' class='row'>
+            <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='".$QUESTION_VAR_NAME."' id='".$QUESTION_VAR_YES."' value='1' />
+            <label for='".$QUESTION_VAR_YES."'><img for='".$QUESTION_VAR_YES."' src='".$yes_image."' width='70' height='70' alt='True' /></label>
+            <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='".$QUESTION_VAR_NAME."' id='".$QUESTION_VAR_NO."' value='2' />
+            <label for='".$QUESTION_VAR_NO."'><img for='".$QUESTION_VAR_NO."' src='".$no_image."' width='70' height='70' alt='False' /></label>
+            <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='".$QUESTION_VAR_NAME."' id='".$QUESTION_VAR_UNDECIDED."' value='0.5' />
+            <label for='".$QUESTION_VAR_UNDECIDED."'><img for='".$QUESTION_VAR_UNDECIDED."' src='".$undecided_image."' width='70' height='70' alt='Undecided' /></label>
+        </div>";
 
         return (object)[
-            "type" => "paragraph",
-            "subtype" => "p",
-            "label" => $value,
+            "type" => "yes_no_undecided_question_template",
+            "required" => false,
+            "label" => "Yes/No/Undecided Question Template",
+            "name" => "yes_no_undecided_question_template-".$inc,
             "access" => false,
+            "value" => $value,
         ];
-        
-//        //BASIC
-//        $values = [];
-//        foreach($options as $opt_key => $opt_value){
-//            $values[] = (object)[
-//                "label" => $opt_value,
-//                "value" => $opt_key,
-//            ];
-//        }
-//        return (object)[
-//            "type" => "radio-group",
-//            "required" => false,
-//            "label" => htmlentities(strip_tags($question)),
-//            "inline" => false,
-//            "name" => "radio-group-".$inc."",
-//            "access" => false,
-//            "other" => false,
-//            "values" => $values
-//        ];
-        
+    
     }
     
     protected function singleAnswerQuestion_YN1($inc, $question, $options = ['1' => 'Yes', '2' => 'No']){
         
-        //WITH IMAGE
-        $value = "&lt;p&gt;".$question."&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\"&gt;<br>&lt;center&gt;&lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn1_q_".$inc."\" id=\"yn1_q_".$inc."_y\" value=\"1\" /&gt;&lt;label for=\"yn1_q_".$inc."_y\"&gt;&lt;img for=\"yn1_q_".$inc."_y\" src=\"../img/assessments/types/yn1/Yes.png\" width=\"70\" height=\"70\" alt=\"Yes\" /&gt;&lt;/label&gt;&lt;span style=\"width: 10%;display: inline-block;\"&gt;&lt;/span&gt;&lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"yn1_q_".$inc."\" id=\"yn1_q_".$inc."_n\" value=\"2\" /&gt;&lt;label for=\"yn1_q_".$inc."_n\"&gt;&lt;img for=\"yn1_q_".$inc."_n\" src='../img/assessments/types/yn1/No.png' width=\"70\" height=\"70\" alt=\"No\" /&gt;&lt;/label&gt;&lt;/center&gt;<br>&lt;/div&gt;";
+        $QUESTION_VAR_NAME = 'yn1_q_'.$inc;
+        $QUESTION_VAR_YES = 'yn1_q_'.$inc.'_y';
+        $QUESTION_VAR_NO = 'yn1_q_'.$inc.'_n';
+        $yes_image = APP_BASE_URL.'public/img/assessments/types/yn1/Yes.png';
+        $no_image = APP_BASE_URL.'public/img/assessments/types/yn1/No.png';
 
-        return (object)[
-            "type" => "paragraph",
-            "subtype" => "p",
-            "label" => $value,
-            "access" => false,
-        ];
+        $value = "
+        <p>".$question."</p>
+        <div id='radio-image-selector' class='row'>
+            <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='".$QUESTION_VAR_NAME."' id='".$QUESTION_VAR_YES."' value='1' />
+            <label for='".$QUESTION_VAR_YES."'><img for='".$QUESTION_VAR_YES."' src='".$yes_image."' width='70' height='70' alt='Yes' /></label>
+            <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='".$QUESTION_VAR_NAME."' id='".$QUESTION_VAR_NO."' value='2' />
+            <label for='".$QUESTION_VAR_NO."'><img for='".$QUESTION_VAR_NO."' src='".$no_image."' width='70' height='70' alt='No' /></label>
+        </div>";
         
-//        //BASIC
-//        $values = [];
-//        foreach($options as $opt_key => $opt_value){
-//            $values[] = (object)[
-//                "label" => $opt_value,
-//                "value" => $opt_key,
-//            ];
-//        }
-//        return (object)[
-//            "type" => "radio-group",
-//            "required" => false,
-//            "label" => htmlentities(strip_tags($question)),
-//            "inline" => false,
-//            "name" => "radio-group-".$inc."",
-//            "access" => false,
-//            "other" => false,
-//            "values" => $values
-//        ];
+        return (object)[
+            "type" => "yes_no_question_template",
+            "required" => false,
+            "label" => "Yes No Question Template",
+            "name" => "yes_no_question_template-".$inc,
+            "access" => false,
+            "value" => $value,
+        ];
         
     }
     
     protected function singleAnswerQuestion_TF2($inc, $question, $options = ['1' => 'True', '2' => 'False', '3' => 'Undecided']){
         
-        //WITH IMAGE
-        $value = "&lt;p&gt;".$question."&lt;/p&gt;<br>&lt;div id=\"radio-image-selector\"&gt;<br>&lt;center&gt;&lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf2_q_".$inc."\" id=\"tf2_q_".$inc."_t\" value=\"1\" /&gt;&lt;label for=\"tf2_q_".$inc."_t\"&gt;&lt;img for=\"tf2_q_".$inc."_t\" src=\"../img/assessments/types/tf2/True.png\" width=\"70\" height=\"70\" alt=\"True\" /&gt;&lt;/label&gt;&lt;span style=\"width: 10%;display: inline-block;\"&gt;&lt;/span&gt;&lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf2_q_".$inc."\" id=\"tf2_q_".$inc."_f\" value=\"2\" /&gt;&lt;label for=\"tf2_q_".$inc."_f\"&gt;&lt;img for=\"tf2_q_".$inc."_f\" src='../img/assessments/types/tf2/False.png' width=\"70\" height=\"70\" alt=\"False\" /&gt;&lt;/label&gt;&lt;span style=\"width: 10%;display: inline-block;\"&gt;&lt;/span&gt;&lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf2_q_".$inc."\" id=\"tf2_q_".$inc."_u\" value=\"0.5\" /&gt;&lt;label for=\"tf2_q_".$inc."_u\"&gt;&lt;img for=\"tf2_q_".$inc."_u\" src='../img/assessments/types/tf2/Undecided.png' width=\"70\" height=\"70\" alt=\"Undecided\" /&gt;&lt;/label&gt;&lt;center&gt;<br>&lt;/div&gt;";
+        $QUESTION_VAR_NAME = 'tf2_q_'.$inc;
+        $QUESTION_VAR_TRUE = 'tf2_q_'.$inc.'_t';
+        $QUESTION_VAR_FALSE = 'tf2_q_'.$inc.'_f';
+        $QUESTION_VAR_UNDECIDED = 'tf2_q_'.$inc.'_u';
+        $true_image = APP_BASE_URL.'public/img/assessments/types/tf2/True.png';
+        $false_image = APP_BASE_URL.'public/img/assessments/types/tf2/False.png';
+        $undecided_image = APP_BASE_URL.'public/img/assessments/types/tf2/Undecided.png';
+
+        $value = "
+        <p>".$question."</p>
+        <div id='radio-image-selector' class='row'>
+            <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='".$QUESTION_VAR_NAME."' id='".$QUESTION_VAR_TRUE."' value='1' />
+            <label for='".$QUESTION_VAR_TRUE."'><img for='".$QUESTION_VAR_TRUE."' src='".$true_image."' width='70' height='70' alt='True' /></label>
+            <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='".$QUESTION_VAR_NAME."' id='".$QUESTION_VAR_FALSE."' value='2' />
+            <label for='".$QUESTION_VAR_FALSE."'><img for='".$QUESTION_VAR_FALSE."' src='".$false_image."' width='70' height='70' alt='False' /></label>
+            <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='".$QUESTION_VAR_NAME."' id='".$QUESTION_VAR_UNDECIDED."' value='0.5' />
+            <label for='".$QUESTION_VAR_UNDECIDED."'><img for='".$QUESTION_VAR_UNDECIDED."' src='".$undecided_image."' width='70' height='70' alt='Undecided' /></label>
+        </div>";
+
         return (object)[
-            "type" => "paragraph",
-            "subtype" => "p",
-            "label" => $value,
+            "type" => "true_false_undecided_question_template",
+            "required" => false,
+            "label" => "True/False/Undecided Question Template",
+            "name" => "true_false_undecided_question_template-".$inc,
             "access" => false,
+            "value" => $value,
         ];
-        
-//        //BASIC
-//        $values = [];
-//        foreach($options as $opt_key => $opt_value){
-//            $values[] = (object)[
-//                "label" => $opt_value,
-//                "value" => $opt_key,
-//            ];
-//        }
-//        
-//        return (object)[
-//            "type" => "radio-group",
-//            "required" => false,
-//            "label" => htmlentities(strip_tags($question)),
-//            "inline" => false,
-//            "name" => "radio-group-".$inc."",
-//            "access" => false,
-//            "other" => false,
-//            "values" => $values
-//        ];
         
     }
     
     protected function singleAnswerQuestion_TF1($inc, $question, $options = ['1' => 'True', '2' => 'False']){
-        
+
+        $QUESTION_VAR_NAME = 'tf1_q_'.$inc;
+        $QUESTION_VAR_TRUE = 'tf1_q_'.$inc.'_t';
+        $QUESTION_VAR_FALSE = 'tf1_q_'.$inc.'_f';
+        $true_image = APP_BASE_URL.'public/img/assessments/types/tf1/True.png';
+        $false_image = APP_BASE_URL.'public/img/assessments/types/tf1/False.png';
+
         //WITH IMAGE
-        $value = "&lt;p&gt;".$question."&lt;/p&gt;&lt;div id=\"radio-image-selector\"&gt;<br>&lt;center&gt;<br>&lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf1_q_".$inc."\" id=\"tf1_q_".$inc."_t\" value=\"1\" /&gt;&lt;label for=\"tf1_q_".$inc."_t\"&gt;&lt;img for=\"tf1_q_".$inc."_t\" src=\"../img/assessments/types/tf1/True.png\" width=\"70\" height=\"70\" alt=\"True\" /&gt;&lt;/label&gt;&lt;span style=\"width: 10%;display: inline-block;\"&gt;&lt;/span&gt;&lt;input oninvalid=\"$(this).nextAll('label').eq(0).css('border-bottom', '2px solid #ffc107');\" required=\"required\" type=\"radio\" name=\"tf1_q_".$inc."\" id=\"tf1_q_".$inc."_f\" value=\"2\" /&gt;&lt;label for=\"tf1_q_".$inc."_f\"&gt;&lt;img for=\"tf1_q_".$inc."_f\" src='../img/assessments/types/tf1/False.png' width=\"70\" height=\"70\" alt=\"False\" /&gt;&lt;/label&gt;<br>&lt;/center&gt;<br>&lt;/div&gt;";
+        $value = "
+        <p>".$question."</p>
+        <div id='radio-image-selector' class='row'>
+            <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='".$QUESTION_VAR_NAME."' id='".$QUESTION_VAR_TRUE."' value='1' />
+            <label for='".$QUESTION_VAR_TRUE."'><img for='".$QUESTION_VAR_TRUE."' src='".$true_image."' width='70' height='70' alt='True' /></label>
+            <input oninvalid='$(this).nextAll(\"label\").eq(0).css(\"border-bottom\", \"2px solid #ffc107\");' type='radio' name='".$QUESTION_VAR_NAME."' id='".$QUESTION_VAR_FALSE."' value='2' />
+            <label for='".$QUESTION_VAR_FALSE."'><img for='".$QUESTION_VAR_FALSE."' src='".$false_image."' width='70' height='70' alt='False' /></label>
+        </div>";
+        
         return (object)[
-            "type" => "paragraph",
-            "subtype" => "p",
-            "label" => $value,
+            "type" => "true_false_question_template",
+            "required" => false,
+            "label" => "True False Question Template",
+            "name" => "true_false_question_template-".$inc,
             "access" => false,
+            "value" => $value,
         ];
-        
-//        //BASIC       
-//        $values = [];
-//        foreach($options as $opt_key => $opt_value){
-//            $values[] = (object)[
-//                "label" => $opt_value,
-//                "value" => $opt_key,
-//            ];
-//        }
-//        return (object)[
-//            "type" => "radio-group",
-//            "required" => false,
-//            "label" => htmlentities(strip_tags($question)),
-//            "inline" => false,
-//            "name" => "radio-group-".$inc."",
-//            "access" => false,
-//            "other" => false,
-//            "values" => $values
-//        ];
-        
+     
     }
     
     protected function singleAnswerQuestion_WH($inc, $question, $options = ['1' => 'What kind of', '2' => 'How']){
