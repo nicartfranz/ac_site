@@ -562,27 +562,41 @@ class TestController extends Test{
     
     
     protected function singleAnswerQuestion_RN3($inc, $question){
-        
-        $value = "<font color=\"#000000\">&lt;input type=\"text\" onkeyup=\"javascript:char_question_rn3_onKeyUp(this);\" onblur=\"javascript:char_question_rn3_onBlur(this);\" maxlength=\"1\" style=\"width:75px;\" id=\"char_question_".$inc."\" name=\"char_question_".$inc."\"&gt;&amp;nbsp;".$question."&lt;hr&gt;</font>";
+
+        $QUESTION_VAR = 'char_question_'.$inc;
+
+        $value = "
+            <input type='text' onkeyup='javascript:char_question_rn3_onKeyUp(this);' onblur='javascript:char_question_rn3_onBlur(this);' maxlength='1' style='width:75px;' id='".$QUESTION_VAR."' name='".$QUESTION_VAR."'>
+            &nbsp;".$question."
+            <hr>";
         
         return (object)[
-            "type" => "paragraph",
-            "subtype" => "p",
-            "label" => $value,
+            "type" => "single_char_question_template",
+            "required" => false,
+            "label" => "Single Char Question Template",
+            "name" => "single_char_question_template-".$inc,
             "access" => false,
+            "value" => $value,
         ];
     }
     
     
     protected function singleAnswerQuestion_RN2($inc, $question){
         
-        $value = "<font color=\"#000000\">&lt;input required=\"required\" type=\"text\" onkeyup=\"javascript:char_question_onKeyUp(this);\" onblur=\"javascript:char_question_onBlur(this);\" maxlength=\"1\" style=\"width:75px;\" id=\"char_question_".$inc."\" name=\"char_question_".$inc."\"&gt;&amp;nbsp;".$question."&lt;hr&gt;</font>";
+        $QUESTION_VAR = 'char_question_'.$inc;
+
+        $value = "
+            <input type='text' onkeyup='javascript:char_question_onKeyUp(this);' onblur='javascript:char_question_onBlur(this);' maxlength='1' style='width:75px;' id='".$QUESTION_VAR."' name='".$QUESTION_VAR."'>
+            &nbsp;".$question."
+            <hr>";
         
         return (object)[
-            "type" => "paragraph",
-            "subtype" => "p",
-            "label" => $value,
+            "type" => "single_char_question_template",
+            "required" => false,
+            "label" => "Single Char Question Template",
+            "name" => "single_char_question_template-".$inc,
             "access" => false,
+            "value" => $value,
         ];
     }
     

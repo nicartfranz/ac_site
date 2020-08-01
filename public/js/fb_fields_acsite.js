@@ -192,159 +192,470 @@ const fb_templates = {
         }
     },
     likertQuestion: function(fieldData) { 
-        var setDefaultValue = "\
-<table class='table table-striped likert'>\n\
-<thead>\n\
-    <tr>\n\
-        <th></th>\n\
-        <th><center>Strongly Disagree</center></th>\n\
-        <th><center>Disagree</center></th>\n\
-        <th><center>Neutral</center></th>\n\
-        <th><center>Agree</center></th>\n\
-        <th><center>Strongly Agree</center></th>\n\
-    </tr>\n\
-</thead>\n\
-<tbody>\n\
-    <tr>\n\
-        <td>Question</td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='1'></center></td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='2'></center></td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='3'></center></td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='4'></center></td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='5'></center></td>\n\
-    </tr>\n\
-</tbody>\n\
-</table>"
-        var custom_html_value = fieldData.value || setDefaultValue;
-        return {
-            field: '<textarea style="min-height: 500px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
-//            field: custom_html_value,
-//            onRender: function(){
-//                $('div#'+fieldData.name).html(custom_html_value);
-//            }
+        
+        if(!fieldData.hasOwnProperty('value')){
+            var QUESTION_TEXT = 'Text Question'
+            var unique_var = '###'+Date.now()+'###';
+            var QUESTION_TEXT_X = 'Text Question X';
+            var ADD_MORE_QUESTION = true;
+            var QUESTION_VAR = unique_var;
+
+            var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
+            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_VAR = prompt("Enter the item variable:", "Variable Format: q_lk_1_1");
+            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            //final question var 
+            var QUESTION_VAR = QUESTION_VAR;
+            
+            var ADD_MORE_QUESTION = confirm("Do you want to add more question(s)?");
+            if(ADD_MORE_QUESTION){
+                var QUESTION_HTML = "";
+                var number_of_new_question = prompt("Enter number of new question(s) to add:", "Please enter a number example '3'");
+                parseInt(number_of_new_question);
+                if (/^[0-9.,]+$/.test(number_of_new_question)) {
+                    
+                    for(i=1; i<=number_of_new_question; i++){
+                        var QUESTION_TEXT_X = prompt("Enter question:", QUESTION_TEXT_X);
+                        if(QUESTION_TEXT_X == null){ alert('This is a required field!'); return false; }
+                        
+                        if(QUESTION_VAR_X == null){
+                            QUESTION_VAR_X = QUESTION_VAR;
+                        }
+                        
+                        var QUESTION_VAR_X = prompt("Enter the item variable:", QUESTION_VAR_X);
+                        if(QUESTION_VAR_X == null){ alert('This is a required field!'); return false; }
+                        //final question var 
+
+                        QUESTION_HTML += "\n\
+                                <tr>\n\
+                                    <td>"+QUESTION_TEXT_X+"</td>\n\
+                                    <td><center><input type='radio' name='"+QUESTION_VAR_X+"' value='1'></center></td>\n\
+                                    <td><center><input type='radio' name='"+QUESTION_VAR_X+"' value='2'></center></td>\n\
+                                    <td><center><input type='radio' name='"+QUESTION_VAR_X+"' value='3'></center></td>\n\
+                                    <td><center><input type='radio' name='"+QUESTION_VAR_X+"' value='4'></center></td>\n\
+                                    <td><center><input type='radio' name='"+QUESTION_VAR_X+"' value='5'></center></td>\n\
+                                </tr>\n\
+                               ";
+                        
+                    }
+
+                } else {
+                    alert('Error, please enter an integer');
+                    return false;
+                }
+              
+            } else {
+                var QUESTION_HTML = "";
+            }
+            
+            
+            var setDefaultValue = "\
+                                    <table class='table table-striped likert'>\n\
+                                    <thead>\n\
+                                        <tr>\n\
+                                            <th></th>\n\
+                                            <th><center>Strongly Disagree</center></th>\n\
+                                            <th><center>Disagree</center></th>\n\
+                                            <th><center>Neutral</center></th>\n\
+                                            <th><center>Agree</center></th>\n\
+                                            <th><center>Strongly Agree</center></th>\n\
+                                        </tr>\n\
+                                    </thead>\n\
+                                    <tbody>\n\
+                                        <tr>\n\
+                                            <td>"+QUESTION_TEXT+"</td>\n\
+                                            <td><center><input type='radio' name='"+QUESTION_VAR+"' value='1'></center></td>\n\
+                                            <td><center><input type='radio' name='"+QUESTION_VAR+"' value='2'></center></td>\n\
+                                            <td><center><input type='radio' name='"+QUESTION_VAR+"' value='3'></center></td>\n\
+                                            <td><center><input type='radio' name='"+QUESTION_VAR+"' value='4'></center></td>\n\
+                                            <td><center><input type='radio' name='"+QUESTION_VAR+"' value='5'></center></td>\n\
+                                        </tr>\n\
+                                        "+QUESTION_HTML+"\n\
+                                    </tbody>\n\
+                                    </table>";
+
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
         }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(formatFactory(custom_html_value));
+            }
+        }
+        
+        
     },
     LeastBestQuestion: function(fieldData){
-        var setDefaultValue = "\n\
-<p>Least - Best Question (PCA)</p>\n\
-<div class='least-best-div' id='q1'>\n\
-  <div class='least-best-checkbox'>\n\
-    CHOICE 1\n\
-    <input type='checkbox' name='q1[]' value='1'>\n\
-  </div>\n\
-  <div class='least-best-checkbox'>\n\
-    CHOICE 2\n\
-    <input type='checkbox' name='q1[]' value='2'>\n\
-  </div>\n\
-  <div class='least-best-checkbox'>\n\
-    CHOICE 3\n\
-    <input type='checkbox' name='q1[]' value='3'>\n\
-  </div>\n\
-  <div class='least-best-checkbox'>\n\
-    CHOICE 4\n\
-    <input type='checkbox' name='q1[]' value='4'>\n\
-  </div>\n\
-</div>";
-        var custom_html_value = fieldData.value || setDefaultValue;
-        return {
-            field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
+
+        if(!fieldData.hasOwnProperty('value')){
+            var QUESTION_TEXT = 'Text Question'
+            var unique_var = '###'+Date.now()+'###';
+            var QUESTION_CHOICE_X = 'Choice X';
+            var ADD_MORE_CHOICE = true;
+            var QUESTION_VAR = unique_var;
+
+
+            var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
+            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_VAR = prompt("Enter the item variable:", QUESTION_VAR);
+            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            //final question var 
+            var QUESTION_VAR = 'q'+QUESTION_VAR;
+        
+            var CHOICE_HTML = "";
+            var number_of_choices = prompt("Enter number of choice(s):", "Please enter a number example '3'");
+            parseInt(number_of_choices);
+            if (/^[0-9.,]+$/.test(number_of_choices) && number_of_choices >= 2) {
+
+                for(i=1; i<=number_of_choices; i++){
+                    var QUESTION_CHOICE_X = prompt("Enter choice:", QUESTION_CHOICE_X);
+                    if(QUESTION_CHOICE_X == null){ alert('This is a required field!'); return false; }
+
+                    CHOICE_HTML += "\n\
+                                <div class='least-best-checkbox'>\n\
+                                    "+QUESTION_CHOICE_X+"\n\
+                                    <input type='checkbox' name='"+QUESTION_VAR+"[]' value='"+i+"'>\n\
+                                </div>\n\
+                                ";
+                }
+
+            } else {
+                var CHOICE_HTML = "";
+                alert('This is a required field/Number of choices must be more than 1!'); return false;
+            }
+
+            var setDefaultValue = "\n\
+                                    <p>"+QUESTION_TEXT+"</p>\n\
+                                    <div class='least-best-div' id='"+QUESTION_VAR+"'>\n\
+                                        "+CHOICE_HTML+"\n\
+                                    </div>";
+
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
         }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(formatFactory(custom_html_value));
+            }
+        }
+        
+        
     },
     rankingQuestion: function (fieldData){
-        var setDefaultValue = "\n\
-<div class='container-fluid'>\n\
-    <div class='row ranking-question'>\n\
-        <div class='col-sm ranking-question-box-left' id='q1'>\n\
-        </div>\n\
-        <div class='col-sm ranking-question-box-right'>\n\
-        <div class='row ranking-choice-box' id='q1'>\n\
-            <div class='col-xs ranking-choice c1_1' value='4'>Playful</div>\n\
-            <div class='col-xs ranking-choice c1_2' value='1'>Strong-willed</div>\n\
-            <div class='col-xs ranking-choice c1_3' value='3'>Intellectual</div>\n\
-            <div class='col-xs ranking-choice c1_4' value='2'>Cooperative</div>\n\
-        </div>\n\
-        <br>\n\
-        <p><b>Playful</b> - I am full of fun and good humor.</p>\n\
-        <p><b>Strong-willed</b> - I am determined to have my way.</p>\n\
-        <p><b>Intellectual</b> - I am intelligent or knowledgeable; I am an academic.</p>\n\
-        <p><b>Cooperative</b> - I am obliging, helpful, and supportive.</p>\n\
-    </div>\n\
-</div>";
-        var custom_html_value = fieldData.value || setDefaultValue;
-        return {
-            field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
+
+        if(!fieldData.hasOwnProperty('value')){
+            var QUESTION_CHOICE_1 = 'Playful|I am full of fun and good humor.';
+            var QUESTION_CHOICE_2 = 'Strong-willed|I am determined to have my way.';
+            var QUESTION_CHOICE_3 = 'Intellectual|I am intelligent or knowledgeable; I am an academic.';
+            var QUESTION_CHOICE_4 = 'Cooperative|I am obliging, helpful, and supportive.';
+
+            var QUESTION_VAR = prompt("Enter the item variable:", "Variable format: 1");
+            if(QUESTION_VAR == null || !/^[0-9.,]+$/.test(QUESTION_VAR)){ alert('This is a required field/variable should be an integer!'); return false; }
+        
+            var QUESTION_CHOICE_1 = prompt("Enter choice:", "Choice format: "+QUESTION_CHOICE_1);
+            if(QUESTION_CHOICE_1 == null){ alert('This is a required field!'); return false; }
+            QUESTION_CHOICE_1 = QUESTION_CHOICE_1.split("|");
+            QUESTION_CHOICE_1_key = QUESTION_CHOICE_1[0];
+            QUESTION_CHOICE_1_value = QUESTION_CHOICE_1[1];
+            
+            var QUESTION_CHOICE_2 = prompt("Enter choice:", "Choice format: "+QUESTION_CHOICE_2);
+            if(QUESTION_CHOICE_2 == null){ alert('This is a required field!'); return false; }
+            QUESTION_CHOICE_2 = QUESTION_CHOICE_2.split("|");
+            QUESTION_CHOICE_2_key = QUESTION_CHOICE_2[0];
+            QUESTION_CHOICE_2_value = QUESTION_CHOICE_2[1];
+            
+            var QUESTION_CHOICE_3 = prompt("Enter choice:", "Choice format: "+QUESTION_CHOICE_3);
+            if(QUESTION_CHOICE_3 == null){ alert('This is a required field!'); return false; }
+            QUESTION_CHOICE_3 = QUESTION_CHOICE_3.split("|");
+            QUESTION_CHOICE_3_key = QUESTION_CHOICE_3[0];
+            QUESTION_CHOICE_3_value = QUESTION_CHOICE_3[1];
+            
+            var QUESTION_CHOICE_4 = prompt("Enter choice:", "Choice format: "+QUESTION_CHOICE_4);
+            if(QUESTION_CHOICE_4 == null){ alert('This is a required field!'); return false; }
+            QUESTION_CHOICE_4 = QUESTION_CHOICE_4.split("|");
+            QUESTION_CHOICE_4_key = QUESTION_CHOICE_4[0];
+            QUESTION_CHOICE_4_value = QUESTION_CHOICE_4[1];
+
+            var setDefaultValue = "\n\
+                                    <div class='container-fluid'>\n\
+                                        <div class='row ranking-question'>\n\
+                                            <div class='col-sm ranking-question-box-left' id='q"+QUESTION_VAR+"'>\n\
+                                            </div>\n\
+                                            <div class='col-sm ranking-question-box-right'>\n\
+                                            <div class='row ranking-choice-box' id='q"+QUESTION_VAR+"'>\n\
+                                                <div class='col-xs ranking-choice c"+QUESTION_VAR+"_1' value='4'>"+QUESTION_CHOICE_1_key+"</div>\n\
+                                                <div class='col-xs ranking-choice c"+QUESTION_VAR+"_2' value='1'>"+QUESTION_CHOICE_2_key+"</div>\n\
+                                                <div class='col-xs ranking-choice c"+QUESTION_VAR+"_3' value='3'>"+QUESTION_CHOICE_3_key+"</div>\n\
+                                                <div class='col-xs ranking-choice c"+QUESTION_VAR+"_4' value='2'>"+QUESTION_CHOICE_4_key+"</div>\n\
+                                            </div>\n\
+                                            <br>\n\
+                                            <p><b>"+QUESTION_CHOICE_1_key+"</b> - "+QUESTION_CHOICE_1_value+"</p>\n\
+                                            <p><b>"+QUESTION_CHOICE_2_key+"</b> - "+QUESTION_CHOICE_2_value+"</p>\n\
+                                            <p><b>"+QUESTION_CHOICE_3_key+"</b> - "+QUESTION_CHOICE_3_value+"</p>\n\
+                                            <p><b>"+QUESTION_CHOICE_4_key+"</b> - "+QUESTION_CHOICE_4_value+"</p>\n\
+                                        </div>\n\
+                                    </div>";
+
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
         }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(formatFactory(custom_html_value));
+            }
+        }
+        
+        
     },
     sliderQuestion: function(fieldData){
-        var setDefaultValue = "\n\
-  <div class='sliderTypeQuestion'>\n\
-    <div>\n\
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book\n\
-    </div>\n\
-    <br>\n\
-    <div class='sliderTypeQuestion_text' id='q_sl_1'><span>#</span></div>\n\
-    <br>\n\
-    <div class='sliderTypeQuestion_choice' id='q_sl_1'>\n\
-    <input type='range' class='custom-range' min='1' max='5' step='1' id='sliderTypeQuestion_range' name='q_sl_1'>\n\
-  </div>";
-        var custom_html_value = fieldData.value || setDefaultValue;
-        return {
-            field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
+
+        if(!fieldData.hasOwnProperty('value')){
+            var QUESTION_TEXT = 'Text Question'
+            var unique_var = '###'+Date.now()+'###';
+            var QUESTION_VAR = unique_var;
+
+            var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
+            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            var QUESTION_VAR = prompt("Enter the item variable:", QUESTION_VAR);
+            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+
+            //final question var 
+            var QUESTION_VAR = 'q_sl_'+QUESTION_VAR;
+
+            var setDefaultValue = "\n\
+                                <div class='sliderTypeQuestion'>\n\
+                                    <div>\n\
+                                        "+QUESTION_TEXT+"\n\
+                                    </div>\n\
+                                    <br>\n\
+                                    <div class='sliderTypeQuestion_text' id='"+QUESTION_VAR+"'><span>Neutral</span></div>\n\
+                                    <br>\n\
+                                    <div class='sliderTypeQuestion_choice' id='"+QUESTION_VAR+"'>\n\
+                                    <input type='range' class='custom-range' min='1' max='5' step='1' id='sliderTypeQuestion_range' name='"+QUESTION_VAR+"'>\n\
+                                </div>";
+
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
         }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(formatFactory(custom_html_value));
+            }
+        }
+
+
+
     },
     customMC1Question:function(fieldData){
-        var setDefaultValue = "\n\
-    <div class='container'><div class='row custom_mc_row_question'><b>1.&nbsp;</b>QUESTION</div>\n\
-        <div class='row custom_mc_row'>\n\
-            <label class='custom_mc_container q1'>\n\
-            <input class='custom_mc_radio' type='radio' name='q1' value='1'>\n\
-            Choice 1\n\
-            </label>\n\
-        </div>\n\
-        <div class='row custom_mc_row'>\n\
-            <label class='custom_mc_container q1'>\n\
-            <input class='custom_mc_radio' type='radio' name='q1' value='2'>\n\
-            Choice 2\n\
-            </label>\n\
-        </div>\n\
-    </div>";
-        var custom_html_value = fieldData.value || setDefaultValue;
-        return {
-            field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
-//            field: formatFactory(custom_html_value),
-//            onRender: function(){
-//                var count_frmb = $('ul.frmb li:not(.startPageMarker-field, .button-field, .endPageMarker-field)').length;
-//                alert('Total frmb = '  + count_frmb);
-//            }
+
+        if(!fieldData.hasOwnProperty('value')){
+            var QUESTION_TEXT = 'Text Question'
+            var unique_var = '###'+Date.now()+'###';
+            var QUESTION_CHOICE_1 = 'Choice 1';
+            var QUESTION_CHOICE_2 = 'Choice 2';
+            var QUESTION_CHOICE_X = 'Choice X';
+            var ADD_MORE_CHOICE = true;
+            var QUESTION_VAR = unique_var;
+
+
+            var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
+            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_VAR = prompt("Enter the item variable:", QUESTION_VAR);
+            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            //final question var 
+            var QUESTION_VAR = 'q'+QUESTION_VAR;
+            
+            var QUESTION_CHOICE_1 = prompt("Enter choice 1:", QUESTION_CHOICE_1);
+            if(QUESTION_CHOICE_1 == null){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_CHOICE_2 = prompt("Enter choice 2:", QUESTION_CHOICE_2);
+            if(QUESTION_CHOICE_2 == null){ alert('This is a required field!'); return false; }
+
+            var ADD_MORE_CHOICE = confirm("Do you want to add more choice(s)?");
+            if(ADD_MORE_CHOICE){
+                var CHOICE_HTML = "";
+                var number_of_new_choice = prompt("Enter number of new choice(s) to add:", "Please enter a number example '3'");
+                parseInt(number_of_new_choice);
+                if (/^[0-9.,]+$/.test(number_of_new_choice)) {
+                    
+                    for(i=1; i<=number_of_new_choice; i++){
+                        var QUESTION_CHOICE_X = prompt("Enter choice:", QUESTION_CHOICE_X);
+                        if(QUESTION_CHOICE_X == null){ alert('This is a required field!'); return false; }
+
+                        CHOICE_HTML += "\n\
+                                <div class='row custom_mc_row'>\n\
+                                    <label class='custom_mc_container "+QUESTION_VAR+"'>\n\
+                                    <input class='custom_mc_radio' type='radio' name='"+QUESTION_VAR+"' value='1'>\n\
+                                    "+QUESTION_CHOICE_X+"\n\
+                                    </label>\n\
+                                </div>\n\
+                               ";
+                    }
+
+                } else {
+                    alert('Error, please enter an integer');
+                    return false;
+                }
+              
+            } else {
+                var CHOICE_HTML = "";
+            }
+
+            var setDefaultValue = "\n\
+                <div class='container'><div class='row custom_mc_row_question'>"+QUESTION_TEXT+"</div>\n\
+                    <div class='row custom_mc_row'>\n\
+                        <label class='custom_mc_container "+QUESTION_VAR+"'>\n\
+                        <input class='custom_mc_radio' type='radio' name='"+QUESTION_VAR+"' value='1'>\n\
+                        "+QUESTION_CHOICE_1+"\n\
+                        </label>\n\
+                    </div>\n\
+                    <div class='row custom_mc_row'>\n\
+                        <label class='custom_mc_container "+QUESTION_VAR+"'>\n\
+                        <input class='custom_mc_radio' type='radio' name='"+QUESTION_VAR+"' value='2'>\n\
+                        "+QUESTION_CHOICE_2+"\n\
+                        </label>\n\
+                    </div>\n\
+                    "+CHOICE_HTML+"\n\
+                </div>";
+
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
         }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(formatFactory(custom_html_value));
+            }
+        }
+
     },
     customMC2Question:function(fieldData){
-        var setDefaultValue = "\n\
-        <div class='container'>\n\
-            <div class='row custom_mc_row_question'><b>1. </b>QUESTION</div>\n\
-            <div class='row custom_mc_row'>\n\
-                    <label class='custom_mc_container q1'>\n\
-                            <input class='custom_mc_checkbox' type='checkbox' name='q1[]' value='1'>\n\
-                            Choice 1\n\
-                    </label>\n\
-            </div>\n\
-            <div class='row custom_mc_row'>\n\
-                    <label class='custom_mc_container q1'>\n\
-                            <input class='custom_mc_checkbox' type='checkbox' name='q1[]' value='2'>\n\
-                            Choice 2\n\
-                    </label>\n\
-            </div>\n\
-            <div class='row custom_mc_row'>\n\
-                    <label class='custom_mc_container q1'>\n\
-                            <input class='custom_mc_checkbox' type='checkbox' name='q1[]' value='3'>\n\
-                            Choice 3\n\
-                    </label>\n\
-            </div>\n\
-        </div>";
-        var custom_html_value = fieldData.value || setDefaultValue;
-        return {
-            field: '<textarea style="min-height: 250px;" class="form-control" id="'+fieldData.name+'">'+formatFactory(custom_html_value)+'</textarea>',
+        
+        if(!fieldData.hasOwnProperty('value')){
+            var QUESTION_TEXT = 'Text Question'
+            var unique_var = '###'+Date.now()+'###';
+            var QUESTION_CHOICE_1 = 'Choice 1';
+            var QUESTION_CHOICE_2 = 'Choice 2';
+            var QUESTION_CHOICE_X = 'Choice X';
+            var ADD_MORE_CHOICE = true;
+            var QUESTION_VAR = unique_var;
+
+            var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
+            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_VAR = prompt("Enter the item variable:", QUESTION_VAR);
+            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            //final question var 
+            var QUESTION_VAR = 'q'+QUESTION_VAR;
+            
+            var QUESTION_CHOICE_1 = prompt("Enter choice 1:", QUESTION_CHOICE_1);
+            if(QUESTION_CHOICE_1 == null){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_CHOICE_2 = prompt("Enter choice 2:", QUESTION_CHOICE_2);
+            if(QUESTION_CHOICE_2 == null){ alert('This is a required field!'); return false; }
+            
+            var ADD_MORE_CHOICE = confirm("Do you want to add more choice(s)?");
+            if(ADD_MORE_CHOICE){
+                var CHOICE_HTML = "";
+                var number_of_new_choice = prompt("Enter number of new choice(s) to add:", "Please enter a number example '3'");
+                parseInt(number_of_new_choice);
+                if (/^[0-9.,]+$/.test(number_of_new_choice)) {
+                    
+                    for(i=1; i<=number_of_new_choice; i++){
+                        var QUESTION_CHOICE_X = prompt("Enter choice:", QUESTION_CHOICE_X);
+                        if(QUESTION_CHOICE_X == null){ alert('This is a required field!'); return false; }
+
+                        CHOICE_HTML += "\n\
+                                <div class='row custom_mc_row'>\n\
+                                        <label class='custom_mc_container "+QUESTION_VAR+"'>\n\
+                                                <input class='custom_mc_checkbox' type='checkbox' name='"+QUESTION_VAR+"[]' value='1'>\n\
+                                                "+QUESTION_CHOICE_X+"\n\
+                                        </label>\n\
+                                </div>\n\
+                               ";
+                    }
+
+                } else {
+                    alert('Error, please enter an integer');
+                    return false;
+                }
+              
+            } else {
+                var CHOICE_HTML = "";
+            }
+
+            var setDefaultValue = "\n\
+            <div class='container'>\n\
+                <div class='row custom_mc_row_question'>"+QUESTION_TEXT+"</div>\n\
+                <div class='row custom_mc_row'>\n\
+                        <label class='custom_mc_container "+QUESTION_VAR+"'>\n\
+                                <input class='custom_mc_checkbox' type='checkbox' name='"+QUESTION_VAR+"[]' value='1'>\n\
+                                "+QUESTION_CHOICE_1+"\n\
+                        </label>\n\
+                </div>\n\
+                <div class='row custom_mc_row'>\n\
+                        <label class='custom_mc_container "+QUESTION_VAR+"'>\n\
+                                <input class='custom_mc_checkbox' type='checkbox' name='"+QUESTION_VAR+"[]' value='2'>\n\
+                                "+QUESTION_CHOICE_2+"\n\
+                        </label>\n\
+                </div>\n\
+                "+CHOICE_HTML+"\n\
+            </div>";
+
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
         }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(formatFactory(custom_html_value));
+            }
+        }
+        
+        
     },
     single_char_question_template:function(fieldData){
         
@@ -733,13 +1044,6 @@ const fb_typeUserAttrs = {
         },
     },
     rankingQuestion:{
-        question_type: {
-            label: 'Question Type',
-            options: {
-                'rn1':'rn1',
-                'rn2':'rn2',
-            },
-        },
         rn_question: {
             label: 'Ranking Question',
             options: {

@@ -41,27 +41,11 @@ window.fbControls.push(function (controlClass) {
       key: 'onRender',
       value: function onRender() {
           
-          
         var required = this.config.required;
         
-        var html_value = this.config.value || "\n\
-    <div class='container'><div class='row custom_mc_row_question'><b>3.&nbsp;</b>QUESTION</div>\n\
-        <div class='row custom_mc_row'>\n\
-            <label class='custom_mc_container q1'>\n\
-            <input class='custom_mc_radio' type='radio' name='q1' value='1' "+required+">\n\
-            Choice 1\n\
-            </label>\n\
-        </div>\n\
-        <div class='row custom_mc_row'>\n\
-            <label class='custom_mc_container q1'>\n\
-            <input class='custom_mc_radio' type='radio' name='q1' value='2' "+required+" >\n\
-            Choice 2\n\
-            </label>\n\
-        </div>\n\
-    </div>";
-          
+        var html_value = this.config.value;
         var q_id = $('input.custom_mc_radio', html_value).attr('name');
-              
+        
         //remove the label
         $('.formbuilder-customMC1Question-label').remove();
         $('div#' + this.config.name).html(html_value);

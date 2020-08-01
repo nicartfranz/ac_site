@@ -42,28 +42,7 @@ window.fbControls.push(function (controlClass) {
       value: function onRender() {
           
         var required = this.config.required;
-        var html_value = this.config.value || "\n\
-        <div class='container'>\n\
-            <div class='row custom_mc_row_question'><b>1. </b>QUESTION</div>\n\
-            <div class='row custom_mc_row'>\n\
-                    <label class='custom_mc_container q1'>\n\
-                            <input class='custom_mc_checkbox' type='checkbox' name='q1[]' value='1'>\n\
-                            Choice 1\n\
-                    </label>\n\
-            </div>\n\
-            <div class='row custom_mc_row'>\n\
-                    <label class='custom_mc_container q1'>\n\
-                            <input class='custom_mc_checkbox' type='checkbox' name='q1[]' value='2'>\n\
-                            Choice 2\n\
-                    </label>\n\
-            </div>\n\
-            <div class='row custom_mc_row'>\n\
-                    <label class='custom_mc_container q1'>\n\
-                            <input class='custom_mc_checkbox' type='checkbox' name='q1[]' value='3'>\n\
-                            Choice 3\n\
-                    </label>\n\
-            </div>\n\
-        </div>";
+        var html_value = this.config.value;
           
         var q_id = $('input.custom_mc_checkbox', html_value).attr('name');
         var split_id = q_id.split('[')[0];

@@ -45,25 +45,7 @@ window.fbControls.push(function (controlClass) {
         var rn_question = this.config.rn_question;
         var required = this.config.required;
           
-        var html_value = this.config.value || "\n\
-<div class='container-fluid'>\n\
-    <div class='row ranking-question'>\n\
-        <div class='col-sm ranking-question-box-left' id='q1'>\n\
-        </div>\n\
-        <div class='col-sm ranking-question-box-right'>\n\
-        <div class='row ranking-choice-box' id='q1'>\n\
-            <div class='col-xs ranking-choice c1_1' value='4'>Playful</div>\n\
-            <div class='col-xs ranking-choice c1_2' value='1'>Strong-willed</div>\n\
-            <div class='col-xs ranking-choice c1_3' value='3'>Intellectual</div>\n\
-            <div class='col-xs ranking-choice c1_4' value='2'>Cooperative</div>\n\
-        </div>\n\
-        <br>\n\
-        <p><b>Playful</b> - I am full of fun and good humor.</p>\n\
-        <p><b>Strong-willed</b> - I am determined to have my way.</p>\n\
-        <p><b>Intellectual</b> - I am intelligent or knowledgeable; I am an academic.</p>\n\
-        <p><b>Cooperative</b> - I am obliging, helpful, and supportive.</p>\n\
-    </div>\n\
-</div>";
+        var html_value = this.config.value;
           
         var q_id = $('div.ranking-question-box-left', html_value).attr('id');
         var id = q_id.substring(1, q_id.length);

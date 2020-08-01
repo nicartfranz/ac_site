@@ -41,36 +41,14 @@ window.fbControls.push(function (controlClass) {
       key: 'onRender',
       value: function onRender() {
         var required = this.config.required;  
-        var html_value = this.config.value || "\
-<table class='table table-striped likert'>\n\
-<thead>\n\
-    <!-- LIKERT QUESTION -->\n\
-    <tr>\n\
-        <th></th>\n\
-        <th><center>Strongly Disagree</center></th>\n\
-        <th><center>Disagree</center></th>\n\
-        <th><center>Neutral</center></th>\n\
-        <th><center>Agree</center></th>\n\
-        <th><center>Strongly Agree</center></th>\n\
-    </tr>\n\
-</thead>\n\
-<tbody>\n\
-    <tr>\n\
-        <td>Question</td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='1' "+required+"></center></td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='2' "+required+"></center></td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='3' "+required+"></center></td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='4' "+required+"></center></td>\n\
-        <td><center><input type='radio' name='q_lk_1_1' value='5' "+required+"></center></td>\n\
-    </tr>\n\
-</tbody>\n\
-</table>";
+        var html_value = this.config.value;
+        
         var q_id = $('input[type="radio"]', html_value).attr('name');  
         //remove the label
         $('.formbuilder-likertQuestion-label').remove();
         $('div#' + this.config.name).html(html_value);  
         if(required == 'required'){
-            $('input[name="'+q_id+'"]').attr({
+            $('div#' + this.config.name +' input').attr({
                 'required' : 'required',
                 'oninvalid' : '$(this).parents("tbody").css("border-bottom", "2px solid red");',
             });
