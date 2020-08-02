@@ -58,6 +58,9 @@ function ajax_save_test(){
             $page_methods = $test->pageMethods($total_pages);
             $test->createTestController($assessment_code, $page_methods);
             
+            $test_methods = $test->testModelMethods();
+            $test->createTestModel($assessment_code, $test_methods);
+            
             $db->commit();
         } catch (\Exception $e) {
             $db->rollBack();

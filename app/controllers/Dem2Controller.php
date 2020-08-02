@@ -1,8 +1,8 @@
 <?php 
 
-class DemoController extends Test{
+class Dem2Controller extends Test{
 
-    public $ass_code = 'demo';
+    public $ass_code = 'dem2';
     public $site_level_form_builder_js = [
         'public/js/formbuilder/form-builder.min.js', 
         'public/js/formbuilder/form-render.min.js', 
@@ -53,7 +53,7 @@ class DemoController extends Test{
         //4.1) Set AssCode
         $test_info['AssCode'] = $this->ass_code;
         //4.2) Set the questions to display
-        $test_info['question'] = json_encode($question_arr['page1']); 
+        $test_info['question'] = json_encode($question_arr['page1']);
         //4.3) Javascript to run on timer times up
         $test_info['onTimesUp'] = $question_arr['page1'][0]->onTimerTimesUp;
         //4.4) Snapshot

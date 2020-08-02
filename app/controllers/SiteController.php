@@ -36,23 +36,10 @@ class SiteController extends Controller{
     public function isSystemCompatible(){
         global $browser, $device, $os;
         
-//        echo '<pre>';
-//        print_r($_COOKIE);
-//        echo '</pre>';
-//        
-//        echo 'Browser: ' .$browser->getName() . '<br>';
-//        echo 'Browser version: ' .$browser->getVersion() . '<br>';
-//        echo 'OS: ' . $os->getName(). '<br>';
-//        echo 'Device: ' . getDevice(). '<br>';
-        
         $error = [];
         $warning = [];
         $candidate_site_req = $this->initModel('CandidateSiteRequirementsModel');
         $requirements = $candidate_site_req->get_requirements();
-        
-//        echo '<pre>';
-//        print_r($requirements);
-//        echo '</pre>';
         
         $valid_web_browsers = explode(',', $requirements['web_browsers']);
         if(!in_array($browser->getName(), $valid_web_browsers)){
@@ -131,7 +118,7 @@ class SiteController extends Controller{
                     
                 } else if ($login_type == 'admin'){
                     
-                    if($username == 'admin' && $password == 'password'){
+                    if($username == 'admin' && $password == 'dynamics2002'){
                         $_SESSION['username'] = 'admin';
                         $_SESSION['is_authenticated'] = true;
                         $_SESSION['usertype'] = 'super_admin';
