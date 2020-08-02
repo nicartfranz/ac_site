@@ -21,6 +21,12 @@ class webHistory {
     
     public function log_web_history($params){
         
+        //candidate activity tracker status
+        require_once '../app/models/CandidateSiteRequirementsModel.php';
+        $candidateSiteRequirements = new CandidateSiteRequirementsModel();
+        $requirements = $candidateSiteRequirements->get_requirements();
+        if($requirements['candidate_activity_tracker'] == '0'){ return true; }
+        
         //INSERT NEW ROW - id  user_id  web_history_controller  web_history_method  web_history_get  web_history_post  usertype  date_entered  
         $insert_cols = array();
         $insert_vals = array();

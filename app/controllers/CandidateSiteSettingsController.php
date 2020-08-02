@@ -26,6 +26,7 @@ class CandidateSiteSettingsController extends Controller{
                 $params['microphone'] = $_POST['radios_microphone'];
                 $params['page_reload_back'] = $_POST['radios_page_reload_back'];
                 $params['page_focus'] = $_POST['radios_page_focus'];
+                $params['candidate_activity_tracker'] = $_POST['radios_activity_tracker'];
                 $candidate_site_req->save_update_requirements($params);
                 $params['success_update_insert'] = true;
                 
@@ -41,6 +42,7 @@ class CandidateSiteSettingsController extends Controller{
                 $params['microphone'] = $_POST['radios_microphone'];
                 $params['page_reload_back'] = $_POST['radios_page_reload_back'];
                 $params['page_focus'] = $_POST['radios_page_focus'];
+                $params['candidate_activity_tracker'] = $_POST['radios_activity_tracker'];
                 $candidate_site_req->save_update_requirements($params);
                 $params['success_update_insert'] = true;
                 
@@ -50,6 +52,22 @@ class CandidateSiteSettingsController extends Controller{
             $requirements = $params;
 
         } 
+        
+        if(empty($requirements)){
+            //id  web_browsers  devices  os      cookies  camera  microphone  page_reload_back  page_focus  candidate_activity_tracker  last_update 
+            $requirements = array();
+            $requirements['id'] = '';
+            $requirements['web_browsers'] = '';
+            $requirements['devices'] = '';
+            $requirements['os'] = '';
+            $requirements['cookies'] = '';
+            $requirements['camera'] = '';
+            $requirements['microphone'] = '';
+            $requirements['page_reload_back'] = '';
+            $requirements['page_focus'] = '';
+            $requirements['candidate_activity_tracker'] = '';
+            
+        }
         
         //load a view and put it in a variable for later use
         $content = $this->getView('pages/admin/candidate_site_requirements', $requirements);

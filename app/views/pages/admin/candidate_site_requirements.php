@@ -147,6 +147,27 @@
               </label>
             </div>
         </div>
+        
+        <div>
+            <hr>
+            <label><b>Candidate Activity Tracker</b></label>
+        </div>
+        
+         <!-- Multiple Radios (inline) -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="radios_activity_tracker"><b>Activity Tracker:</b></label>
+            <div class="col-md-4"> 
+              <label class="radio-inline" for="radios_activity_tracker-0">
+                <input type="radio" name="radios_activity_tracker" id="radios_activity_tracker-0" value="1" <?= isRadioboxChecked(1, $data['candidate_activity_tracker']) ?> >
+                Enable
+              </label> 
+              &nbsp;&nbsp;&nbsp;
+              <label class="radio-inline" for="radios_activity_tracker-1">
+                <input type="radio" name="radios_activity_tracker" id="radios_activity_tracker-1" value="0" <?= isRadioboxChecked(0, $data['candidate_activity_tracker']) ?> >
+                Disable
+              </label>
+            </div>
+        </div>
 
         <!-- Button -->
         <div class="form-group">
