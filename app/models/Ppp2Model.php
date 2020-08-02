@@ -145,7 +145,7 @@ class Ppp2Model extends Model{
     public function meter_deduction(){
         
         if($_SESSION['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
-        $meterDeduction = $this->initClass('MeterDeduction');
+        $meterLog = $this->initClass('meterLog');
         
     }
     
