@@ -13,7 +13,12 @@ class ComposerStaticInit823f32ce99f75f4764daf40c0509da4f
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'PHPMailer\\PHPMailer\\' => 20,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
         ),
         'D' => 
         array (
@@ -28,9 +33,17 @@ class ComposerStaticInit823f32ce99f75f4764daf40c0509da4f
         array (
             0 => __DIR__ . '/..' . '/sinergi/browser-detector/src',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'Doctrine\\DBAL\\' => 
         array (

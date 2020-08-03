@@ -40,6 +40,18 @@ use Sinergi\BrowserDetector\Os;
 $browser = new Browser();
 $os = new Os();
 
+//logger
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+//TO USE LOGGER
+//#1 Create the logger
+//$logger = new Logger('my_logger');
+//#2 Now add some handlers
+//$logger->pushHandler(new StreamHandler('../logs/'.date('Y-m-d').".log", Logger::DEBUG));
+//#3 You can now use your logger
+//$logger->info('My logger is now ready');
+
 //Auto Loader for the libraries and classes
 spl_autoload_register(function($className){
     $className = str_replace("\\", DIRECTORY_SEPARATOR, $className);

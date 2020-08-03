@@ -108,26 +108,6 @@ $(document).ready(function(){
             }
         }
     });
-//    function stopPrntScr() {
-//        var inpFld = document.createElement("input");
-//        inpFld.setAttribute("value", ".");
-//        inpFld.setAttribute("width", "0");
-//        inpFld.style.height = "0px";
-//        inpFld.style.width = "0px";
-//        inpFld.style.border = "0px";
-//        document.body.appendChild(inpFld);
-//        inpFld.select();
-//        document.execCommand("copy");
-//        inpFld.remove(inpFld);
-//    }
-//    function AccessClipboardData() {
-//        try {
-//            window.clipboardData.setData('text', "Access Restricted");
-//        } catch (err) {
-//            console.log('ERROR: ' + err );
-//        }
-//    }
-//    setInterval(AccessClipboardData(), 100);
     //-=-=-=-=-=-=-=-=-=-=-= print screen detect key44 only -=-=-=-=-=-=-=-=-=-=-=
        
     
@@ -157,7 +137,9 @@ $(document).ready(function(){
     //-=-=-=-=-=-=-=-=-=-=-= enableSnapshot -=-=-=-=-=-=-=-=-=-=-=
     
     
-    //-=-=-=-=-=-=-=-=-=-=-= Least-Best PCA -=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-= Least-Best -=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     $("div.least-best-checkbox").on("click", function() {
         var selectedBoxParent = $(this).parent("div");
         var selectedBox = $(this).children("input:first");
@@ -183,7 +165,7 @@ $(document).ready(function(){
         
         //remove required if it has 2 selected answers
         if($('input[name="'+selectedBoxInputName+'"]').attr('required')){
-            if (countChecks == limit) {
+            if (countChecks == limit){
                 $('input[name="'+selectedBoxInputName+'"]').attr('data-required-removed', 'true');
                 $('input[name="'+selectedBoxInputName+'"]').removeAttr('required');
                 $('input[name="'+selectedBoxInputName+'"]').removeAttr('required');
@@ -249,9 +231,14 @@ $(document).ready(function(){
         }
 
     });
-    //-=-=-=-=-=-=-=-=-=-=-= Least-Best PCA -=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-= Least-Best -=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     
-    //-=-=-=-=-=-=-=-=-=-=-= Ranking DISC -=-=-=-=-=-=-=-=-=-=-=
+    
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-= Ranking -=-=-=--=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     $(document).on('click', 'span#remove-ranking-choice', function(){
   	var selected_choice_class = $(this).attr('class').split(' ');
         //selected_choice_class[2] = the choice id
@@ -283,10 +270,14 @@ $(document).ready(function(){
             $(this).css('display', 'none');
         }
     });
-    //-=-=-=-=-=-=-=-=-=-=-= Ranking DISC -=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-= Ranking -=-=-=--=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     
     
-    //-=-=-=-=-=-=-=-=-=-=-= slider type question CPB -=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-= SLIDER INPUT QUESTION -=-=-=-=-=-=-=-=-=-=-
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     $('input#sliderTypeQuestion_range').on('change', function(){
         
         var q_sl = $(this).attr('name');
@@ -369,18 +360,28 @@ $(document).ready(function(){
         }
        
     });
-    //-=-=-=-=-=-=-=-=-=-=-= slider type question CPB -=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-= SLIDER INPUT QUESTION -=-=-=-=-=-=-=-=-=-=-
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     
-    //-=-=-=-=-=-=-=-=-=-=-= radio image tf2 -=-=-=-=-=-=-=-=-=-=-=
+    
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-= True/False/Undecided Question -=-=-=-=-=-=-
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     $('div#radio-image-selector input:radio').addClass('input_radio_hidden');
     $(document).on("click", "#radio-image-selector label", function(){
         var id = $(this).attr('for');
         $('input#'+id).attr('checked', 'true');
         $(this).addClass('input_radio_selected').siblings().removeClass('input_radio_selected');
     });
-    //-=-=-=-=-=-=-=-=-=-=-= radio image tf2 -=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-= True/False/Undecided Question -=-=-=-=-=-=-
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     
-    //-=-=-=-=-=-=-=-=-=-=-= Custom mc1 -=-=-=-=-=-=-=-=-=-=-=
+    
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-= Multiple Choices [select one] -=-=-=-=-=-=-
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     $("input.custom_mc_radio").on('click', function(){
         var this_choice = $(this).attr('name');
         var this_choice_value = $(this).val();
@@ -389,9 +390,14 @@ $(document).ready(function(){
         //add selected class
         $(this).parent().addClass('custom_mc_radio_selected');
     });
-    //-=-=-=-=-=-=-=-=-=-=-= Custom mc1 -=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-= Multiple Choices [select one] -=-=-=-=-=-=-
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     
-    //-=-=-=-=-=-=-=-=-=-=-= Custom mc2 -=-=-=-=-=-=-=-=-=-=-=
+    
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-= Multiple Choices [select two] -=-=-=-=-=-=-
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     $("input.custom_mc_checkbox").on('click', function(){
         var this_choice = $(this).attr('name');
         var this_choice_value = $(this).val();
@@ -420,12 +426,16 @@ $(document).ready(function(){
         }
 
     }); 
-    //-=-=-=-=-=-=-=-=-=-=-= Custom mc2 -=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=-=-=-= Multiple Choices [select two] -=-=-=-=-=-=-
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     
 });
 
 
-//-=-=-=-=-=-=-=-=-=-=-= single char question rn2-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-= Single character Answer (rn2) -=-==--=-=-=-
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 function char_question_onBlur(dis){
     var id = $(dis).attr('id');
     var entered_char = $(dis).val().toLowerCase();
@@ -445,7 +455,6 @@ function char_question_onBlur(dis){
         $(dis).css({'border':'1px solid #000'});
     } else if(entered_char == ''){
         $(dis).css('border', '4px solid red');
-//        $(dis).focus();
     }
 }
 function char_question_onKeyUp(dis){
@@ -469,10 +478,14 @@ function char_question_onKeyUp(dis){
         $(dis).val('');
     }
 }
-//-=-=-=-=-=-=-=-=-=-=-= single char question rn2-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-= Single character Answer (rn2) -=-==--=-=-=-
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
-//-=-=-=-=-=-=-=-=-=-=-= single char question rn3-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-= Single character Answer (rn3) -=-==--=-=-=-
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 function char_question_rn3_onBlur(dis){
     var id = $(dis).attr('id');
     var entered_char = $(dis).val().toLowerCase();
@@ -507,22 +520,33 @@ function char_question_rn3_onKeyUp(dis){
         $(dis).val('');
     }
 }
-//-=-=-=-=-=-=-=-=-=-=-= single char question rn3-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-= Single character Answer (rn3) -=-==--=-=-=-
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
-//-=-=-=-=-=-=-=-=-=-=-= Ranking Required Field Checker -=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-= Ranking -=-=-=--=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 function validateRankingQuestion(dis, err_msg){
     var id = dis.id.split('[')[0];
     $('div.ranking-question-box-left#'+id).css('border', '1px solid red');
     console.log(err_msg + ' ' +id);
 }
-//-=-=-=-=-=-=-=-=-=-=-= Ranking Required Field Checker -=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-= Ranking -=-=-=--=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-//-=-=-=-=-=-=-=-=-=-=-= Custom MC Required Field Checker -=-=-=-=-=-=-=-=
+
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=- Multiple choice required checked -=-=-=--=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 function validateCustomMCQuestion(dis, err_msg){
     $(dis).parent().css('border', '1px solid red');
     console.log(err_msg);
 }
-//-=-=-=-=-=-=-=-=-=-=-= Custom MC Required Field Checker -=-=-=-=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=- Multiple choice required checked -=-=-=--=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
