@@ -214,6 +214,7 @@ class ".ucfirst($assessment_code)."Controller extends Test{
         'public/js/formbuilder/control_plugins/yes_no_question_template.js',
         'public/js/formbuilder/control_plugins/true_false_undecided_question_template.js',
         'public/js/formbuilder/control_plugins/yes_no_undecided_question_template.js',
+        'public/js/formbuilder/control_plugins/video_question_template.js',
         'public/js/fb_fields_acsite.js',
         'public/js/testtaking.js',
     ];

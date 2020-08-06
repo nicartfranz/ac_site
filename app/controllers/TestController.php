@@ -131,6 +131,7 @@ class TestController extends Test{
                     'public/js/formbuilder/control_plugins/yes_no_question_template.js',
                     'public/js/formbuilder/control_plugins/true_false_undecided_question_template.js',
                     'public/js/formbuilder/control_plugins/yes_no_undecided_question_template.js',
+                    'public/js/formbuilder/control_plugins/video_question_template.js',
                     'public/js/fb_fields_acsite.js',
                     'public/js/testview.js'
                 ], 
@@ -1016,6 +1017,9 @@ class TestController extends Test{
             case "update_test":
                 $test_id = $_POST['test_id'];
                 ajax_update_test($test_id);
+                break;
+            case "save_video_question":
+                save_video_question();
                 break;
             default:
               echo "ajax_name not found.";

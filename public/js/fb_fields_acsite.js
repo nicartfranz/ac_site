@@ -140,6 +140,10 @@ const fb_customFields = [
             subtype: 'textarea',
         }
     }, 
+    {
+        type:"video_question_template",
+        label:"Video Question Template",
+    },
 ];
 
 
@@ -894,6 +898,197 @@ const fb_templates = {
                 $('#'+value_field_id).val(custom_html_value);
             }
         }        
+    },
+    video_question_template:function(fieldData){
+        if(!fieldData.hasOwnProperty('value')){
+       
+            var assessment_code = $('#assessment_code').val();
+            var unique_var = '###'+Date.now()+'###';
+            var QUESTION_VAR_NAME = unique_var;
+
+            var VIDEO_QUESTION_FOLDER = prompt('Enter video question folder: ', assessment_code);
+            if(VIDEO_QUESTION_FOLDER == null){ alert('This is a required field!'); return false; }
+
+            var QUESTION_FILENAME = prompt("Enter the video question filename:");
+            if(QUESTION_FILENAME == null || QUESTION_FILENAME == ''){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_VAR = prompt("Enter the item variable:", unique_var);
+            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_VAR_NAME = 'video_'+QUESTION_VAR;
+            var MODAL_VAR_NAME = 'modal_video_'+QUESTION_VAR;
+         
+            var setDefaultValue = "\
+                <div class='modal' id='"+MODAL_VAR_NAME+"'>\
+                    <div class='modal-dialog'>\
+                        <div class='modal-content'>\
+                            <div class='modal-header'>\
+                                <h4 class='modal-title'>"+QUESTION_FILENAME+"</h4>\
+                                <button type='button' class='close' data-dismiss='modal'>&times;</button>\
+                            </div>\
+                            <div class='modal-body'>\
+                                <button class='btn btn-xs btn-success btn-start-recording' id='start_"+QUESTION_VAR_NAME+"' data-video-id='"+QUESTION_VAR_NAME+"'>Start Recording</button>\
+                                <button class='btn btn-xs btn-danger btn-stop-recording' id='stop_"+QUESTION_VAR_NAME+"' data-video-id='"+QUESTION_VAR_NAME+"' disabled>Stop Recording</button>\
+                                <div class='video_holder'><video style='width: 100%; padding: 10px 0px;' class='"+QUESTION_VAR_NAME+"' controls autoplay playsinline></video></div>\
+                            </div>\
+                            <div class='modal-footer'>\
+                                <button type='button' class='btn btn-danger' data-dismiss='modal'>Close</button>\
+                                <button style='display: none;' type='button' class='btn btn-success btn-save-recording' id='save_"+QUESTION_VAR_NAME+"' data-video-id='"+QUESTION_VAR_NAME+"' data-video-filename='"+QUESTION_FILENAME+"'>Save</button>\
+                            </div>\
+                        </div>\
+                    </div>\
+                </div>\
+                <div id='video_question_box'>\
+                    <button type='button' data-toggle='modal' data-target='#"+MODAL_VAR_NAME+"' class='btn btn-primary record_video_question' id='"+QUESTION_VAR_NAME+"' name='"+QUESTION_VAR_NAME+"' data-filename='"+QUESTION_FILENAME+"'>Record Video Question</button>\
+                </div>";
+            
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
+        }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(custom_html_value);
+                
+                function captureCamera(callback) {
+                    navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(function(camera) {
+                        callback(camera);
+                    }).catch(function(error) {
+                        alert('Unable to capture your camera. Please check console logs.');
+                        console.error(error);
+                    });
+                }
+
+                function stopRecordingCallback() {
+                    video.src = video.srcObject = null;
+                    video.muted = false;
+                    video.volume = 1;
+                    video.src = URL.createObjectURL(recorder.getBlob());
+
+                    recorder.camera.stop();
+//                    recorder.destroy();
+//                    recorder = null;
+                }
+
+                var recorder; // globally accessible
+                var video = document.querySelector('video');
+                
+                $('.btn-start-recording').on('click', function(){
+                    var this_button_id = $(this).attr('id');
+                    var this_data_video_id = $(this).attr('data-video-id');
+                    video = $('video.'+this_data_video_id)[0];
+                    
+                    
+                    //alert('btn-start-recording: ' + this_button_id); 
+                    this.disabled = true;
+                    captureCamera(function(camera) {
+                        video.muted = true;
+                        video.volume = 0;
+                        video.srcObject = camera;
+
+                        recorder = RecordRTC(camera, {
+                            type: 'video'
+                        });
+
+                        recorder.startRecording();
+
+                        // release camera on stopRecording
+                        recorder.camera = camera;
+
+                        $('button#stop_'+this_data_video_id).removeAttr('disabled');
+                    });
+                    
+                    // auto stop recording after 60 seconds
+                    var milliSeconds = (60 * 1000) + 1000;
+                    setTimeout(function() {
+                        recorder.stopRecording(stopRecordingCallback);
+                    }, milliSeconds);
+                    
+                });
+                
+                $('.btn-stop-recording').on('click', function(){
+                    var this_button_id = $(this).attr('id');
+                    var this_data_video_id = $(this).attr('data-video-id');
+                    video = $('video.'+this_data_video_id)[0];
+
+                    this.disabled = true;
+                    $('button#start_'+this_data_video_id).removeAttr('disabled');
+                    $('button#save_'+this_data_video_id).css('display', 'block');
+                    
+                    recorder.stopRecording(stopRecordingCallback);
+                });
+                
+                $('.btn-save-recording').on('click', function(){
+                    var this_button_id = $(this).attr('id');
+                    var this_data_video_id = $(this).attr('data-video-id');
+                    var this_data_video_filename = $(this).attr('data-video-filename');
+                    video = $('video.'+this_data_video_id)[0];
+                   
+                    $('#modal_'+this_data_video_id).modal("hide")
+                    
+                    $('#start_'+this_data_video_id).removeAttr('disabled');
+                    
+                    // get recorded blob
+                    var blob = recorder.getBlob();
+
+                    // generating a random file name
+                    var fileName = this_data_video_filename+'.webm';
+
+                    // we need to upload "File" --- not "Blob"
+                    var fileObject = new File([blob], fileName, {
+                        type: 'video/webm'
+                    });
+
+                    var formData = new FormData();
+
+                    // recorded data
+                    formData.append('video-blob', fileObject);
+                    // file name
+                    formData.append('video-filename', fileObject.name);
+                    //video folder
+                    formData.append('video-folder', VIDEO_QUESTION_FOLDER);
+                    
+                    var upload_url = APP_BASE_URL + "test/submitAjax";
+                    // upload using jQuery
+                    var ajax_name = 'save_video_question';
+                    formData.append('ajax_name', ajax_name);
+                    $.ajax({
+                        url: upload_url, // replace with your own server URL
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        type: 'POST',
+                        success: function(response) {
+                            if (response === 'success') {
+                                
+                                //This is the video question
+                                var video_tag_inside_modal = $('div.modal#modal_'+this_data_video_id+ ' > div > div > div.modal-body > div').html();
+                                var $final_video_tag = $('<div>').html(video_tag_inside_modal);
+                                $final_video_tag.find('video').attr("src", APP_BASE_URL+'public/video_questions/'+VIDEO_QUESTION_FOLDER+'/'+fileName).html();
+                                $final_video_tag.find('video').removeAttr('autoplay playsinline').html();
+                                var video_question = $final_video_tag.html();
+                                console.log(video_question);
+                                $('#'+value_field_id).val(video_question);
+                                
+                                alert('Successfully created a video question.');
+                            } else {
+                                alert(response); // error/failure
+                            }
+                        }
+                    });
+                    
+                });
+
+            }
+        }    
     }
 
 };
@@ -1083,6 +1278,7 @@ const fb_controlOrder = [
     'LeastBestQuestion',
     'rankingQuestion',
     'sliderQuestion',
+    'video_question_template',
     'customHTMLTemplate',
     'button',
     'endPageMarker',

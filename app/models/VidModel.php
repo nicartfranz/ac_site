@@ -1,10 +1,10 @@
 <?php 
 
 //Standard operating procedure (SOP)
-class Dem2Model extends Model{
+class VidModel extends Model{
 
     //Standard operating procedure (SOP)
-    protected $ass_code = 'dem2';
+    protected $ass_code = 'vid';
     
     
 

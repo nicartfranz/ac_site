@@ -44,13 +44,13 @@ $os = new Os();
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-//TO USE LOGGER
+//#TO USE LOGGER
 //#1 Create the logger
 //$logger = new Logger('my_logger');
 //#2 Now add some handlers
 //$logger->pushHandler(new StreamHandler('../logs/'.date('Y-m-d').".log", Logger::DEBUG));
 //#3 You can now use your logger
-//$logger->info('My logger is now ready');
+//$logger->info('My logger is now ready 3, 2, 1..');
 
 //Auto Loader for the libraries and classes
 spl_autoload_register(function($className){

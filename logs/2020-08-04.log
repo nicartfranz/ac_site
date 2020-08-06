@@ -1,0 +1,2 @@
+[2020-08-04T21:07:06.448227+08:00] my_logger.INFO: My logger is now ready 123 [] []
+[2020-08-04T21:07:27.987731+08:00] my_logger.INFO: My logger is now ready 3, 2, 1.. [] []

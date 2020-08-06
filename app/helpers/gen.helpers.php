@@ -47,6 +47,8 @@ function siteBasicFooter($siteLevelJS = array()){
                     
                 <script src='https://cdn.jsdelivr.net/npm/jquery-backdetect@1.0.3/jquery.backDetect.min.js'></script>
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/history.js/1.8/bundled/html4+html5/jquery.history.min.js'></script>
+                
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.5.9/RecordRTC.js'></script>
 
                 <!-- Custom scripts for all pages-->
                 <script src='".APP_BASE_URL."public/js/rateYo/jquery.rateyo.min.js'></script>  
@@ -133,7 +135,9 @@ function siteAdminFooter($siteLevelJS = array()){
                 <!-- Custom scripts for all pages-->
                 <script src='".APP_BASE_URL."public/js/admin.js'></script>
                 <script src='".APP_BASE_URL."public/js/sb-admin-2.min.js'></script>
-                <script src='".APP_BASE_URL."public/js/rateYo/jquery.rateyo.min.js'></script>"
+                <script src='".APP_BASE_URL."public/js/rateYo/jquery.rateyo.min.js'></script>
+                
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.5.9/RecordRTC.js'></script>"
 
                 //<script src='".APP_BASE_URL."public/js/fb_fields_acsite.js'></script>
                 //<!-- Page level custom scripts -->

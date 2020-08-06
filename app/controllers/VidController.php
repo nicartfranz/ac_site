@@ -1,8 +1,8 @@
 <?php 
 
-class Dem2Controller extends Test{
+class VidController extends Test{
 
-    public $ass_code = 'dem2';
+    public $ass_code = 'vid';
     public $site_level_form_builder_js = [
         'public/js/formbuilder/form-builder.min.js', 
         'public/js/formbuilder/form-render.min.js', 
@@ -21,6 +21,7 @@ class Dem2Controller extends Test{
         'public/js/formbuilder/control_plugins/yes_no_question_template.js',
         'public/js/formbuilder/control_plugins/true_false_undecided_question_template.js',
         'public/js/formbuilder/control_plugins/yes_no_undecided_question_template.js',
+        'public/js/formbuilder/control_plugins/video_question_template.js',
         'public/js/fb_fields_acsite.js',
         'public/js/testtaking.js',
     ];
