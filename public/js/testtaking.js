@@ -9,6 +9,14 @@ if(page_reload_back == 0){
 }
 //-=-=-=-=-=-=-=-=-=-=-= DISABLE BACK in mobile and desktop -=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-  GLOBAL VARS -=-=-=--=-=-=-=-=-=-=--=-=-=-=-=-=-
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+var global_candidate_recorder; // globally accessible
+var global_candidate_video = document.querySelector('video');
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=-  GLOBAL VARS -=-=-=--=-=-=-=-=-=-=--=-=-=-=-=-=-
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 $(document).ready(function(){
     
@@ -430,6 +438,107 @@ $(document).ready(function(){
     //-=-=-=-=-=-=-=-= Multiple Choices [select two] -=-=-=-=-=-=-
     //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     
+    
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=- Video Answer JS -=-=-=--=-=-=-=-=-=-=--=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    $('.btn-start-recording-candidate').on('click', function(){
+
+        var this_button_id = $(this).attr('id');
+        var this_data_video_id = $(this).attr('data-video-id');
+        global_candidate_video = $('video.'+this_data_video_id)[0];
+
+        this.disabled = true;
+        captureCamera_candidate(function(camera) {
+            global_candidate_video.muted = true;
+            global_candidate_video.volume = 0;
+            global_candidate_video.srcObject = camera;
+
+            global_candidate_recorder = RecordRTC(camera, {
+                type: 'video'
+            });
+
+            global_candidate_recorder.startRecording();
+
+            // release camera on stopRecording
+            global_candidate_recorder.camera = camera;
+
+            $('button#stop_'+this_data_video_id).removeAttr('disabled');
+        });
+
+        // auto stop recording after 60 seconds
+        var milliSeconds = (60 * 1000) + 1000;
+        setTimeout(function() {
+            global_candidate_recorder.stopRecording(stopRecordingCallback_candidate);
+        }, milliSeconds);
+
+    });
+
+    $('.btn-stop-recording-candidate').on('click', function(){
+        var this_button_id = $(this).attr('id');
+        var this_data_video_id = $(this).attr('data-video-id');
+        global_candidate_video = $('video.'+this_data_video_id)[0];
+
+        this.disabled = true;
+        $('button#start_'+this_data_video_id).removeAttr('disabled');
+        $('button#save_'+this_data_video_id).css('display', 'block');
+
+        global_candidate_recorder.stopRecording(stopRecordingCallback_candidate);
+    });
+
+    $('.btn-save-recording-candidate').on('click', function(){
+        var this_button_id = $(this).attr('id');
+        var this_data_video_id = $(this).attr('data-video-id');
+        var this_data_video_filename = $(this).attr('data-video-filename');
+        global_candidate_video = $('video.'+this_data_video_id)[0];
+        $('#start_'+this_data_video_id).removeAttr('disabled');
+
+        // get recorded blob
+        var blob = global_candidate_recorder.getBlob();
+
+        // generating a random file name
+        var fileName = this_data_video_filename+'.webm';
+
+        // we need to upload "File" --- not "Blob"
+        var fileObject = new File([blob], fileName, {
+            type: 'video/webm'
+        });
+
+        var formData = new FormData();
+
+        // recorded data
+        formData.append('video-blob', fileObject);
+        // file name
+        formData.append('video-filename', fileObject.name);
+
+        //modal-header
+        $('div.modal#modal_'+this_data_video_id+ ' > div > div > div.modal-header > h4').text('Uploading video please wait...');
+        var upload_url = APP_BASE_URL + ASS_CODE +"/submitAjax";
+        // upload using jQuery
+        var ajax_name = 'save_candidate_video_answer';
+        formData.append('ajax_name', ajax_name);
+        $.ajax({
+            url: upload_url, // replace with your own server URL
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function(response) {
+                if (response === 'success') {
+                    $('button#'+this_data_video_id).replaceWith("<button type='button' class='btn btn-secondary'>Answered</button>");
+                    $('#modal_'+this_data_video_id).modal('hide');
+                } else {
+                    alert(response); // error/failure
+                }
+            }
+        });
+
+    });
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    //-=-=-=-=-=- Video Answer JS -=-=-=--=-=-=-=-=-=-=--=-=-=-=-=
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    
 });
 
 
@@ -549,4 +658,26 @@ function validateCustomMCQuestion(dis, err_msg){
 //-=-=-=-=-=- Multiple choice required checked -=-=-=--=-=-=-=
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=- Video Answer JS -=-=-=--=-=-=-=-=-=-=--=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+function captureCamera_candidate(callback) {
+    navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(function(camera) {
+        callback(camera);
+    }).catch(function(error) {
+        alert('Unable to capture your camera. Please check console logs.');
+        console.error(error);
+    });
+}
 
+function stopRecordingCallback_candidate() {
+    global_candidate_video.src = global_candidate_video.srcObject = null;
+    global_candidate_video.muted = false;
+    global_candidate_video.volume = 1;
+    global_candidate_video.src = URL.createObjectURL(global_candidate_recorder.getBlob());
+
+    global_candidate_recorder.camera.stop();
+}
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//-=-=-=-=-=- Video Answer JS -=-=-=--=-=-=-=-=-=-=--=-=-=-=-=
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

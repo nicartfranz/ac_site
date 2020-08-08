@@ -43,6 +43,7 @@ $test_timer_end_time = (isset($_SESSION[$data['AssCode']]['test_timer_end_time']
 <script>
 //APP BASE URL
 var APP_BASE_URL = '<?= APP_BASE_URL ?>';
+var ASS_CODE = '<?= $data['AssCode'] ?>';
     
 //Timer JS vars
 var test_time_remaining_hr = <?= $test_time_remaining_hr ?>;

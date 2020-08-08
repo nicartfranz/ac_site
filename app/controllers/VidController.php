@@ -22,6 +22,7 @@ class VidController extends Test{
         'public/js/formbuilder/control_plugins/true_false_undecided_question_template.js',
         'public/js/formbuilder/control_plugins/yes_no_undecided_question_template.js',
         'public/js/formbuilder/control_plugins/video_question_template.js',
+        'public/js/formbuilder/control_plugins/record_video_answer_template.js',
         'public/js/fb_fields_acsite.js',
         'public/js/testtaking.js',
     ];
@@ -80,6 +81,21 @@ class VidController extends Test{
                 
     public function finish(){
         parent::finish();
+    }
+    
+    //Ajax requests under this controller will be passed here
+    public function submitAjax(){
+        parent::submitAjax();
+        
+        $ajax_name = $_POST['ajax_name'];
+        switch ($ajax_name) {
+            case "save_candidate_video_answer":
+                save_candidate_video_answer();
+                break;
+            default:
+              echo "ajax_name not found.";
+        }
+        
     }
 
         

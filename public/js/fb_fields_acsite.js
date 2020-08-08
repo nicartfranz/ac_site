@@ -144,6 +144,10 @@ const fb_customFields = [
         type:"video_question_template",
         label:"Video Question Template",
     },
+    {
+        type:"record_video_answer_template",
+        label:"Record Video Answer Template",
+    },
 ];
 
 
@@ -1089,6 +1093,61 @@ const fb_templates = {
 
             }
         }    
+    },
+    record_video_answer_template: function(fieldData){
+        if(!fieldData.hasOwnProperty('value')){
+       
+            var unique_var = '###'+Date.now()+'###';
+            var BUTTON_VAR_NAME = unique_var;
+            
+            var QUESTION_VAR = prompt("Enter the item variable:", unique_var);
+            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            
+            var QUESTION_VAR_NAME = 'record_video_ans_'+QUESTION_VAR;
+            var QUESTION_FILENAME = 'video_ans_'+QUESTION_VAR;
+            //var no_image = APP_BASE_URL+'public/img/assessments/types/yn2/No.png';
+            var MODAL_VAR_NAME = 'modal_record_video_ans_'+QUESTION_VAR;
+         
+            var setDefaultValue = "\
+                <div class='modal' id='"+MODAL_VAR_NAME+"'>\
+                    <div class='modal-dialog'>\
+                        <div class='modal-content'>\
+                            <div class='modal-header'>\
+                                <h4>Record Video Answer</h4>\
+                                <button type='button' class='close' data-dismiss='modal'>&times;</button>\
+                            </div>\
+                            <div class='modal-body'>\
+                                <button type='button' class='btn btn-xs btn-success btn-start-recording-candidate' id='start_"+QUESTION_VAR_NAME+"' data-video-id='"+QUESTION_VAR_NAME+"'>Start Recording</button>\
+                                <button type='button' class='btn btn-xs btn-danger btn-stop-recording-candidate' id='stop_"+QUESTION_VAR_NAME+"' data-video-id='"+QUESTION_VAR_NAME+"' disabled>Stop Recording</button>\
+                                <div class='video_holder'><video style='width: 100%; padding: 10px 0px;' class='"+QUESTION_VAR_NAME+"' controls autoplay playsinline></video></div>\
+                            </div>\
+                            <div class='modal-footer'>\
+                                <button type='button' class='btn btn-danger' data-dismiss='modal'>Close</button>\
+                                <button style='display: none;' type='button' class='btn btn-success btn-save-recording-candidate' id='save_"+QUESTION_VAR_NAME+"' data-video-id='"+QUESTION_VAR_NAME+"' data-video-filename='"+QUESTION_FILENAME+"'>Save</button>\
+                            </div>\
+                        </div>\
+                    </div>\
+                </div>\
+                <div style='padding: 5px;'>\
+                    <button type='button' data-toggle='modal' data-target='#"+MODAL_VAR_NAME+"' class='btn btn-primary record_video_answer' id='"+QUESTION_VAR_NAME+"' name='"+QUESTION_VAR_NAME+"' data-filename='"+QUESTION_FILENAME+"'><i class='fas fa-video'></i>&nbsp;Record Video Answer</button>\
+                </div>";
+            
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
+        }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(custom_html_value);
+                
+            }
+        }    
     }
 
 };
@@ -1279,6 +1338,7 @@ const fb_controlOrder = [
     'rankingQuestion',
     'sliderQuestion',
     'video_question_template',
+    'record_video_answer_template',
     'customHTMLTemplate',
     'button',
     'endPageMarker',
