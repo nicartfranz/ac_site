@@ -209,10 +209,10 @@ const fb_templates = {
             var QUESTION_VAR = unique_var;
 
             var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
-            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_TEXT == null || QUESTION_TEXT == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_VAR = prompt("Enter the item variable:", "Variable Format: q_lk_1_1");
-            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
             //final question var 
             var QUESTION_VAR = QUESTION_VAR;
             
@@ -312,10 +312,10 @@ const fb_templates = {
 
 
             var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
-            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_TEXT == null || QUESTION_TEXT == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_VAR = prompt("Enter the item variable:", QUESTION_VAR);
-            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
             //final question var 
             var QUESTION_VAR = 'q'+QUESTION_VAR;
         
@@ -374,28 +374,28 @@ const fb_templates = {
             var QUESTION_CHOICE_4 = 'Cooperative|I am obliging, helpful, and supportive.';
 
             var QUESTION_VAR = prompt("Enter the item variable:", "Variable format: 1");
-            if(QUESTION_VAR == null || !/^[0-9.,]+$/.test(QUESTION_VAR)){ alert('This is a required field/variable should be an integer!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == '' || !/^[0-9.,]+$/.test(QUESTION_VAR)){ alert('This is a required field/variable should be an integer!'); return false; }
         
             var QUESTION_CHOICE_1 = prompt("Enter choice:", "Choice format: "+QUESTION_CHOICE_1);
-            if(QUESTION_CHOICE_1 == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_CHOICE_1 == null || QUESTION_CHOICE_1 == ''){ alert('This is a required field!'); return false; }
             QUESTION_CHOICE_1 = QUESTION_CHOICE_1.split("|");
             QUESTION_CHOICE_1_key = QUESTION_CHOICE_1[0];
             QUESTION_CHOICE_1_value = QUESTION_CHOICE_1[1];
             
             var QUESTION_CHOICE_2 = prompt("Enter choice:", "Choice format: "+QUESTION_CHOICE_2);
-            if(QUESTION_CHOICE_2 == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_CHOICE_2 == null || QUESTION_CHOICE_2 == ''){ alert('This is a required field!'); return false; }
             QUESTION_CHOICE_2 = QUESTION_CHOICE_2.split("|");
             QUESTION_CHOICE_2_key = QUESTION_CHOICE_2[0];
             QUESTION_CHOICE_2_value = QUESTION_CHOICE_2[1];
             
             var QUESTION_CHOICE_3 = prompt("Enter choice:", "Choice format: "+QUESTION_CHOICE_3);
-            if(QUESTION_CHOICE_3 == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_CHOICE_3 == null || QUESTION_CHOICE_3 == ''){ alert('This is a required field!'); return false; }
             QUESTION_CHOICE_3 = QUESTION_CHOICE_3.split("|");
             QUESTION_CHOICE_3_key = QUESTION_CHOICE_3[0];
             QUESTION_CHOICE_3_value = QUESTION_CHOICE_3[1];
             
             var QUESTION_CHOICE_4 = prompt("Enter choice:", "Choice format: "+QUESTION_CHOICE_4);
-            if(QUESTION_CHOICE_4 == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_CHOICE_4 == null || QUESTION_CHOICE_4 == ''){ alert('This is a required field!'); return false; }
             QUESTION_CHOICE_4 = QUESTION_CHOICE_4.split("|");
             QUESTION_CHOICE_4_key = QUESTION_CHOICE_4[0];
             QUESTION_CHOICE_4_value = QUESTION_CHOICE_4[1];
@@ -446,9 +446,9 @@ const fb_templates = {
             var QUESTION_VAR = unique_var;
 
             var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
-            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_TEXT == null || QUESTION_TEXT == ''){ alert('This is a required field!'); return false; }
             var QUESTION_VAR = prompt("Enter the item variable:", QUESTION_VAR);
-            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
 
             //final question var 
             var QUESTION_VAR = 'q_sl_'+QUESTION_VAR;
@@ -497,18 +497,18 @@ const fb_templates = {
 
 
             var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
-            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_TEXT == null || QUESTION_TEXT == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_VAR = prompt("Enter the item variable:", QUESTION_VAR);
-            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
             //final question var 
             var QUESTION_VAR = 'q'+QUESTION_VAR;
             
             var QUESTION_CHOICE_1 = prompt("Enter choice 1:", QUESTION_CHOICE_1);
-            if(QUESTION_CHOICE_1 == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_CHOICE_1 == null || QUESTION_CHOICE_1 == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_CHOICE_2 = prompt("Enter choice 2:", QUESTION_CHOICE_2);
-            if(QUESTION_CHOICE_2 == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_CHOICE_2 == null || QUESTION_CHOICE_2 == ''){ alert('This is a required field!'); return false; }
 
             var ADD_MORE_CHOICE = confirm("Do you want to add more choice(s)?");
             if(ADD_MORE_CHOICE){
@@ -586,18 +586,18 @@ const fb_templates = {
             var QUESTION_VAR = unique_var;
 
             var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
-            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_TEXT == null || QUESTION_TEXT == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_VAR = prompt("Enter the item variable:", QUESTION_VAR);
-            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
             //final question var 
             var QUESTION_VAR = 'q'+QUESTION_VAR;
             
             var QUESTION_CHOICE_1 = prompt("Enter choice 1:", QUESTION_CHOICE_1);
-            if(QUESTION_CHOICE_1 == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_CHOICE_1 == null || QUESTION_CHOICE_1 == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_CHOICE_2 = prompt("Enter choice 2:", QUESTION_CHOICE_2);
-            if(QUESTION_CHOICE_2 == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_CHOICE_2 == null || QUESTION_CHOICE_2 == ''){ alert('This is a required field!'); return false; }
             
             var ADD_MORE_CHOICE = confirm("Do you want to add more choice(s)?");
             if(ADD_MORE_CHOICE){
@@ -673,9 +673,9 @@ const fb_templates = {
             var QUESTION_VAR = unique_var;
 
             var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
-            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_TEXT == null || QUESTION_TEXT == ''){ alert('This is a required field!'); return false; }
             var QUESTION_VAR = prompt("Enter the item variable:", QUESTION_VAR);
-            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
 
             //final question var 
             var QUESTION_VAR = 'char_question_'+QUESTION_VAR;
@@ -713,10 +713,10 @@ const fb_templates = {
             var QUESTION_VAR_FALSE = unique_var;
             
             var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
-            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_TEXT == null || QUESTION_TEXT == ''){ alert('This is a required field!'); return false; }
 
             var QUESTION_VAR = prompt("Enter the item variable:", unique_var);
-            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_VAR_NAME = 'tf1_q_'+QUESTION_VAR;
             var QUESTION_VAR_TRUE = 'tf1_q_'+QUESTION_VAR+'_t';
@@ -761,10 +761,10 @@ const fb_templates = {
             var QUESTION_VAR_NO = unique_var;
             
             var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
-            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_TEXT == null || QUESTION_TEXT == ''){ alert('This is a required field!'); return false; }
 
             var QUESTION_VAR = prompt("Enter the item variable:", unique_var);
-            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_VAR_NAME = 'yn1_q_'+QUESTION_VAR;
             var QUESTION_VAR_YES = 'yn1_q_'+QUESTION_VAR+'_y';
@@ -810,10 +810,10 @@ const fb_templates = {
             var QUESTION_VAR_UNDECIDED = unique_var;
             
             var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
-            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_TEXT == null || QUESTION_TEXT == ''){ alert('This is a required field!'); return false; }
 
             var QUESTION_VAR = prompt("Enter the item variable:", unique_var);
-            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_VAR_NAME = 'tf2_q_'+QUESTION_VAR;
             var QUESTION_VAR_TRUE = 'tf2_q_'+QUESTION_VAR+'_t';
@@ -863,10 +863,10 @@ const fb_templates = {
             var QUESTION_VAR_UNDECIDED = unique_var;
             
             var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
-            if(QUESTION_TEXT == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_TEXT == null || QUESTION_TEXT == ''){ alert('This is a required field!'); return false; }
 
             var QUESTION_VAR = prompt("Enter the item variable:", unique_var);
-            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_VAR_NAME = 'yn2_q_'+QUESTION_VAR;
             var QUESTION_VAR_YES = 'yn2_q_'+QUESTION_VAR+'_t';
@@ -904,20 +904,26 @@ const fb_templates = {
         }        
     },
     video_question_template:function(fieldData){
+        
+        var assessment_code = $('input#assessment_code').val();
+        if(assessment_code == null || assessment_code == ''){
+            alert('Please enter assessment code');
+            return false;
+        }
+        
         if(!fieldData.hasOwnProperty('value')){
        
             var assessment_code = $('#assessment_code').val();
             var unique_var = '###'+Date.now()+'###';
             var QUESTION_VAR_NAME = unique_var;
 
-            var VIDEO_QUESTION_FOLDER = prompt('Enter video question folder: ', assessment_code);
-            if(VIDEO_QUESTION_FOLDER == null){ alert('This is a required field!'); return false; }
+            var VIDEO_QUESTION_FOLDER = assessment_code
 
             var QUESTION_FILENAME = prompt("Enter the video question filename:");
             if(QUESTION_FILENAME == null || QUESTION_FILENAME == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_VAR = prompt("Enter the item variable:", unique_var);
-            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_VAR_NAME = 'video_'+QUESTION_VAR;
             var MODAL_VAR_NAME = 'modal_video_'+QUESTION_VAR;
@@ -1073,6 +1079,9 @@ const fb_templates = {
                         success: function(response) {
                             if (response === 'success') {
                                 
+                                $('button#'+this_data_video_id).replaceWith("<button type='button' class='btn btn-secondary'>Video Question Saved</button>");
+                                $('#modal_'+this_data_video_id).modal('hide');
+                                
                                 //This is the video question
                                 var video_tag_inside_modal = $('div.modal#modal_'+this_data_video_id+ ' > div > div > div.modal-body > div').html();
                                 var $final_video_tag = $('<div>').html(video_tag_inside_modal);
@@ -1101,7 +1110,7 @@ const fb_templates = {
             var BUTTON_VAR_NAME = unique_var;
             
             var QUESTION_VAR = prompt("Enter the item variable:", unique_var);
-            if(QUESTION_VAR == null){ alert('This is a required field!'); return false; }
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
             
             var QUESTION_VAR_NAME = 'record_video_ans_'+QUESTION_VAR;
             var QUESTION_FILENAME = 'video_ans_'+QUESTION_VAR;
@@ -1123,7 +1132,7 @@ const fb_templates = {
                             </div>\
                             <div class='modal-footer'>\
                                 <button type='button' class='btn btn-danger' data-dismiss='modal'>Close</button>\
-                                <button style='display: none;' type='button' class='btn btn-success btn-save-recording-candidate' id='save_"+QUESTION_VAR_NAME+"' data-video-id='"+QUESTION_VAR_NAME+"' data-video-filename='"+QUESTION_FILENAME+"'>Save</button>\
+                                <button style='display: none;' type='button' class='btn btn-success btn-save-recording-candidate' id='save_"+QUESTION_VAR_NAME+"' data-video-id='"+QUESTION_VAR_NAME+"' data-video-filename='"+QUESTION_FILENAME+"'>Submit</button>\
                             </div>\
                         </div>\
                     </div>\
