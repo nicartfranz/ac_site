@@ -14,8 +14,8 @@
         <group>
             <file>file:/C:/wamp/www/ac_site/app/models/TestModel.php</file>
             <file>file:/C:/wamp/www/ac_site/public/js/formbuilder/control_plugins/record_video_answer_template.js</file>
-            <file>file:/C:/wamp/www/ac_site/app/config/config.php</file>
             <file>file:/C:/wamp/www/ac_site/app/views/pages/candidate/testing.php</file>
+            <file>file:/C:/wamp/www/ac_site/public/js/testupdate.js</file>
             <file>file:/C:/wamp/www/ac_site/public/js/fb_fields_acsite.js</file>
             <file>file:/C:/wamp/www/ac_site/public/js/testcreator.js</file>
             <file>file:/C:/wamp/www/ac_site/public/js/testtaking.js</file>

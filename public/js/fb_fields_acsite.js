@@ -913,11 +913,11 @@ const fb_templates = {
         
         if(!fieldData.hasOwnProperty('value')){
        
-            var assessment_code = $('#assessment_code').val();
+            var assessment_code = $('input#assessment_code').val();
             var unique_var = '###'+Date.now()+'###';
             var QUESTION_VAR_NAME = unique_var;
 
-            var VIDEO_QUESTION_FOLDER = assessment_code
+            var VIDEO_QUESTION_FOLDER = assessment_code || ASS_CODE;
 
             var QUESTION_FILENAME = prompt("Enter the video question filename:");
             if(QUESTION_FILENAME == null || QUESTION_FILENAME == ''){ alert('This is a required field!'); return false; }
@@ -939,7 +939,7 @@ const fb_templates = {
                             <div class='modal-body'>\
                                 <button class='btn btn-xs btn-success btn-start-recording' id='start_"+QUESTION_VAR_NAME+"' data-video-id='"+QUESTION_VAR_NAME+"'>Start Recording</button>\
                                 <button class='btn btn-xs btn-danger btn-stop-recording' id='stop_"+QUESTION_VAR_NAME+"' data-video-id='"+QUESTION_VAR_NAME+"' disabled>Stop Recording</button>\
-                                <div class='video_holder'><video style='width: 100%; padding: 10px 0px;' class='"+QUESTION_VAR_NAME+"' controls autoplay playsinline></video></div>\
+                                <div class='video_holder'><video style='height: 75%; width: 100%; padding: 10px 0px;' class='"+QUESTION_VAR_NAME+"' controls autoplay playsinline></video></div>\
                             </div>\
                             <div class='modal-footer'>\
                                 <button type='button' class='btn btn-danger' data-dismiss='modal'>Close</button>\
@@ -961,10 +961,9 @@ const fb_templates = {
         return {
             field: formatFactory(custom_html_value),
             onRender: function(){
-                
-                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').first().attr('id'); 
                 var value_field_id = name_field_id.replace('name-','value-');
-                
                 $('#'+value_field_id).val(custom_html_value);
                 
                 function captureCamera(callback) {
@@ -983,8 +982,6 @@ const fb_templates = {
                     video.src = URL.createObjectURL(recorder.getBlob());
 
                     recorder.camera.stop();
-//                    recorder.destroy();
-//                    recorder = null;
                 }
 
                 var recorder; // globally accessible
@@ -1038,67 +1035,148 @@ const fb_templates = {
                 $('.btn-save-recording').on('click', function(){
                     var this_button_id = $(this).attr('id');
                     var this_data_video_id = $(this).attr('data-video-id');
-                    var this_data_video_filename = $(this).attr('data-video-filename');
-                    video = $('video.'+this_data_video_id)[0];
-                   
-                    $('#modal_'+this_data_video_id).modal("hide")
+                    var modal_id = 'modal_'+this_data_video_id;
                     
-                    $('#start_'+this_data_video_id).removeAttr('disabled');
-                    
-                    // get recorded blob
-                    var blob = recorder.getBlob();
+                    var $final_custom_html_value = $('<div>').html(custom_html_value);
+                    var final_custom_html_value = $final_custom_html_value.html();
+                    var check_id = $final_custom_html_value.find('div.modal#'+modal_id).attr('id');
+                    if(check_id == modal_id){
+                        
+                        var assessment_code = $('input#assessment_code').val();
+                        var this_button_id = $(this).attr('id');
+                        var this_data_video_id = $(this).attr('data-video-id');
+                        var this_data_video_filename = $(this).attr('data-video-filename');
+                        video = $('video.'+this_data_video_id)[0];
 
-                    // generating a random file name
-                    var fileName = this_data_video_filename+'.webm';
+                        $('#modal_'+this_data_video_id).modal("hide")
 
-                    // we need to upload "File" --- not "Blob"
-                    var fileObject = new File([blob], fileName, {
-                        type: 'video/webm'
-                    });
+                        $('#start_'+this_data_video_id).removeAttr('disabled');
 
-                    var formData = new FormData();
+                        // get recorded blob
+                        var blob = recorder.getBlob();
 
-                    // recorded data
-                    formData.append('video-blob', fileObject);
-                    // file name
-                    formData.append('video-filename', fileObject.name);
-                    //video folder
-                    formData.append('video-folder', VIDEO_QUESTION_FOLDER);
-                    
-                    var upload_url = APP_BASE_URL + "test/submitAjax";
-                    // upload using jQuery
-                    var ajax_name = 'save_video_question';
-                    formData.append('ajax_name', ajax_name);
-                    $.ajax({
-                        url: upload_url, // replace with your own server URL
-                        data: formData,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        type: 'POST',
-                        success: function(response) {
-                            if (response === 'success') {
-                                
-                                $('button#'+this_data_video_id).replaceWith("<button type='button' class='btn btn-secondary'>Video Question Saved</button>");
-                                $('#modal_'+this_data_video_id).modal('hide');
-                                
-                                //This is the video question
-                                var video_tag_inside_modal = $('div.modal#modal_'+this_data_video_id+ ' > div > div > div.modal-body > div').html();
-                                var $final_video_tag = $('<div>').html(video_tag_inside_modal);
-                                $final_video_tag.find('video').attr("src", APP_BASE_URL+'public/video_questions/'+VIDEO_QUESTION_FOLDER+'/'+fileName).html();
-                                $final_video_tag.find('video').removeAttr('autoplay playsinline').html();
-                                var video_question = $final_video_tag.html();
-                                console.log(video_question);
-                                $('#'+value_field_id).val(video_question);
-                                
-                                alert('Successfully created a video question.');
-                            } else {
-                                alert(response); // error/failure
+                        // generating a random file name
+                        var fileName = this_data_video_filename+'.webm';
+
+                        // we need to upload "File" --- not "Blob"
+                        var fileObject = new File([blob], fileName, {
+                            type: 'video/webm'
+                        });
+
+                        var formData = new FormData();
+
+                        // recorded data
+                        formData.append('video-blob', fileObject);
+                        // file name
+                        formData.append('video-filename', fileObject.name);
+                        //video folder
+                        formData.append('video-folder', assessment_code);
+
+                        var upload_url = APP_BASE_URL + "test/submitAjax";
+                        // upload using jQuery
+                        var ajax_name = 'save_video_question';
+                        formData.append('ajax_name', ajax_name);
+                        $.ajax({
+                            url: upload_url, // replace with your own server URL
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            type: 'POST',
+                            success: function(response) {
+                                if (response === 'success') {
+
+                                    $('button#'+this_data_video_id).replaceWith("<button type='button' class='btn btn-secondary'>Video Question Saved</button>");
+                                    $('#modal_'+this_data_video_id).modal('hide');
+
+                                    //This is the video question
+                                    var video_tag_inside_modal = $('div.modal#modal_'+this_data_video_id+ ' > div > div > div.modal-body > div').html();
+                                    var $final_video_tag = $('<div>').html(video_tag_inside_modal);
+                                    $final_video_tag.find('video').attr("src", APP_BASE_URL+'public/video_questions/'+assessment_code+'/'+fileName).html();
+                                    $final_video_tag.find('video').removeAttr('autoplay playsinline').html();
+                                    var video_question = $final_video_tag.html();
+                                    console.log(video_question);
+
+                                    $('#'+value_field_id).val(video_question);
+
+                                } else {
+                                    alert(response); // error/failure
+                                }
                             }
-                        }
-                    });
-                    
+                        });
+
+                    }
+
                 });
+                
+                
+//                $('.btn-save-recording').on('click', function(){
+//                    
+//                    var assessment_code = $('input#assessment_code').val();
+//                    var this_button_id = $(this).attr('id');
+//                    var this_data_video_id = $(this).attr('data-video-id');
+//                    var this_data_video_filename = $(this).attr('data-video-filename');
+//                    video = $('video.'+this_data_video_id)[0];
+//                   
+//                    $('#modal_'+this_data_video_id).modal("hide")
+//                    
+//                    $('#start_'+this_data_video_id).removeAttr('disabled');
+//                    
+//                    // get recorded blob
+//                    var blob = recorder.getBlob();
+//
+//                    // generating a random file name
+//                    var fileName = this_data_video_filename+'.webm';
+//
+//                    // we need to upload "File" --- not "Blob"
+//                    var fileObject = new File([blob], fileName, {
+//                        type: 'video/webm'
+//                    });
+//
+//                    var formData = new FormData();
+//
+//                    // recorded data
+//                    formData.append('video-blob', fileObject);
+//                    // file name
+//                    formData.append('video-filename', fileObject.name);
+//                    //video folder
+//                    formData.append('video-folder', assessment_code);
+//                    
+//                    var upload_url = APP_BASE_URL + "test/submitAjax";
+//                    // upload using jQuery
+//                    var ajax_name = 'save_video_question';
+//                    formData.append('ajax_name', ajax_name);
+//                    $.ajax({
+//                        url: upload_url, // replace with your own server URL
+//                        data: formData,
+//                        cache: false,
+//                        contentType: false,
+//                        processData: false,
+//                        type: 'POST',
+//                        success: function(response) {
+//                            if (response === 'success') {
+//                                
+//                                $('button#'+this_data_video_id).replaceWith("<button type='button' class='btn btn-secondary'>Video Question Saved</button>");
+//                                $('#modal_'+this_data_video_id).modal('hide');
+//                                
+//                                //This is the video question
+//                                var video_tag_inside_modal = $('div.modal#modal_'+this_data_video_id+ ' > div > div > div.modal-body > div').html();
+//                                var $final_video_tag = $('<div>').html(video_tag_inside_modal);
+//                                $final_video_tag.find('video').attr("src", APP_BASE_URL+'public/video_questions/'+assessment_code+'/'+fileName).html();
+//                                $final_video_tag.find('video').removeAttr('autoplay playsinline').html();
+//                                var video_question = $final_video_tag.html();
+//                                console.log(video_question);
+//                                
+//                                $('#'+value_field_id).val(video_question);
+//                                
+//                                //alert('Successfully created a video question.');
+//                            } else {
+//                                alert(response); // error/failure
+//                            }
+//                        }
+//                    });
+//                    
+//                });
 
             }
         }    
@@ -1114,7 +1192,6 @@ const fb_templates = {
             
             var QUESTION_VAR_NAME = 'record_video_ans_'+QUESTION_VAR;
             var QUESTION_FILENAME = 'video_ans_'+QUESTION_VAR;
-            //var no_image = APP_BASE_URL+'public/img/assessments/types/yn2/No.png';
             var MODAL_VAR_NAME = 'modal_record_video_ans_'+QUESTION_VAR;
          
             var setDefaultValue = "\
