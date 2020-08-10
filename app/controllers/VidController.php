@@ -30,6 +30,13 @@ class VidController extends Test{
     public function __construct() {
         parent::__construct();
         allowPageAccessByUser(['test_taker']);
+
+        $this->vid_model = $this->initModel('VidModel');
+        $last_visited_page = $this->vid_model->getLastVisitedPage();
+        if(getCurrentTestPage() < $last_visited_page){
+            header('Location:'.APP_BASE_URL.$this->ass_code.'/page'.$last_visited_page);
+        }
+        
     }
     
     
@@ -39,7 +46,14 @@ class VidController extends Test{
         $this->submitForm(false);
         $this->saveSnapshot();
         //--------------------//
+        
+        
+                
+        //On page 1 load, update tbstatus
+        $tbstatus = array('status' => 'started', 'page' => '1', 'date_started' => date('Y-m-d H:i:s'));
+        $this->vid_model->update_tbstatus($tbstatus);
 
+                
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
         $test_data = $test->getTestByAssCode($this->ass_code);
@@ -84,7 +98,14 @@ class VidController extends Test{
         $this->submitForm(false);
         $this->saveSnapshot();
         //--------------------//
+        
+        
+                
+        //On page 2 load, update tbstatus
+        $tbstatus = array('page' => '2');
+        $this->vid_model->update_tbstatus($tbstatus);
 
+                
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
         $test_data = $test->getTestByAssCode($this->ass_code);
@@ -123,7 +144,14 @@ class VidController extends Test{
         $this->submitForm(false);
         $this->saveSnapshot();
         //--------------------//
+        
+        
+                
+        //On page 3 load, update tbstatus
+        $tbstatus = array('page' => '3');
+        $this->vid_model->update_tbstatus($tbstatus);
 
+                
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
         $test_data = $test->getTestByAssCode($this->ass_code);
@@ -158,22 +186,12 @@ class VidController extends Test{
             
                 
     public function finish(){
-        parent::finish();
-    }
     
-     //Ajax requests under this controller will be passed here
-    public function submitAjax(){
-        parent::submitAjax();
-        
-        $ajax_name = $_POST['ajax_name'];
-        switch ($ajax_name) {
-            case "save_candidate_video_answer":
-                save_candidate_video_answer();
-                break;
-            default:
-              echo "ajax_name not found.";
-        }
-        
+        //On page 4 load, update tbstatus 
+        $tbstatus = array('status' => 'scored', 'page' => '4', 'date_completed' => date('Y-m-d H:i:s'), '`usage`' => date('Ym'));
+        $this->vid_model->update_tbstatus($tbstatus);
+
+        parent::finish();
     }
 
         

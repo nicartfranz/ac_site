@@ -169,7 +169,7 @@ class TestModel extends Model{
                                 ->values(['ass_code' => '?', 'question' => '?'])
                                 ->setParameters([$assessment_code, $formbuilder_json]);
             $this->queryBuilder->execute();
-            $page_methods = $this->pageMethods($total_pages);
+            $page_methods = $this->pageMethods($total_pages, $assessment_code);
             $this->createTestController($assessment_code, $page_methods);
             
             $test_methods = $this->testModelMethods();
@@ -223,6 +223,13 @@ class ".ucfirst($assessment_code)."Controller extends Test{
     public function __construct() {
         parent::__construct();
         allowPageAccessByUser(['test_taker']);
+
+        \$this->".$assessment_code."_model = \$this->initModel('".ucfirst($assessment_code)."Model');
+        \$last_visited_page = \$this->".$assessment_code."_model->getLastVisitedPage();
+        if(getCurrentTestPage() < \$last_visited_page){
+            header('Location:'.APP_BASE_URL.\$this->ass_code.'/page'.\$last_visited_page);
+        }
+        
     }
     
     ";
@@ -236,7 +243,7 @@ $open .= "
         }
     }
     
-    function pageMethods($total_pages){
+    function pageMethods($total_pages, $assessment_code){
         
         $page_methods = "";
         for($i=1; $i<=$total_pages; $i++){
@@ -254,7 +261,32 @@ $open .= "
         \$this->submitForm(false);
         \$this->saveSnapshot();
         //--------------------//
+        
+        ";
+        
+        if($i=='1'){
+            
+            $page_methods .= "
+                
+        //On page ".$i." load, update tbstatus
+        \$tbstatus = array('status' => 'started', 'page' => '1', 'date_started' => date('Y-m-d H:i:s'));
+        \$this->".$assessment_code."_model->update_tbstatus(\$tbstatus);
 
+                ";
+      
+        } else {
+            
+            $page_methods .= "
+                
+        //On page ".$i." load, update tbstatus
+        \$tbstatus = array('page' => '".$i."');
+        \$this->".$assessment_code."_model->update_tbstatus(\$tbstatus);
+
+                "; 
+            
+        }
+
+        $page_methods .= "
         //1.) Initialize Model Class -> TestModel (For DB functions)
         \$test = \$this->initModel('TestModel');
         \$test_data = \$test->getTestByAssCode(\$this->ass_code);
@@ -309,9 +341,15 @@ $page_methods .= "
             }
         }
         
+        $finish_page_num = $total_pages + 1;
         $page_methods .= "
                 
     public function finish(){
+    
+        //On page ".$finish_page_num." load, update tbstatus 
+        \$tbstatus = array('status' => 'scored', 'page' => '".$finish_page_num."', 'date_completed' => date('Y-m-d H:i:s'), '`usage`' => date('Ym'));
+        \$this->".$assessment_code."_model->update_tbstatus(\$tbstatus);
+
         parent::finish();
     }
 

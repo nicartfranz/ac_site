@@ -55,7 +55,7 @@ function ajax_save_test(){
                     $total_pages++;
                 }
             }
-            $page_methods = $test->pageMethods($total_pages);
+            $page_methods = $test->pageMethods($total_pages, $assessment_code);
             $test->createTestController($assessment_code, $page_methods);
             
             $test_methods = $test->testModelMethods();
