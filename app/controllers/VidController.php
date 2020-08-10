@@ -193,6 +193,21 @@ class VidController extends Test{
 
         parent::finish();
     }
+    
+    //Ajax requests under this controller will be passed here
+    public function submitAjax(){
+        parent::submitAjax();
+
+        $ajax_name = $_POST['ajax_name'];
+        switch ($ajax_name) {
+            case "save_candidate_video_answer":
+                save_candidate_video_answer();
+                break;
+            default:
+              echo "ajax_name not found.";
+        }
+
+    }
 
         
 }

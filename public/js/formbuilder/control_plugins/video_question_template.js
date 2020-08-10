@@ -45,15 +45,19 @@ window.fbControls.push(function (controlClass) {
         var html_value = this.config.value;
           
         console.log(html_value);  
+        
+        if( html_value.indexOf('modal') >= 0){
+            html_value = '<p style="padding: 10px 5px; border: 1px solid; border-radius: 3px; margin: 0;">No uploaded video question</p>';
+        }
           
         //remove the label
         $('.formbuilder-video_question_template-label').remove();
         $('div#' + this.config.name).html(html_value);
-        if(required == 'required'){
-            $('div#' + this.config.name + ' input').attr({
-                'required' : 'required',
-            });
-        }          
+//        if(required == 'required'){
+//            $('div#' + this.config.name + ' input').attr({
+//                'required' : 'required',
+//            });
+//        }          
       }
     }]);
 
