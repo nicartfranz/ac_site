@@ -10,7 +10,7 @@
         <input class="form-control col-lg-4" disabled name="assessment_code" type="text" id="assessment_code" value="<?= $data['test']['AssCode'] ?>">
     </div>
     
-    <label class="formbuilder-text-label">Drag and Drop<span style="color:red">&nbsp;*</span></label>
+    <label class="formbuilder-text-label">Drag and drop test components<span style="color:red">&nbsp;*</span></label>
     <div id="build-wrap"></div>
 
 </div>

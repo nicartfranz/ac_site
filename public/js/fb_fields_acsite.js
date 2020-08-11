@@ -41,11 +41,11 @@ const fb_customFields = [
     },
     {
         type: "startPageMarker",
-        label: "<span class='text-info'><b>Start Page Marker</b></span>",
+        label: "(1)<span class='text-info'><b>Start Page Marker</b></span>",
     },
     {
         type: "endPageMarker",
-        label: "<span class='text-danger'><b>End Page Marker</b></span>",
+        label: "(4)<span class='text-danger'><b>End Page Marker</b></span>",
     },
     {
         type: "likertQuestion",
@@ -1335,30 +1335,30 @@ const fb_typeUserAttrs = {
         }
     },
     customHTMLTemplate: {
-        question_type: {
-            label: 'Question Type',
-            options: {
-                '': 'none',
-                'adap_mc':'adap_mc',
-                'cd':'cd',
-                'ein':'ein',
-                'lkr':'lkr',
-                'mc1':'mc1',
-                'mc2':'mc2',
-                'mc3':'mc3',
-                'mc4':'mc4',
-                'pti':'pti',
-                'rn1':'rn1',
-                'rn2':'rn2',
-                'rn3':'rn3',
-                'scor_mc':'scor_mc',
-                'tf1':'tf1',
-                'tf2':'tf2',
-                'wh':'wh',
-                'yn1':'yn1',
-                'yn2':'yn2',
-            },
-        },
+//        question_type: {
+//            label: 'Question Type',
+//            options: {
+//                '': 'none',
+//                'adap_mc':'adap_mc',
+//                'cd':'cd',
+//                'ein':'ein',
+//                'lkr':'lkr',
+//                'mc1':'mc1',
+//                'mc2':'mc2',
+//                'mc3':'mc3',
+//                'mc4':'mc4',
+//                'pti':'pti',
+//                'rn1':'rn1',
+//                'rn2':'rn2',
+//                'rn3':'rn3',
+//                'scor_mc':'scor_mc',
+//                'tf1':'tf1',
+//                'tf2':'tf2',
+//                'wh':'wh',
+//                'yn1':'yn1',
+//                'yn2':'yn2',
+//            },
+//        },
         fldQOrder: {
             label: 'Question Order',
             options: {
