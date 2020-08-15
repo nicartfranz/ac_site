@@ -10,7 +10,7 @@ class CandidateController extends Controller{
         
         $test = $this->initModel('TestModel');
         
-        $tests = ($_SESSION['usertype'] == 'super_admin') ? $test->getAllTests() : $test->getTestByUsername($_SESSION['username']);
+        $tests = ($_SESSION['ac2']['usertype'] == 'super_admin') ? $test->getAllTests() : $test->getTestByUsername($_SESSION['ac2']['username']);
         
         //load a view and put it in a variable for later use
         $content = $this->getView('pages/candidate/index', array('scheduled_tests' => $tests));
@@ -42,7 +42,7 @@ class CandidateController extends Controller{
     public function candidate_demographics(){
         
         $candidate = $this->initModel('CandidateModel');
-        $this_candidate = $candidate->get_candidate_info($_SESSION['username']);
+        $this_candidate = $candidate->get_candidate_info($_SESSION['ac2']['username']);
        
         if(isset($_POST['submit'])){
             
@@ -52,7 +52,7 @@ class CandidateController extends Controller{
             $params['high_educ'] = (isset($_POST['educational_attaiment'])) ? $_POST['educational_attaiment'] : $this_candidate['high_educ'];
             $params['workexp'] = (isset($_POST['work_exp_yr']) && isset($_POST['work_exp_mon'])) ? $_POST['work_exp_yr'] .' and '. $_POST['work_exp_mon'] : $this_candidate['workexp'];
             $params['job_level'] = (isset($_POST['position'])) ? $_POST['position'] : $this_candidate['job_level'];
-            $params['username'] = $_SESSION['username'];
+            $params['username'] = $_SESSION['ac2']['username'];
             $candidate->update_candidate_demographics($params);
             header("Location:".APP_BASE_URL.'candidate/index');
             

@@ -1,11 +1,14 @@
 <?php  
 $debug_mode = (isset($_GET['debug_mode'])) ? 1 : 0;
+$username_encryption = openssl_encrypt('user1_1_profiles', CIPHERING, ENCRYPTION_DECRYPTION_KEY, CIPHER_OPTIONS, ENCRYPTION_DECRYPTION_IV); 
+$password_encryption = openssl_encrypt('dXNlcj', CIPHERING, ENCRYPTION_DECRYPTION_KEY, CIPHER_OPTIONS, ENCRYPTION_DECRYPTION_IV); 
 ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
     <a href="<?= APP_BASE_URL ?>test/update/?id=<?= $_GET['id'] ?>" class="btn btn-warning float-right">Update Test</a>
     <a onclick="window.open('<?= APP_BASE_URL.$data['test']['AssCode'] ?>/', '_blank', 'location=yes,height=800,width=500,scrollbars=yes,status=yes');" href="javascript:void(0);" class="btn btn-info float-right mr-2">Preview Test</a>
+    <a onclick="window.open('<?= APP_BASE_URL.$data['test']['AssCode'] ?>/?username=<?= $username_encryption ?>&password=<?= $password_encryption ?>&login=link_redirect&login_type=candidate', '_blank', 'location=yes,height=800,width=500,scrollbars=yes,status=yes');" href="javascript:void(0);" class="btn btn-info float-right mr-2">Candidate Testing Integration (Test Run)</a>
     <?php if($debug_mode == '0'): ?>
         <a href="<?= APP_BASE_URL ?>test/view/?id=<?= $_GET['id'] ?>&debug_mode=1" class="btn btn-secondary float-right float-right mr-2"><i class="fa fa-bug text-success" aria-hidden="true"></i> Debug Mode ON</a>
     <?php else: ?>

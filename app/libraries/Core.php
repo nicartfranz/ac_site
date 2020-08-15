@@ -65,20 +65,20 @@
         public function track_web_history(){
             
             //Track web history of the candidate.
-            if(isset($_SESSION['is_authenticated']) && $_SESSION['usertype'] == 'test_taker'){
+            if(isset($_SESSION['ac2']['is_authenticated']) && $_SESSION['ac2']['usertype'] == 'test_taker'){
                 
                 require_once '../app/libraries/webHistory.php';
                 $web_history = new webHistory();
                
                 //INSERT NEW ROW - id  user_id  web_history_controller  web_history_method  web_history_get  web_history_post  usertype  date_entered  
                 $params = array();
-                $params['username'] = $_SESSION['candidate_info']['username'];
+                $params['username'] = $_SESSION['ac2']['candidate_info']['username'];
                 $params['web_history_controller'] = $this->controller;
                 $params['web_history_method'] = $this->currentMethod;
                 $params['web_history_get'] = json_encode($_GET);
                 $params['web_history_post'] = json_encode($_POST);
-                $params['usertype'] = $_SESSION['usertype'];
-                $params['device'] = $_SESSION['device'];
+                $params['usertype'] = $_SESSION['ac2']['usertype'];
+                $params['device'] = $_SESSION['ac2']['device'];
                 $params['date_entered'] = date('Y-m-d H:i:s');
                 $web_history->log_web_history($params);
                 
@@ -88,7 +88,7 @@
 //                echo '_POST: ' . json_encode($_POST) . '<br>';
                 
 //                echo '<pre>';
-//                print_r($_SESSION);
+//                print_r($_SESSION['ac2']);
 //                echo '</pre>';
                 
             }

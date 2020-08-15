@@ -377,7 +377,7 @@ class Ctr2Controller extends Test{
         //--------------------//
         
         //On page 8 load, update tbstatus
-        $tbstatus = array('status' => 'scored', 'page' => '8', 'date_completed' => date('Y-m-d H:i:s'), '`usage`' => date('Ym'));
+        $tbstatus = array('status' => 'scored', 'page' => '8', 'date_completed' => date('Y-m-d H:i:s'), '`usage`' => date('Yn'));
         $this->ctr2_model->update_tbstatus($tbstatus);
         
         //remove currently active timer

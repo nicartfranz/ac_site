@@ -6,6 +6,10 @@
 //All custom fields template
 const fb_customFields = [
     {
+        type:"demo_test_component_template",
+        label:"<span style='color: darkblue;'>Demo Test Component Template</span>",
+    },
+    {
       type: 'autocomplete',
       label: 'Custom Autocomplete',
       values: [
@@ -21,7 +25,7 @@ const fb_customFields = [
       ],
     }, 
     {
-      label: 'Star rating template',
+      label: '<span style="color: darkblue;">Star Rating Template</span>',
       attrs: {
         type: 'starRating',
         className: 'starRating',
@@ -30,7 +34,7 @@ const fb_customFields = [
     {
         type: "customHTMLTemplate",
         required: false,
-        label: "Custom HTML",
+        label: "<span style='color: darkblue;'>Custom HTML Template</span>",
         className: "form-control",
         access: false,
         value: "",
@@ -50,7 +54,7 @@ const fb_customFields = [
     {
         type: "likertQuestion",
         required: false,
-        label: "Likert Scale",
+        label: "<span style='color: darkblue;'>Likert Scale Template</span>",
         className: "form-control",
         access: false,
         value: "",
@@ -62,7 +66,7 @@ const fb_customFields = [
     {
         type: "LeastBestQuestion",
         required: false,
-        label: "Least - Best Answer",
+        label: "<span style='color: darkblue;'>Least - Best Answer Template</span>",
         className: "form-control",
         access: false,
         value: "",
@@ -74,7 +78,7 @@ const fb_customFields = [
     {
         type: "rankingQuestion",
         required: false,
-        label: "Ranking Answer",
+        label: "<span style='color: darkblue;'>Ranking Answer Template</span>",
         className: "form-control",
         access: false,
         value: "",
@@ -86,7 +90,7 @@ const fb_customFields = [
     {
         type: "sliderQuestion",
         required: false,
-        label: "Slider Type Answer",
+        label: "<span style='color: darkblue;'>Slider Type Answer Template</span>",
         className: "form-control",
         access: false,
         value: "",
@@ -98,28 +102,28 @@ const fb_customFields = [
   
     {
         type: "single_char_question_template",
-        label: "Single Char Question Template",
+        label: "<span style='color: darkblue;'>Single Char Question Template</span>",
     },
     {
         type: "true_false_question_template",
-        label: "True False Question Template"
+        label: "<span style='color: darkblue;'>True False Question Template</span>"
     },
     {
         type:"true_false_undecided_question_template",
-        label:"True/False/Undecided Question Template",
+        label:"<span style='color: darkblue;'>True/False/Undecided Question Template</span>",
     },
     {
         type:"yes_no_question_template",
-        label:"Yes No Question Template",
+        label:"<span style='color: darkblue;'>Yes No Question Template</span>",
     },
     {
         type:"yes_no_undecided_question_template",
-        label:"Yes/No/Undecided Question Template",
+        label:"<span style='color: darkblue;'>Yes/No/Undecided Question Template</span>",
     },
     {
         type: "customMC1Question",
         required: false,
-        label: "Custom MC Single Answer",
+        label: "<span style='color: darkblue;'>Custom MC Single Answer Template</span>",
         className: "form-control",
         access: false,
         value: "",
@@ -131,7 +135,7 @@ const fb_customFields = [
     {
         type: "customMC2Question",
         required: false,
-        label: "Custom MC Multi-Answer",
+        label: "<span style='color: darkblue;'>Custom MC Multi-Answer Template</span>",
         className: "form-control",
         access: false,
         value: "",
@@ -142,18 +146,53 @@ const fb_customFields = [
     }, 
     {
         type:"video_question_template",
-        label:"Video Question Template",
+        label:"<span style='color: darkblue;'>Video Question Template</span>",
     },
     {
         type:"record_video_answer_template",
-        label:"Record Video Answer Template",
-    },
+        label:"<span style='color: darkblue;'>Record Video Answer Template</span>",
+    }
 ];
 
 
 //All field templates
 //Note: When creating template make sure you create a register the class too. See the documetation here https://formbuilder.online/docs/formBuilder/options/templates/
 const fb_templates = {
+    demo_test_component_template: function(fieldData){
+        if(!fieldData.hasOwnProperty('value')){
+            var QUESTION_TEXT = 'Text Question'
+            var unique_var = '###'+Date.now()+'###';
+            var QUESTION_VAR = unique_var;
+
+            var QUESTION_TEXT = prompt("Enter the item question:", QUESTION_TEXT);
+            if(QUESTION_TEXT == null || QUESTION_TEXT == ''){ alert('This is a required field!'); return false; }
+            var QUESTION_VAR = prompt("Enter the item variable:", QUESTION_VAR);
+            if(QUESTION_VAR == null || QUESTION_VAR == ''){ alert('This is a required field!'); return false; }
+
+            //final question var 
+            var QUESTION_VAR = 'char_question_'+QUESTION_VAR;
+
+            var setDefaultValue = "\
+                    <input type='text' maxlength='1' style='width:75px;' id='"+QUESTION_VAR+"' name='"+QUESTION_VAR+"'>\n\
+                    &nbsp;"+QUESTION_TEXT+"\n\
+                    <br>";
+
+            var custom_html_value = setDefaultValue;
+            
+        } else {
+            var custom_html_value = fieldData.value;
+        }
+        
+        return {
+            field: formatFactory(custom_html_value),
+            onRender: function(){
+                var name_field_id = $('input[value='+fieldData.name.replace('-preview','')+']').attr('id'); 
+                var value_field_id = name_field_id.replace('name-','value-');
+                
+                $('#'+value_field_id).val(formatFactory(custom_html_value));
+            }
+        }
+    },
     starRating: function(fieldData) {
       return {
         field: '<span id="' + fieldData.name +'">',
@@ -1108,76 +1147,7 @@ const fb_templates = {
                     }
 
                 });
-                
-                
-//                $('.btn-save-recording').on('click', function(){
-//                    
-//                    var assessment_code = $('input#assessment_code').val();
-//                    var this_button_id = $(this).attr('id');
-//                    var this_data_video_id = $(this).attr('data-video-id');
-//                    var this_data_video_filename = $(this).attr('data-video-filename');
-//                    video = $('video.'+this_data_video_id)[0];
-//                   
-//                    $('#modal_'+this_data_video_id).modal("hide")
-//                    
-//                    $('#start_'+this_data_video_id).removeAttr('disabled');
-//                    
-//                    // get recorded blob
-//                    var blob = recorder.getBlob();
-//
-//                    // generating a random file name
-//                    var fileName = this_data_video_filename+'.webm';
-//
-//                    // we need to upload "File" --- not "Blob"
-//                    var fileObject = new File([blob], fileName, {
-//                        type: 'video/webm'
-//                    });
-//
-//                    var formData = new FormData();
-//
-//                    // recorded data
-//                    formData.append('video-blob', fileObject);
-//                    // file name
-//                    formData.append('video-filename', fileObject.name);
-//                    //video folder
-//                    formData.append('video-folder', assessment_code);
-//                    
-//                    var upload_url = APP_BASE_URL + "test/submitAjax";
-//                    // upload using jQuery
-//                    var ajax_name = 'save_video_question';
-//                    formData.append('ajax_name', ajax_name);
-//                    $.ajax({
-//                        url: upload_url, // replace with your own server URL
-//                        data: formData,
-//                        cache: false,
-//                        contentType: false,
-//                        processData: false,
-//                        type: 'POST',
-//                        success: function(response) {
-//                            if (response === 'success') {
-//                                
-//                                $('button#'+this_data_video_id).replaceWith("<button type='button' class='btn btn-secondary'>Video Question Saved</button>");
-//                                $('#modal_'+this_data_video_id).modal('hide');
-//                                
-//                                //This is the video question
-//                                var video_tag_inside_modal = $('div.modal#modal_'+this_data_video_id+ ' > div > div > div.modal-body > div').html();
-//                                var $final_video_tag = $('<div>').html(video_tag_inside_modal);
-//                                $final_video_tag.find('video').attr("src", APP_BASE_URL+'public/video_questions/'+assessment_code+'/'+fileName).html();
-//                                $final_video_tag.find('video').removeAttr('autoplay playsinline').html();
-//                                var video_question = $final_video_tag.html();
-//                                console.log(video_question);
-//                                
-//                                $('#'+value_field_id).val(video_question);
-//                                
-//                                //alert('Successfully created a video question.');
-//                            } else {
-//                                alert(response); // error/failure
-//                            }
-//                        }
-//                    });
-//                    
-//                });
-
+               
             }
         }    
     },
@@ -1235,7 +1205,7 @@ const fb_templates = {
             }
         }    
     }
-
+   
 };
 
 
@@ -1252,7 +1222,7 @@ const fb_replaceFields = [
 //Note: it is considered inputSet if it has fields[] beacause it means it can hold multiple fields.
 const fb_inputSets = [
     {
-       label: 'Radio template (Single Answer)',
+       label: 'Radio Template (Single Answer)',
        name: 'single-answer-template', 
        fields: [
             {
@@ -1276,7 +1246,7 @@ const fb_inputSets = [
        ]
     }, 
     {
-        label:'Checkbox template (Multiple Answer)',
+        label:'Checkbox Template (Multiple Answer)',
         name: 'multiple-answer-template',
         fields:[
             {
@@ -1360,7 +1330,7 @@ const fb_typeUserAttrs = {
 //            },
 //        },
         fldQOrder: {
-            label: 'Question Order',
+            label: 'Display: ',
             options: {
                 '':'None',
                 'display_top': 'Display Top',
@@ -1409,9 +1379,9 @@ const fb_controlOrder = [
     'text',
     'textarea',
     'file',
-    'starRating',
     'single-answer-template',
     'multiple-answer-template',
+    'starRating',
     'single_char_question_template',
     'true_false_question_template',
     'true_false_undecided_question_template',
@@ -1426,6 +1396,7 @@ const fb_controlOrder = [
     'video_question_template',
     'record_video_answer_template',
     'customHTMLTemplate',
+    'demo_test_component_template',
     'button',
     'endPageMarker',
 ];

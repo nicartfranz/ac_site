@@ -25,7 +25,7 @@ class SiteModel extends Model{
             $update_vals[] = $value;
         }
         
-        $update_vals[] = $_SESSION['candidate_info']['username'];
+        $update_vals[] = $_SESSION['ac2']['candidate_info']['username'];
         
         $update = $this->db->executeUpdate('UPDATE tbtaker '
                     . 'SET '

@@ -174,7 +174,7 @@ class Ppp2Controller extends Test{
         //--------------------//
         
         //On page 3 load, update tbstatus
-        $tbstatus = array('status' => 'scored', 'page' => '3', 'date_completed' => date('Y-m-d H:i:s'), '`usage`' => date('Ym'));
+        $tbstatus = array('status' => 'scored', 'page' => '3', 'date_completed' => date('Y-m-d H:i:s'), '`usage`' => date('Yn'));
         $this->ppp2_model->update_tbstatus($tbstatus);
         
         //remove currently active timer

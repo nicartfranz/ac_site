@@ -90,21 +90,21 @@ class SiteController extends Controller{
                     $candidate_info = $site->candidate_login($username, $password);
                     
                     if($candidate_info){
-                        $_SESSION['username'] = $username;
-                        $_SESSION['is_authenticated'] = true;
-                        $_SESSION['usertype'] = 'test_taker';
-                        $_SESSION['device'] = ucfirst(getDevice());
-                        $_SESSION['candidate_info'] = $candidate_info;
+                        $_SESSION['ac2']['username'] = $username;
+                        $_SESSION['ac2']['is_authenticated'] = true;
+                        $_SESSION['ac2']['usertype'] = 'test_taker';
+                        $_SESSION['ac2']['device'] = ucfirst(getDevice());
+                        $_SESSION['ac2']['candidate_info'] = $candidate_info;
                         
                         //record login info
-                        if(isset($_SESSION['is_authenticated']) && $_SESSION['usertype'] == 'test_taker'){
+                        if(isset($_SESSION['ac2']['is_authenticated']) && $_SESSION['ac2']['usertype'] == 'test_taker'){
                             
-                            if($_SESSION['candidate_info']['relog_record'] != ''){
-                                $relog_record = json_decode($_SESSION['candidate_info']['relog_record']);
-                                $relog_record[] = array('date' => date('Y-m-d H:i:s'), 'bandwidth' => 'not implemented', 'device' => $_SESSION['device']);
+                            if($_SESSION['ac2']['candidate_info']['relog_record'] != ''){
+                                $relog_record = json_decode($_SESSION['ac2']['candidate_info']['relog_record']);
+                                $relog_record[] = array('date' => date('Y-m-d H:i:s'), 'bandwidth' => 'not implemented', 'device' => $_SESSION['ac2']['device']);
                                 $update_tbaker['relog_record'] = json_encode($relog_record);
                             } else {
-                                $update_tbaker['relog_record'] = json_encode([array('date' => date('Y-m-d H:i:s'), 'bandwidth' => 'not implemented', 'device' => $_SESSION['device'])]);
+                                $update_tbaker['relog_record'] = json_encode([array('date' => date('Y-m-d H:i:s'), 'bandwidth' => 'not implemented', 'device' => $_SESSION['ac2']['device'])]);
                             }
                             $site->update_tbtaker($update_tbaker);
                         }
@@ -119,9 +119,9 @@ class SiteController extends Controller{
                 } else if ($login_type == 'admin'){
                     
                     if($username == 'admin' && $password == 'dynamics2002'){
-                        $_SESSION['username'] = 'admin';
-                        $_SESSION['is_authenticated'] = true;
-                        $_SESSION['usertype'] = 'super_admin';
+                        $_SESSION['ac2']['username'] = 'admin';
+                        $_SESSION['ac2']['is_authenticated'] = true;
+                        $_SESSION['ac2']['usertype'] = 'super_admin';
                         header("Location:".APP_BASE_URL."admin/index");
                     } else {
                         $this->invalid_login();
@@ -156,21 +156,36 @@ class SiteController extends Controller{
         
     }
     
+    public function invalid_login2(){
+        
+        $error = [
+                    'invalid_login' => 'Invalid login',
+                    'error_site_requirement' => [],
+                    'requirements' => [],
+                ];
+        $content = $this->getView('pages/login', $error);
+        $data = [
+            'content' => $content, 
+        ];
+        $this->renderView('pages/index', $data);
+        
+    }
+    
     
     public function logout(){
         
         $site = $this->initModel('SiteModel');
         
         
-        if(isset($_SESSION['is_authenticated']) && $_SESSION['usertype'] == 'test_taker'){
+        if(isset($_SESSION['ac2']['is_authenticated']) && $_SESSION['ac2']['usertype'] == 'test_taker'){
             
             //record logout info
-            if($_SESSION['candidate_info']['logout_history'] != ''){
-                $logout_history = json_decode($_SESSION['candidate_info']['logout_history']);
-                $logout_history[] = array('date' => date('Y-m-d H:i:s'), 'logout_type' => 'not implemented', 'device' => $_SESSION['device']);
+            if($_SESSION['ac2']['candidate_info']['logout_history'] != ''){
+                $logout_history = json_decode($_SESSION['ac2']['candidate_info']['logout_history']);
+                $logout_history[] = array('date' => date('Y-m-d H:i:s'), 'logout_type' => 'not implemented', 'device' => $_SESSION['ac2']['device']);
                 $update_tbaker['logout_history'] = json_encode($logout_history);
             } else {
-                $update_tbaker['logout_history'] = json_encode([array('date' => date('Y-m-d H:i:s'), 'logout_type' => 'not implemented', 'device' => $_SESSION['device'])]);
+                $update_tbaker['logout_history'] = json_encode([array('date' => date('Y-m-d H:i:s'), 'logout_type' => 'not implemented', 'device' => $_SESSION['ac2']['device'])]);
             }
             
             $site->update_tbtaker($update_tbaker);
@@ -180,12 +195,12 @@ class SiteController extends Controller{
             $web_history = new webHistory();
             //INSERT NEW ROW - id  user_id  web_history_controller  web_history_method  web_history_get  web_history_post  usertype  date_entered  
             $params = array();
-            $params['username'] = $_SESSION['candidate_info']['username'];
+            $params['username'] = $_SESSION['ac2']['candidate_info']['username'];
             $params['web_history_controller'] = 'Site';
             $params['web_history_method'] = 'logout';
             $params['web_history_get'] = '[]';
             $params['web_history_post'] = '[]';
-            $params['usertype'] = $_SESSION['usertype'];
+            $params['usertype'] = $_SESSION['ac2']['usertype'];
             $params['device'] = ucfirst(getDevice());
             $params['date_entered'] = date('Y-m-d H:i:s');
             $web_history->log_web_history($params);
@@ -193,7 +208,7 @@ class SiteController extends Controller{
         
         
         // Stores in Array
-        $_SESSION = array();
+        $_SESSION['ac2'] = array();
         // Swipe via memory
         if (ini_get("session.use_cookies")) {
         // Prepare and swipe cookies

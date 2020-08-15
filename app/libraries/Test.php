@@ -321,15 +321,15 @@ class Test extends Controller{
 
             //create a folder
             
-            if (!is_dir("img/snapshots/".$_SESSION['username']."/")){
-                mkdir("img/snapshots/".$_SESSION['username'], 0777, true);
+            if (!is_dir("img/snapshots/".$_SESSION['ac2']['username']."/")){
+                mkdir("img/snapshots/".$_SESSION['ac2']['username'], 0777, true);
             }
             
             // save to server (beware of permissions)
             $unique_pic_name = strtotime(date('Y-m-d H:i:s'));
             if($ass_code!=''){ $unique_pic_name .= '_'.$ass_code; }
             if($page!=''){ $unique_pic_name .= '_'.$page; }
-            $result = file_put_contents("img/snapshots/".$_SESSION['username']."/".$unique_pic_name.".jpg", $binary_data );
+            $result = file_put_contents("img/snapshots/".$_SESSION['ac2']['username']."/".$unique_pic_name.".jpg", $binary_data );
             if (!$result) die("Could not save image!  Check file permissions.");
         }
         

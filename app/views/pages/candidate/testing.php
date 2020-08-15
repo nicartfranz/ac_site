@@ -4,10 +4,10 @@ $now = date('Y-m-d H:i:s');
 $machine_os = $os->getName();
 
 //Timer sessions
-$test_time_remaining_hr = (isset($_SESSION[$data['AssCode']]['test_time_remaining_hr'])) ? $_SESSION[$data['AssCode']]['test_time_remaining_hr'] : -1;
-$test_time_remaining_min = (isset($_SESSION[$data['AssCode']]['test_time_remaining_min'])) ? $_SESSION[$data['AssCode']]['test_time_remaining_min'] : -1;
-$test_time_remaining_sec = (isset($_SESSION[$data['AssCode']]['test_time_remaining_sec'])) ? $_SESSION[$data['AssCode']]['test_time_remaining_sec'] : -1;
-$test_timer_end_time = (isset($_SESSION[$data['AssCode']]['test_timer_end_time'])) ? $_SESSION[$data['AssCode']]['test_timer_end_time'] : -1;
+$test_time_remaining_hr = (isset($_SESSION['ac2'][$data['AssCode']]['test_time_remaining_hr'])) ? $_SESSION['ac2'][$data['AssCode']]['test_time_remaining_hr'] : -1;
+$test_time_remaining_min = (isset($_SESSION['ac2'][$data['AssCode']]['test_time_remaining_min'])) ? $_SESSION['ac2'][$data['AssCode']]['test_time_remaining_min'] : -1;
+$test_time_remaining_sec = (isset($_SESSION['ac2'][$data['AssCode']]['test_time_remaining_sec'])) ? $_SESSION['ac2'][$data['AssCode']]['test_time_remaining_sec'] : -1;
+$test_timer_end_time = (isset($_SESSION['ac2'][$data['AssCode']]['test_timer_end_time'])) ? $_SESSION['ac2'][$data['AssCode']]['test_timer_end_time'] : -1;
 
 ?>
 <div class="container-sm test-content">

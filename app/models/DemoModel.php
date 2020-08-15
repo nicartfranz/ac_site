@@ -1,16 +1,13 @@
-<?php
+<?php 
 
 //Standard operating procedure (SOP)
-class Ppp2Model extends Model{
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+class DemoModel extends Model{
 
     //Standard operating procedure (SOP)
-    protected $ass_code = 'ppp2';
+    protected $ass_code = 'demo';
     
+    
+
     //Standard operating procedure (SOP)
     public function getLastVisitedPage(){
         
@@ -23,7 +20,7 @@ class Ppp2Model extends Model{
         return $row['page'];
         
     }
-  
+    
     //Standard operating procedure (SOP)
     public function update_tbstatus($params){
         
@@ -49,6 +46,7 @@ class Ppp2Model extends Model{
         
     }
     
+
     //Standard operating procedure (SOP)
     public function save_update_tbanswer($params){
         
@@ -148,5 +146,7 @@ class Ppp2Model extends Model{
         $meterLog = $this->initClass('meterLog');
         
     }
+    
+
     
 }

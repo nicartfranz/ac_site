@@ -33,3 +33,9 @@
     define('MAIL_USERNAME', 'user@example.com');    // SMTP username
     define('MAIL_PASSWORD', 'secret');              // SMTP password
     define('MAIL_PORT', 587);                       // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+    
+    //Openssl encryption and decryption
+    define('CIPHERING', 'AES-128-CTR');
+    define('CIPHER_OPTIONS', 0);
+    define('ENCRYPTION_DECRYPTION_IV', '0000111122223333');
+    define('ENCRYPTION_DECRYPTION_KEY', 'profiles_enc_key');

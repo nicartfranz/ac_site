@@ -602,7 +602,7 @@ class Bea1Controller extends Test{
     public function finish(){
     
         //On page 13 load, update tbstatus 
-        $tbstatus = array('status' => 'scored', 'page' => '13', 'date_completed' => date('Y-m-d H:i:s'), '`usage`' => date('Ym'));
+        $tbstatus = array('status' => 'scored', 'page' => '13', 'date_completed' => date('Y-m-d H:i:s'), '`usage`' => date('Yn'));
         $this->bea1_model->update_tbstatus($tbstatus);
 
         parent::finish();

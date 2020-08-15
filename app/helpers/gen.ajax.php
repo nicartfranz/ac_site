@@ -286,7 +286,7 @@ function save_candidate_video_answer(){
 //       return;
 //    }
 
-    $dirname = (isset($_SESSION['candidate_info']['username'])) ? $_SESSION['candidate_info']['username'] : 'super_admin';
+    $dirname = (isset($_SESSION['ac2']['candidate_info']['username'])) ? $_SESSION['ac2']['candidate_info']['username'] : 'super_admin';
     $filePath = '../public/video_answers/'.$dirname.'/';
     if (!file_exists($filePath)) {
         mkdir('../public/video_answers/' . $dirname, 0777);

@@ -216,6 +216,7 @@ class ".ucfirst($assessment_code)."Controller extends Test{
         'public/js/formbuilder/control_plugins/yes_no_undecided_question_template.js',
         'public/js/formbuilder/control_plugins/video_question_template.js',
         'public/js/formbuilder/control_plugins/record_video_answer_template.js',
+        'public/js/formbuilder/control_plugins/demo_test_component_template.js',
         'public/js/fb_fields_acsite.js',
         'public/js/testtaking.js',
     ];
@@ -347,7 +348,7 @@ $page_methods .= "
     public function finish(){
     
         //On page ".$finish_page_num." load, update tbstatus 
-        \$tbstatus = array('status' => 'scored', 'page' => '".$finish_page_num."', 'date_completed' => date('Y-m-d H:i:s'), '`usage`' => date('Ym'));
+        \$tbstatus = array('status' => 'scored', 'page' => '".$finish_page_num."', 'date_completed' => date('Y-m-d H:i:s'), '`usage`' => date('Yn'));
         \$this->".$assessment_code."_model->update_tbstatus(\$tbstatus);
 
         parent::finish();
@@ -397,12 +398,12 @@ $open .= "
     //Standard operating procedure (SOP)
     public function getLastVisitedPage(){
         
-        if(\$_SESSION['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
+        if(\$_SESSION['ac2']['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
         \$row = \$this->db->fetchAssoc('SELECT page FROM tbstatus '
                                         . 'WHERE 1=1 '
                                         . 'AND user_id = ? '
                                         . 'AND AssCode = ? '
-                                        . 'LIMIT 1', array(\$_SESSION['candidate_info']['username'], \$this->ass_code));
+                                        . 'LIMIT 1', array(\$_SESSION['ac2']['candidate_info']['username'], \$this->ass_code));
         return \$row['page'];
         
     }
@@ -410,7 +411,7 @@ $open .= "
     //Standard operating procedure (SOP)
     public function update_tbstatus(\$params){
         
-        if(\$_SESSION['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
+        if(\$_SESSION['ac2']['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
         if(is_null(\$params)){ return false; }
         
         foreach(\$params as \$key => \$value){
@@ -418,7 +419,7 @@ $open .= "
             \$update_vals[] = \$value;
         }
         
-        \$update_vals[] = \$_SESSION['candidate_info']['username'];
+        \$update_vals[] = \$_SESSION['ac2']['candidate_info']['username'];
         \$update_vals[] = \$this->ass_code;
         
         \$update = \$this->db->executeUpdate('UPDATE tbstatus '
@@ -436,14 +437,14 @@ $open .= "
     //Standard operating procedure (SOP)
     public function save_update_tbanswer(\$params){
         
-        if(\$_SESSION['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
+        if(\$_SESSION['ac2']['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
         
         //check if has data already
         \$tbanswer = \$this->db->fetchAssoc('SELECT * FROM tbanswer '
                                         . 'WHERE 1=1 '
                                         . 'AND userID = ? '
                                         . 'AND testID = ? '
-                                        . 'LIMIT 1', array(\$_SESSION['candidate_info']['username'], \$this->ass_code));
+                                        . 'LIMIT 1', array(\$_SESSION['ac2']['candidate_info']['username'], \$this->ass_code));
 
         if(\$tbanswer){
             //UPDATE
@@ -457,7 +458,7 @@ $open .= "
                     \$update_vals[] = \$value;
                 }
             }
-            \$update_vals[] = \$_SESSION['candidate_info']['username'];
+            \$update_vals[] = \$_SESSION['ac2']['candidate_info']['username'];
             \$update_vals[] = \$this->ass_code;
             
             \$update = \$this->db->executeUpdate('UPDATE tbanswer '
@@ -477,8 +478,8 @@ $open .= "
                 \$insert_vals[] = \$value;
             }
             \$insert_cols += array('fd_UserIndx' => '?', 'userID' => '?' , 'testID' => '?');
-            \$insert_vals[] = \$_SESSION['candidate_info']['id'];
-            \$insert_vals[] = \$_SESSION['candidate_info']['username']; 
+            \$insert_vals[] = \$_SESSION['ac2']['candidate_info']['id'];
+            \$insert_vals[] = \$_SESSION['ac2']['candidate_info']['username']; 
             \$insert_vals[] = \$this->ass_code;
             
             \$this->queryBuilder->insert('tbanswer')
@@ -494,7 +495,7 @@ $open .= "
     //Standard operating procedure (SOP)
     public function save_update_tbresult(\$params){
 
-        if(\$_SESSION['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
+        if(\$_SESSION['ac2']['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
         
         //INSERT NEW ROW
         \$insert_cols = array();
@@ -504,8 +505,8 @@ $open .= "
             \$insert_vals[] = \$value;
         }
         \$insert_cols += array('fd_UserIndx' => '?', 'userID' => '?' , 'testID' => '?');
-        \$insert_vals[] = \$_SESSION['candidate_info']['id'];
-        \$insert_vals[] = \$_SESSION['candidate_info']['username']; 
+        \$insert_vals[] = \$_SESSION['ac2']['candidate_info']['id'];
+        \$insert_vals[] = \$_SESSION['ac2']['candidate_info']['username']; 
         \$insert_vals[] = \$this->ass_code;
         
         \$this->queryBuilder->insert('tbresult')
@@ -521,14 +522,14 @@ $open .= "
     //Standard operating procedure (SOP)
     public function send_report(){
 
-        if(\$_SESSION['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
+        if(\$_SESSION['ac2']['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
         
     }
     
     //Standard operating procedure (SOP)
     public function meter_deduction(){
         
-        if(\$_SESSION['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
+        if(\$_SESSION['ac2']['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
         \$meterLog = \$this->initClass('meterLog');
         
     }
