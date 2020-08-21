@@ -32,9 +32,9 @@ class DemoController extends Test{
         parent::__construct();
         allowPageAccessByUser(['test_taker']);
         
-        echo '<pre>';
-        print_r($_GET);
-        echo '</pre>';
+//        echo '<pre>';
+//        print_r($_GET);
+//        echo '</pre>';
 
         $this->demo_model = $this->initModel('DemoModel');
         $last_visited_page = $this->demo_model->getLastVisitedPage();
