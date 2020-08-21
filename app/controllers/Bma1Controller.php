@@ -79,7 +79,6 @@ class Bma1Controller extends Test{
     public function page2(){
         
         //--SUBMIT PREV FORM---//
-        //$this->submitForm(false);
         $this->saveSnapshot($this->ass_code, 'page1');
         //--------------------//
 
@@ -122,8 +121,7 @@ class Bma1Controller extends Test{
     public function page3(){
         
         //--SUBMIT PREV FORM---//
-        //$this->submitForm(false);
-        //$this->saveSnapshot();
+        $this->saveSnapshot();
         //--------------------//
 
         //On page 3 load, update tbstatus
@@ -165,9 +163,6 @@ class Bma1Controller extends Test{
     public function page4(){
         
         //--SUBMIT PREV FORM---//
-//        echo '<pre>';
-//        print_r($this->saveBMA1Answers(1));
-//        echo '</pre>';
         $responses = $this->saveBMA1Answers(1);
         //SAVE: [tbanswer__answer]
         $tbanswer = array();
@@ -182,15 +177,13 @@ class Bma1Controller extends Test{
         $tbresult['fldWrongAns'] = 0;
         $tbresult['fldUnAns'] = 0;
         $this->bma1_model->save_update_tbresult($tbresult);
-        //$this->saveSnapshot();
+        $this->saveSnapshot();
         //--------------------//
         
         //On page 4 load, update tbstatus
         $tbstatus = array('page' => '4');
         $this->bma1_model->update_tbstatus($tbstatus);
         
-        
-
         //1.) Initialize Model Class -> TestModel (For DB functions)
         $test = $this->initModel('TestModel');
         $test_data = $test->getTestByAssCode($this->ass_code);
@@ -226,8 +219,7 @@ class Bma1Controller extends Test{
     public function page5(){
         
         //--SUBMIT PREV FORM---//
-        //$this->submitForm(false);
-        //$this->saveSnapshot();
+        $this->saveSnapshot();
         //--------------------//
 
         //On page 5 load, update tbstatus
@@ -269,9 +261,6 @@ class Bma1Controller extends Test{
     public function page6(){
         
         //--SUBMIT PREV FORM---//
-//        echo '<pre>';
-//        print_r($this->saveBMA1Answers(2));
-//        echo '</pre>';
         $responses = $this->saveBMA1Answers(2);
         //SAVE: [tbanswer__answer]
         $tbanswer = array();
@@ -286,7 +275,7 @@ class Bma1Controller extends Test{
         $tbresult['fldWrongAns'] = 0;
         $tbresult['fldUnAns'] = 0;
         $this->bma1_model->save_update_tbresult($tbresult);
-        //$this->saveSnapshot();
+        $this->saveSnapshot();
         //--------------------//
         
         //On page 6 load, update tbstatus
@@ -330,8 +319,7 @@ class Bma1Controller extends Test{
     public function page7(){
         
         //--SUBMIT PREV FORM---//
-        //$this->submitForm(false);
-        //$this->saveSnapshot();
+        $this->saveSnapshot();
         //--------------------//
         
         //On page 7 load, update tbstatus
@@ -373,9 +361,6 @@ class Bma1Controller extends Test{
     public function finish(){
         
         //--SUBMIT PREV FORM---//
-//        echo '<pre>';
-//        print_r($this->saveBMA1Answers(3));
-//        echo '</pre>';
         $responses = $this->saveBMA1Answers(3);
         //SAVE: [tbanswer__answer]
         $tbanswer = array();

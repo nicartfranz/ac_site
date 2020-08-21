@@ -263,10 +263,10 @@ class Test extends Controller{
     //Used in candidate testing: Finish page
     public function finish(){
         
-        //--SUBMIT PREV FORM---//
+        //--SUBMIT POST FROM PREVIOUS PAGE---//
         $this->submitForm(false);
         $this->saveSnapshot();
-        //--------------------//
+        //-----------------------------------//
         
         //remove currently active timer
         testTimer('unset', $this->ass_code, 0);
@@ -305,9 +305,9 @@ class Test extends Controller{
         if($confirm_submit){
             //back end saving
         } else {
-//            echo '<pre>';
-//            print_r($_POST);
-//            echo '</pre>';
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
         }
 
     }

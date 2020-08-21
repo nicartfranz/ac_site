@@ -86,32 +86,30 @@ class Controller {
     public function isAuthenticated(){
         $controller = getController();
         
-        if(isset($_GET['login']) && $_GET['login'] = 'link_redirect'){
-            
-            //http://localhost/ac_site/demo/?username=username1&password=password1&login=link_redirect&login_type=candidate
-            $site = $this->initModel('SiteModel');
-            $username = xss_clean($_GET['username']);
-            $password = xss_clean($_GET['password']);
-            $login = xss_clean($_GET['login']);
-            $login_type = xss_clean($_GET['login_type']);
-    
-            $username_decryption=openssl_decrypt($username, CIPHERING, ENCRYPTION_DECRYPTION_KEY, CIPHER_OPTIONS, ENCRYPTION_DECRYPTION_IV); 
-            $password_decryption=openssl_decrypt($password, CIPHERING, ENCRYPTION_DECRYPTION_KEY, CIPHER_OPTIONS, ENCRYPTION_DECRYPTION_IV); 
-            $candidate_info = $site->candidate_login($username_decryption, $password_decryption);
-            
-            if($candidate_info){
-                $_SESSION['ac2']['username'] = $username;
-                $_SESSION['ac2']['is_authenticated'] = true;
-                $_SESSION['ac2']['usertype'] = 'test_taker';
-                $_SESSION['ac2']['device'] = ucfirst(getDevice());
-                $_SESSION['ac2']['candidate_info'] = $candidate_info;
-                return;
-            } else {
-                header("Location:".APP_BASE_URL."site/invalid_login2");
-            }
-            return;
-            
-        }
+//        if(isset($_GET['login']) && $_GET['login'] == 'link_redirect'){
+//            
+//            //http://localhost/ac_site/demo/?username=username1&password=password1&login=link_redirect&login_type=candidate
+//            $site = $this->initModel('SiteModel');
+//            $username = xss_clean($_GET['username']);
+//            $password = xss_clean($_GET['password']);
+//            $login = xss_clean($_GET['login']);
+//            $login_type = xss_clean($_GET['login_type']);
+//    
+//            $candidate_info = $site->candidate_login($username, $password);
+//            
+//            if($candidate_info){
+//                $_SESSION['ac2']['username'] = $username;
+//                $_SESSION['ac2']['is_authenticated'] = true;
+//                $_SESSION['ac2']['usertype'] = 'test_taker';
+//                $_SESSION['ac2']['device'] = ucfirst(getDevice());
+//                $_SESSION['ac2']['candidate_info'] = $candidate_info;
+//                return;
+//            } else {
+//                header("Location:".APP_BASE_URL."site/invalid_login2");
+//            }
+//            return;
+//            
+//        }
         
         
         if(in_array($controller, ['', 'site'])){

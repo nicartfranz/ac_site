@@ -258,10 +258,10 @@ $open .= "
             $page_methods .= "
     public function ".$method_name."(){
         
-        //--SUBMIT PREV FORM---//
+        //--SUBMIT POST FROM PREVIOUS PAGE ---//
         \$this->submitForm(false);
         \$this->saveSnapshot();
-        //--------------------//
+        //------------------------------------//
         
         ";
         

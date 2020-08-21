@@ -33,6 +33,44 @@ class SiteController extends Controller{
         
     }
     
+    public function confirm_candidate(){
+        
+         //load a view and put it in a variable for later use
+        $content = $this->getView('pages/candidate/confirm_candidate');
+        
+        //create an array that will store data to be passed to the render view method
+        $html = [
+            'page_name' => 'Dashboard',
+            'includeSiteLevelJS' => [],
+            'content' => $content, //this is the pages/admin/dashboard html
+        ];
+        $this->renderView('layouts/candidate', $html);
+        
+        
+    }
+    
+    public function confirm_redirect_login(){
+        
+        $username = xss_clean($_POST['username']);
+        $password = xss_clean($_POST['password']);
+        $test = xss_clean($_POST['test']);
+        $site = $this->initModel('SiteModel');
+        
+        $candidate_info = $site->candidate_login($username, $password);
+        
+        if($candidate_info){
+            $_SESSION['ac2']['username'] = $username;
+            $_SESSION['ac2']['is_authenticated'] = true;
+            $_SESSION['ac2']['usertype'] = 'test_taker';
+            $_SESSION['ac2']['device'] = ucfirst(getDevice());
+            $_SESSION['ac2']['candidate_info'] = $candidate_info;
+
+            header("Location:".APP_BASE_URL.$test."/");
+        } else {
+            $this->confirm_candidate();
+        }
+    }
+    
     public function isSystemCompatible(){
         global $browser, $device, $os;
         

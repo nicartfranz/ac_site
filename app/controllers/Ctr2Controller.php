@@ -121,7 +121,7 @@ class Ctr2Controller extends Test{
     public function page3(){
         
         //--SUBMIT PREV FORM---//
-        //$this->saveSnapshot();
+        $this->saveSnapshot();
         //--------------------//
 
         //On page 3 load, update tbstatus
@@ -177,7 +177,7 @@ class Ctr2Controller extends Test{
         $tbresult['fldWrongAns'] = $responses_result['result_fldWrongAns'];
         $tbresult['fldUnAns'] = $responses_result['result_fldUnAns'];
         $this->ctr2_model->save_update_tbresult($tbresult);
-        //$this->saveSnapshot();
+        $this->saveSnapshot();
         //--------------------//
 
         //On page 4 load, update tbstatus
@@ -219,7 +219,7 @@ class Ctr2Controller extends Test{
     public function page5(){
         
         //--SUBMIT PREV FORM---//
-        //$this->saveSnapshot();
+        $this->saveSnapshot();
         //--------------------//
 
         //On page 5 load, update tbstatus
@@ -275,7 +275,7 @@ class Ctr2Controller extends Test{
         $tbresult['fldWrongAns'] = $responses_result['result_fldWrongAns'];
         $tbresult['fldUnAns'] = $responses_result['result_fldUnAns'];
         $this->ctr2_model->save_update_tbresult($tbresult);
-        //$this->saveSnapshot();
+        $this->saveSnapshot();
         //--------------------//
 
         //On page 6 load, update tbstatus
@@ -317,7 +317,7 @@ class Ctr2Controller extends Test{
     public function page7(){
         
         //--SUBMIT PREV FORM---//
-        //$this->saveSnapshot();
+        $this->saveSnapshot();
         //--------------------//
 
         //On page 7 load, update tbstatus

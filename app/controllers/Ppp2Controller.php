@@ -34,10 +34,9 @@ class Ppp2Controller extends Test{
     
     public function index(){
         
-//        //--SUBMIT PREV FORM---//
-//        $this->submitForm(true);
-//        $this->saveSnapshot();
-//        //--------------------//
+        //--SUBMIT PREV FORM---//
+        $this->saveSnapshot();
+        //--------------------//
         
         
         //On page 1 load, update tbstatus
@@ -127,8 +126,6 @@ class Ppp2Controller extends Test{
     
     public function finish(){
         
-        //--SUBMIT PREV FORM---//
-
         $responses = $this->savePPP2Responses();
 
         //SAVE: [tbanswer__answer]
@@ -259,14 +256,6 @@ class Ppp2Controller extends Test{
                 }
 
             }
-            
-            
-            //TO DO
-            #1 UPDATE tbstatus to scored
-            #2 CREATE RECORD IN tbanswer
-            #3 CREATE RECORD IN tbresult
-            #4 send report using the template
-            #5 meter deduction
 
             return array('tbanswer__answer' => $answer_str, 'tbresult__scores' => $dimension_scores);
 

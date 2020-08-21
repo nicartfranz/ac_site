@@ -73,15 +73,11 @@ class meterLog {
         
         $remaining_meters = $this->company_meters['meter'] - $this->getMeterDeduction();
         if($remaining_meters < 0){
-            return false; // NOT OK
+            return false; 
         }
         
-        return true; //OK
+        return true; 
         
-    }
-    
-    function test(){
-        echo get_class() .': test';
     }
     
 }
