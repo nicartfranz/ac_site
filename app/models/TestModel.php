@@ -259,7 +259,6 @@ $open .= "
     public function ".$method_name."(){
         
         //--SUBMIT POST FROM PREVIOUS PAGE ---//
-        \$this->submitForm(false);
         \$this->saveSnapshot();
         //------------------------------------//
         
@@ -493,7 +492,7 @@ $open .= "
     }
     
     //Standard operating procedure (SOP)
-    public function save_update_tbresult(\$params){
+    public function save_tbresult(\$params){
 
         if(\$_SESSION['ac2']['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
         

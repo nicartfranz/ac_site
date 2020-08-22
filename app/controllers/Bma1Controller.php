@@ -176,7 +176,7 @@ class Bma1Controller extends Test{
         $tbresult['fldAdjScore'] = 0;
         $tbresult['fldWrongAns'] = 0;
         $tbresult['fldUnAns'] = 0;
-        $this->bma1_model->save_update_tbresult($tbresult);
+        $this->bma1_model->save_tbresult($tbresult);
         $this->saveSnapshot();
         //--------------------//
         
@@ -274,7 +274,7 @@ class Bma1Controller extends Test{
         $tbresult['fldAdjScore'] = 0;
         $tbresult['fldWrongAns'] = 0;
         $tbresult['fldUnAns'] = 0;
-        $this->bma1_model->save_update_tbresult($tbresult);
+        $this->bma1_model->save_tbresult($tbresult);
         $this->saveSnapshot();
         //--------------------//
         
@@ -374,7 +374,7 @@ class Bma1Controller extends Test{
         $tbresult['fldAdjScore'] = 0;
         $tbresult['fldWrongAns'] = 0;
         $tbresult['fldUnAns'] = 0;
-        $this->bma1_model->save_update_tbresult($tbresult);
+        $this->bma1_model->save_tbresult($tbresult);
         //SAVE: Snapshot
         $this->saveSnapshot($this->ass_code, 'page7');
         //--------------------//

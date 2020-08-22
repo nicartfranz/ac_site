@@ -176,7 +176,7 @@ class Ctr2Controller extends Test{
         $tbresult['fldAdjScore'] = $responses_result['result_fldAdjScore'];
         $tbresult['fldWrongAns'] = $responses_result['result_fldWrongAns'];
         $tbresult['fldUnAns'] = $responses_result['result_fldUnAns'];
-        $this->ctr2_model->save_update_tbresult($tbresult);
+        $this->ctr2_model->save_tbresult($tbresult);
         $this->saveSnapshot();
         //--------------------//
 
@@ -274,7 +274,7 @@ class Ctr2Controller extends Test{
         $tbresult['fldAdjScore'] = $responses_result['result_fldAdjScore'];
         $tbresult['fldWrongAns'] = $responses_result['result_fldWrongAns'];
         $tbresult['fldUnAns'] = $responses_result['result_fldUnAns'];
-        $this->ctr2_model->save_update_tbresult($tbresult);
+        $this->ctr2_model->save_tbresult($tbresult);
         $this->saveSnapshot();
         //--------------------//
 
@@ -372,7 +372,7 @@ class Ctr2Controller extends Test{
         $tbresult['fldAdjScore'] = $responses_result['result_fldAdjScore'];
         $tbresult['fldWrongAns'] = $responses_result['result_fldWrongAns'];
         $tbresult['fldUnAns'] = $responses_result['result_fldUnAns'];
-        $this->ctr2_model->save_update_tbresult($tbresult);
+        $this->ctr2_model->save_tbresult($tbresult);
         $this->saveSnapshot($this->ass_code, 'page7');
         //--------------------//
         

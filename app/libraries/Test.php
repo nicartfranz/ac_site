@@ -264,7 +264,6 @@ class Test extends Controller{
     public function finish(){
         
         //--SUBMIT POST FROM PREVIOUS PAGE---//
-        $this->submitForm(false);
         $this->saveSnapshot();
         //-----------------------------------//
         

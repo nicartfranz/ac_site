@@ -141,7 +141,7 @@ class Ppp2Controller extends Test{
         $tbresult['fldAdjScore'] = 0;
         $tbresult['fldWrongAns'] = 0;
         $tbresult['fldUnAns'] = 0;
-        $this->ppp2_model->save_update_tbresult($tbresult);
+        $this->ppp2_model->save_tbresult($tbresult);
         
         $tbresult = array();
         $tbresult['DimID'] = 2; 
@@ -149,7 +149,7 @@ class Ppp2Controller extends Test{
         $tbresult['fldAdjScore'] = 0;
         $tbresult['fldWrongAns'] = 0;
         $tbresult['fldUnAns'] = 0;
-        $this->ppp2_model->save_update_tbresult($tbresult);
+        $this->ppp2_model->save_tbresult($tbresult);
         
         $tbresult = array();
         $tbresult['DimID'] = 3; 
@@ -157,7 +157,7 @@ class Ppp2Controller extends Test{
         $tbresult['fldAdjScore'] = 0;
         $tbresult['fldWrongAns'] = 0;
         $tbresult['fldUnAns'] = 0;
-        $this->ppp2_model->save_update_tbresult($tbresult);
+        $this->ppp2_model->save_tbresult($tbresult);
         
         $tbresult = array();
         $tbresult['DimID'] = 4; 
@@ -165,7 +165,7 @@ class Ppp2Controller extends Test{
         $tbresult['fldAdjScore'] = 0;
         $tbresult['fldWrongAns'] = 0;
         $tbresult['fldUnAns'] = 0;
-        $this->ppp2_model->save_update_tbresult($tbresult);
+        $this->ppp2_model->save_tbresult($tbresult);
         
         $this->saveSnapshot($this->ass_code, 'page2');
         //--------------------//

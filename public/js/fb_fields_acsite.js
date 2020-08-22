@@ -407,33 +407,35 @@ const fb_templates = {
     rankingQuestion: function (fieldData){
 
         if(!fieldData.hasOwnProperty('value')){
+            
+            var unique_var = '###'+Date.now()+'###';
             var QUESTION_CHOICE_1 = 'Playful|I am full of fun and good humor.';
             var QUESTION_CHOICE_2 = 'Strong-willed|I am determined to have my way.';
             var QUESTION_CHOICE_3 = 'Intellectual|I am intelligent or knowledgeable; I am an academic.';
             var QUESTION_CHOICE_4 = 'Cooperative|I am obliging, helpful, and supportive.';
 
-            var QUESTION_VAR = prompt("Enter the item variable:", "Variable format: 1");
+            var QUESTION_VAR = prompt("Enter the item variable (ex. 1):", unique_var);
             if(QUESTION_VAR == null || QUESTION_VAR == '' || !/^[0-9.,]+$/.test(QUESTION_VAR)){ alert('This is a required field/variable should be an integer!'); return false; }
         
-            var QUESTION_CHOICE_1 = prompt("Enter choice:", "Choice format: "+QUESTION_CHOICE_1);
+            var QUESTION_CHOICE_1 = prompt("Enter choice (Note: add | separator):", QUESTION_CHOICE_1);
             if(QUESTION_CHOICE_1 == null || QUESTION_CHOICE_1 == ''){ alert('This is a required field!'); return false; }
             QUESTION_CHOICE_1 = QUESTION_CHOICE_1.split("|");
             QUESTION_CHOICE_1_key = QUESTION_CHOICE_1[0];
             QUESTION_CHOICE_1_value = QUESTION_CHOICE_1[1];
             
-            var QUESTION_CHOICE_2 = prompt("Enter choice:", "Choice format: "+QUESTION_CHOICE_2);
+            var QUESTION_CHOICE_2 = prompt("Enter choice (Note: add | separator):", QUESTION_CHOICE_2);
             if(QUESTION_CHOICE_2 == null || QUESTION_CHOICE_2 == ''){ alert('This is a required field!'); return false; }
             QUESTION_CHOICE_2 = QUESTION_CHOICE_2.split("|");
             QUESTION_CHOICE_2_key = QUESTION_CHOICE_2[0];
             QUESTION_CHOICE_2_value = QUESTION_CHOICE_2[1];
             
-            var QUESTION_CHOICE_3 = prompt("Enter choice:", "Choice format: "+QUESTION_CHOICE_3);
+            var QUESTION_CHOICE_3 = prompt("Enter choice (Note: add | separator):", QUESTION_CHOICE_3);
             if(QUESTION_CHOICE_3 == null || QUESTION_CHOICE_3 == ''){ alert('This is a required field!'); return false; }
             QUESTION_CHOICE_3 = QUESTION_CHOICE_3.split("|");
             QUESTION_CHOICE_3_key = QUESTION_CHOICE_3[0];
             QUESTION_CHOICE_3_value = QUESTION_CHOICE_3[1];
             
-            var QUESTION_CHOICE_4 = prompt("Enter choice:", "Choice format: "+QUESTION_CHOICE_4);
+            var QUESTION_CHOICE_4 = prompt("Enter choice (Note: add | separator):", QUESTION_CHOICE_4);
             if(QUESTION_CHOICE_4 == null || QUESTION_CHOICE_4 == ''){ alert('This is a required field!'); return false; }
             QUESTION_CHOICE_4 = QUESTION_CHOICE_4.split("|");
             QUESTION_CHOICE_4_key = QUESTION_CHOICE_4[0];

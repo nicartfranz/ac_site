@@ -1,11 +1,13 @@
-<?php
+<?php 
 
 //Standard operating procedure (SOP)
-class Bma1Model extends Model{
+class DemoModel extends Model{
 
     //Standard operating procedure (SOP)
-    protected $ass_code = 'bma1';
+    protected $ass_code = 'demo';
     
+    
+
     //Standard operating procedure (SOP)
     public function getLastVisitedPage(){
         
@@ -18,8 +20,12 @@ class Bma1Model extends Model{
         return $row['page'];
         
     }
-  
+    
     //Standard operating procedure (SOP)
+    //$params['status'] = 'started';
+    //$params['page'] = '1';
+    //usage: update_tbstatus($params);
+    //description: The above example will update the status and page column
     public function update_tbstatus($params){
         
         if($_SESSION['ac2']['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
@@ -44,7 +50,12 @@ class Bma1Model extends Model{
         
     }
     
+
     //Standard operating procedure (SOP)
+    //$params['answer'] = '1:1;2:2';
+    //$params['page'] = '1';
+    //usage: save_update_tbanswer($params);
+    //description: The above example will insert new row(if not exist)/update the answer and page column
     public function save_update_tbanswer($params){
         
         if($_SESSION['ac2']['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
@@ -103,6 +114,10 @@ class Bma1Model extends Model{
     }
     
     //Standard operating procedure (SOP)
+    //$params['Score'] = 10;
+    //$params['fldAdjScore'] = '1';
+    //usage: save_tbresult($params);
+    //description: The above example will update the status and page column
     public function save_tbresult($params){
 
         if($_SESSION['ac2']['usertype'] == 'super_admin'){ return true; } // IF SUPER ADMIN, disable saving processes
@@ -144,5 +159,6 @@ class Bma1Model extends Model{
         
     }
     
+
     
 }
