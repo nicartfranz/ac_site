@@ -12,15 +12,13 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/ac_site/app/helpers/gen.helpers.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/controllers/Bma1Controller.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/views/pages/candidate/confirm_candidate.php</file>
             <file>file:/C:/wamp/www/ac_site/app/libraries/Controller.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/models/SiteModel.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/views/pages/admin/test_view.php</file>
-            <file>file:/C:/wamp/www/ac_site/app/views/pages/candidate/testing.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/models/DemoModel.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/models/Ppp2Model.php</file>
             <file>file:/C:/wamp/www/ac_site/public/js/fb_fields_acsite.js</file>
-            <file>file:/C:/wamp/www/ac_site/app/controllers/SiteController.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/controllers/DemoController.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/controllers/Ppp2Controller.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/libraries/Test.php</file>
         </group>
     </open-files>
 </project-private>
