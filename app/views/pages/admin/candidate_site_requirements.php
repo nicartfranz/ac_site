@@ -19,7 +19,7 @@
               <option value="Edge" <?= isMultiOptionSelected('Edge', $data['web_browsers']) ?> >Microsoft Edge</option>
               <option value="Internet Explorer" <?= isMultiOptionSelected('Internet Explorer', $data['web_browsers']) ?> >Internet Explorer</option>
               <option value="Safari" <?= isMultiOptionSelected('Safari', $data['web_browsers']) ?> >Safari</option>
-              <option value="Opera Mini" <?= isMultiOptionSelected('Opera Mini', $data['web_browsers']) ?> >Opera</option>
+              <option value="Opera" <?= isMultiOptionSelected('Opera', $data['web_browsers']) ?> >Opera</option>
             </select>
           </div>
         </div>
