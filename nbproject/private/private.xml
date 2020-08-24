@@ -13,6 +13,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp/www/ac_site/app/libraries/Controller.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/config/config.php</file>
+            <file>file:/C:/wamp/www/ac_site/app/libraries/Model.php</file>
             <file>file:/C:/wamp/www/ac_site/app/models/DemoModel.php</file>
             <file>file:/C:/wamp/www/ac_site/app/models/Ppp2Model.php</file>
             <file>file:/C:/wamp/www/ac_site/public/js/fb_fields_acsite.js</file>

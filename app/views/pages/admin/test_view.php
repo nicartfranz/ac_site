@@ -8,7 +8,7 @@ $password_encryption = 'dXNlcj';
 
     <a href="<?= APP_BASE_URL ?>test/update/?id=<?= $_GET['id'] ?>" class="btn btn-warning float-right">Update Test</a>
     <a onclick="window.open('<?= APP_BASE_URL.$data['test']['AssCode'] ?>/', '_blank', 'location=yes,height=800,width=500,scrollbars=yes,status=yes');" href="javascript:void(0);" class="btn btn-info float-right mr-2">Preview Test</a>
-    <a onclick="window.open('<?= APP_BASE_URL ?>site/confirm_candidate/?username=<?= $username_encryption ?>&test=<?= $data['test']['AssCode'] ?>', '_blank', 'location=yes,height=800,width=500,scrollbars=yes,status=yes');" href="javascript:void(0);" class="btn btn-info float-right mr-2">Candidate Testing Integration (Test Run)</a>
+<!--    <a onclick="window.open('<?= APP_BASE_URL ?>site/confirm_candidate/?username=<?= $username_encryption ?>&test=<?= $data['test']['AssCode'] ?>', '_blank', 'location=yes,height=800,width=500,scrollbars=yes,status=yes');" href="javascript:void(0);" class="btn btn-info float-right mr-2">Candidate Testing Integration (Test Run)</a>-->
     <?php if($debug_mode == '0'): ?>
         <a href="<?= APP_BASE_URL ?>test/view/?id=<?= $_GET['id'] ?>&debug_mode=1" class="btn btn-secondary float-right float-right mr-2"><i class="fa fa-bug text-success" aria-hidden="true"></i> Debug Mode ON</a>
     <?php else: ?>
